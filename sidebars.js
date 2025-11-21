@@ -1833,6 +1833,13 @@ const sidebars = {
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
+            {
+              type: 'link',
+              label: 'Goal AI Objectives and Goals',
+              href: '/Guidelines/Campaign-API-Guidelines/#get-goal-ai-objectives-and-goals',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
           ]
         },
       ],
@@ -2204,6 +2211,20 @@ const sidebars = {
               type: 'link',
               label: 'Dashboard List',
               href: '/Guidelines/Dashboard-API-Guidelines#dashboard-list',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Campaign Goal AI Graph Data',
+              href: '/Guidelines/Dashboard-API-Guidelines#get-campaign-goal-ai-graph-data',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Campaign Goal AI Optimization Activity',
+              href: '/Guidelines/Dashboard-API-Guidelines#get-campaign-goal-ai-optimization-activity',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
