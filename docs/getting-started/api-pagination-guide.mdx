@@ -26,7 +26,7 @@ In most cases, filtering the results yields response data with <var>totalRecords
 
 ### Filtering by ID
 
-Many endpoints support filtering by some kind of entity ID. The exact parameter varies based on the entity. For example, the [Get List of Campaigns](/guidelines/campaign-api#get-list-of-campaigns) endpoint supports filtering by <var>conversionId</var>. When a conversion ID is passed as a query, the endpoint returns all campaign IDs that are associated with that conversion at the top of the results. 
+Many endpoints support filtering by some kind of entity ID. The exact parameter varies based on the entity. For example, the [Get list of campaigns](/guidelines/campaign-api#get-list-of-campaigns) endpoint supports filtering by <var>conversionId</var>. When a conversion ID is passed as a query, the endpoint returns all campaign IDs that are associated with that conversion at the top of the results. 
 
 ```c title="Query example"
 https://api.iqm.com/api/v2/cmp/campaigns/data?conversionId=18
@@ -71,7 +71,7 @@ https://api.iqm.com/api/v2/cmp/campaigns/data?conversionId=18
 
 ### Filtering by keywords
 
-In this example the results are filtered with a search keyword. The [Get State Segment](/guidelines/master-api#get-state-segment) endpoint uses the POST method, and therefore its pagination parameters will be passed with a JSON formatted request instead of a query. 
+In this example the results are filtered with a search keyword. The [Get state segment](/guidelines/master-api#get-state-segment) endpoint uses the POST method, and therefore its pagination parameters will be passed with a JSON formatted request instead of a query. 
 
 ```json title="Request sample"
 {
@@ -116,7 +116,7 @@ Pagination allows you to specify how many results you want returned, what page o
 
 ### Pagination by number of entries
 
-The maximum number of entries returned can be specified with the <var>noOfEntries</var> (or sometimes <var>limit</var>) query parameter. Below two entries are retrieved from the [Get List of Inventories](/guidelines/inventory-api#get-list-of-inventories) endpoint. 
+The maximum number of entries returned can be specified with the <var>noOfEntries</var> (or sometimes <var>limit</var>) query parameter. Below two entries are retrieved from the [Get list of inventories](/guidelines/inventory-api#get-list-of-inventories) endpoint. 
 
 ```c title="Query example"
 https://api.iqm.com/api/v3/inv/inventories/list?noOfEntries=2
@@ -196,7 +196,7 @@ https://api.iqm.com/api/v3/inv/inventories/list?noOfEntries=2&pageNo=2
 
 ### Pagination by sorting the results
 
-Lists of results can often be sorted by a specified parameter. Using the <var>sortBy</var> query in the [Get List of Campaigns](/guidelines/campaign-api#get-list-of-campaigns) endpoint, the returned list of campaigns can be sorted by ascending or descending by appending a <var>+</var> or <var>-</var> symbol to the desired parameter. In this example, the results are sorted by <var>-created</var>: the descending order of creation date. 
+Lists of results can often be sorted by a specified parameter. Using the <var>sortBy</var> query in the [Get list of campaigns](/guidelines/campaign-api#get-list-of-campaigns) endpoint, the returned list of campaigns can be sorted by ascending or descending by appending a <var>+</var> or <var>-</var> symbol to the desired parameter. In this example, the results are sorted by <var>-created</var>: the descending order of creation date. 
 
 ```c title="Query example"
 https://api.iqm.com/api/v2/cmp/campaigns/data?sortBy=-created
