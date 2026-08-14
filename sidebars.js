@@ -2384,6 +2384,48 @@ const sidebars = {
           ]
         },
         {
+          type: 'category',
+          label: 'Campaign Pulse',
+          className: 'sidebarItem',
+          items: [
+            {
+              type: 'link',
+              label: 'Campaign Pulse Categories',
+              href: '/guidelines/dashboard-api#get-campaign-pulse-categories',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Campaign Pulse Diagnosis Results',
+              href: '/guidelines/dashboard-api#get-campaign-pulse-diagnosis-results',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Campaign Pulse Severity Counts',
+              href: '/guidelines/dashboard-api#get-campaign-pulse-severity-counts',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Run Campaign Pulse Now',
+              href: '/guidelines/dashboard-api#run-campaign-pulse-now',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Run Campaign Pulse Severity Check Now',
+              href: '/guidelines/dashboard-api#run-campaign-pulse-severity-check-now',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+          ]
+        },
+        {
           type: `category`,
           label: `Dashboard Reports`,
           className: 'sidebarItem',
@@ -3572,6 +3614,13 @@ const sidebars = {
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
+            {
+              type: 'link',
+              label: 'List of Streaming Devices',
+              href: '/guidelines/inventory-api#get-list-of-streaming-devices',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
           ]
         },
         {
@@ -4179,13 +4228,6 @@ const sidebars = {
               type: 'link',
               label: 'Channels for Inventory',
               href: '/guidelines/master-api#get-channels-for-inventory',
-              customProps: { method: 'GET' },
-              className: 'sidebarItem'
-            },
-            {
-              type: 'link',
-              label: 'Verticals',
-              href: '/guidelines/master-api#get-verticals',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -6115,6 +6157,13 @@ const sidebars = {
             },
             {
               type: 'link',
+              label: 'Download Plan',
+              href: '/political-vertical/planner#download-plan',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
               label: 'List of Plans',
               href: '/political-vertical/planner#get-list-of-political-plans',
               customProps: { method: 'GET' },
@@ -6192,6 +6241,13 @@ const sidebars = {
             },
             {
               type: 'link',
+              label: 'Edit Plan Name',
+              href: '/political-vertical/planner#edit-plan-name',
+              customProps: { method: 'PATCH' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
               label: 'Delete Plans',
               href: '/political-vertical/planner#delete-plans',
               customProps: { method: 'DEL' },
@@ -6209,6 +6265,13 @@ const sidebars = {
               label: 'Edit Proposal',
               href: '/political-vertical/planner#edit-proposal',
               customProps: { method: 'PUT' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Edit Proposal Name',
+              href: '/political-vertical/planner#edit-proposal-name',
+              customProps: { method: 'PATCH' },
               className: 'sidebarItem'
             },
             {
@@ -6307,6 +6370,34 @@ const sidebars = {
               label: 'Plan Objectives',
               href: '/political-vertical/planner#get-plan-objectives',
               customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+          ]
+        },
+        {
+          type: 'category',
+          label: 'Cross-Screen Planner',
+          className: 'sidebarItem',
+          items: [
+            {
+              type: 'link',
+              label: 'Reach Saturation Graph',
+              href: '/political-vertical/planner#get-reach-saturation-graph',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Demographics Keys',
+              href: '/political-vertical/planner#get-demographics-keys',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Split Proposal',
+              href: '/political-vertical/planner#split-proposal',
+              customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
           ]
