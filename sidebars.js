@@ -2438,6 +2438,12 @@ const sidebars = {
             },
             {
               type: 'link',
+              label: 'Date Range Requirement',
+              href: '/guidelines/dashboard-api#date-range-requirement',
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
               label: 'Workspace Report',
               href: '/guidelines/dashboard-api#workspace-report',
               customProps: { method: 'POST' },
@@ -3794,6 +3800,13 @@ const sidebars = {
               label: 'Delete Inventory Group',
               href: '/guidelines/inventory-api#delete-inventory-group',
               customProps: { method: 'DEL' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Bulk Delete Inventory Groups',
+              href: '/guidelines/inventory-api#bulk-delete-inventory-groups',
+              customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
