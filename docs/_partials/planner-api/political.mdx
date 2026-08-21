@@ -96,11 +96,11 @@ import CodeDropdown, { CodeOption } from '@site/src/components/CodeDropdown';
   <table className="objectProperties">
   <tr>
   <td>`id` <br /><span class="type-text">integer</span></td>
-  <td>CVA ID</td>
+  <td>[CVA ID](/political-vertical/planner/#create-cva-details)</td>
   </tr>
   <tr>
   <td>`equation` <br /><span class="type-text">string</span></td>
-  <td>CVA segment equation</td>
+  <td>CVA segment equation, see [Create CVA Details](/political-vertical/planner/#create-cva-details) for details</td>
   </tr>
   <tr>
   <td>`stateIds` <br /><span class="type-text">array of integers</span></td>
@@ -108,7 +108,7 @@ import CodeDropdown, { CodeOption } from '@site/src/components/CodeDropdown';
   </tr>
   <tr>
   <td>`segmentIds` <br /><span class="type-text">array of integers</span></td>
-  <td>CVA Segment IDs</td>
+  <td>CVA Segment IDs, see [Get Custom Voter Audience Segment Details](/political-vertical/audience-segments/#get-custom-voter-audience-segment-details) for details</td>
   </tr>
   <tr>
   <td>`reach` <br /><span class="type-text">integer</span></td>
@@ -1590,84 +1590,6 @@ Get the details of a single Political Strategy by ID.
 
 ---
 
-### Estimate Plan Reach
-
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/plan/reach" />
-
-<div class="endpoint-container">
-  <div class="child1">
-
-Estimate the reach for a Political Plan based on optional CVA details and targeting criteria. If a <var>cvaId</var> is provided, CVA details are fetched from the database. The targeting and CVA data are forwarded to the data API for reach estimation.
-
-| Request Schema |  |
-| ----  | --- |
-| `cvaId` <br /><span class="type-text">integer</span> | CVA ID (optional, fetches CVA details if provided) |
-| `targeting` <br /><span class="type-text">object</span> | Targeting object (see [Plan Resource Properties](#political-planner-resource-properties)) |
-
-</div>
-<div class="child2">
-
-```json title="Request Sample"
-{
-  "cvaId": 12234,
-  "targeting": {
-    "whiteListedLocations": {
-      "country": 1,
-      "states": [30200035],
-      "dma": [30900026],
-      "city": [30436781],
-      "county": [30318981],
-      "congressionalDistrict": [30617273],
-      "stateHouse": [30803564],
-      "stateSenate": [30718340],
-      "zipCodes": [10002]
-    },
-    "blackListedLocations": {
-      "country": 1,
-      "states": [30200003],
-      "dma": [30900139],
-      "city": [30442811],
-      "county": [30321244],
-      "congressionalDistrict": [30601009],
-      "stateHouse": [30800263],
-      "stateSenate": [30701056],
-      "zipCodes": [10001]
-    },
-    "whiteListedAudienceIds": [1101831, 1101829],
-    "blackListedAudienceIds": [1101826],
-    "prebidSegmentIds": [323212],
-    "audienceSegments": [2133],
-    "creative": {
-      "creativeTypeIds": [11, 13, 14],
-      "isTvAutoBuying": true
-    },
-    "device": {
-      "deviceTypeIds": [20300001, 20300002],
-      "channelTypeIds": [11]
-    },
-    "inventory": {
-      "openExchange": {
-        "iabCategories": [123],
-        "exchanges": [90, 93]
-      },
-      "inventoryGroupIds": []
-    }
-  }
-}
-```
-
-```json title="Response 200"
-{
-  "success": true,
-  "data": {
-    "reach": 10
-  }
-}
-```
-
-</div></div>
-
----
 
 ## Political Proposal Planner Management 
 
@@ -2142,22 +2064,26 @@ Restore expired Proposals back to ready status by recalculating their budgeting 
 <div class="endpoint-container">
   <div class="child1">
 
-Create a new Custom Voter Audience (CVA) detail record with segment IDs, state IDs, reach value, and an equation string.
+Create a new Custom Voter Audience (CVA) definition. This targeting equation is used to build an Audience for a Political Plan. The CVA details are stored in the database and can be referenced by ID in future requests. This API does not create an Audience (see [Create Custom Voter Audience](/political-vertical/audience-segments/#create-custom-voter-audience)), but it does validate the provided segment IDs and equation string.
+
+Using Segment IDs (from [Get Custom Voter Audience Segment Details](/political-vertical/audience-segments/#get-custom-voter-audience-segment-details)), you can build a CVA definition with the <var>equation</var> field. Segment IDs in parentheses, separated by a vertical bar (|), will be in an 'or' relationship, which will combine the sets of Segments; groups of Segments in parentheses, separated by an ampersand (&), will be in an 'and' relationship, which will build an Audience based on the intersection of those groups.
+
+You can use the returned <var>id</var> to estimate reach for a Political Plan with [Estimate Plan Reach](#estimate-plan-reach) or attach it as a Custom Voter Audience (<var>cva</var>) when creating or updating a Political Plan ([Create Plan](/political-vertical/planner/#create-plan)).
 
 | Request Schema |  |
 | ----  | --- |
-| `stateIds` <br /><span class="type-text">array of integers</span> | [State IDs](/guidelines/master-api/#get-state-segment) |
-| `reach` <br /><span class="type-text">integer</span> | CVA reach |
-| `equation` <br /><span class="type-text">string</span> | CVA segment equation string |
+| `stateIds` <br /><span class="type-text">array of integers</span> | [State IDs](/political-vertical/audience-segments/#get-available-states-for-custom-voter-audiences) |
+| `reach` <br /><span class="type-text">integer</span> | Your own pre-computed reach estimate for this equation (e.g. from the [Get Custom Voter Audience Segment Details](/political-vertical/audience-segments/#get-custom-voter-audience-segment-details) catalogue). This API does not calculate or validate this number -- it's stored as given and later used as this CVA's known reach whenever a Political Plan that references it generates strategies |
+| `equation` <br /><span class="type-text">string</span> | CVA segment equation string, see [Get Custom Voter Audience Segment Details](/political-vertical/audience-segments/#get-custom-voter-audience-segment-details) for segment IDs |
 
 </div>
 <div class="child2">
 
 ```json title="Request Sample"
 {
-  "stateIds": [123, 456],
-  "reach": 1234566,
-  "equation": "(iqm1234&iqm3456)|(iqm21345|!iqm45675)"
+  "stateIds": [30200005],
+  "reach": 1629051,
+  "equation": "((IQMCVACA069112|(IQMCVACA080323))&(IQMCVACA101616))"
 }
 ```
 
@@ -2189,18 +2115,18 @@ Update an existing Custom Voter Audience (CVA) detail record with new state IDs,
 
 | Request Schema |  |
 | ----  | --- |
-| `stateIds` <br /><span class="type-text">array of integers</span> | [State IDs](/guidelines/master-api/#get-state-segment) |
-| `reach` <br /><span class="type-text">integer</span> | CVA reach |
-| `equation` <br /><span class="type-text">string</span> | CVA segment equation string |
+| `stateIds` <br /><span class="type-text">array of integers</span> | [State IDs](/political-vertical/audience-segments/#get-available-states-for-custom-voter-audiences) |
+| `reach` <br /><span class="type-text">integer</span> | Your own pre-computed reach estimate for this equation (e.g. from the [Get Custom Voter Audience Segment Details](/political-vertical/audience-segments/#get-custom-voter-audience-segment-details) catalogue). This API does not calculate or validate this number -- it's stored as given and later used as this CVA's known reach whenever a Political Plan that references it generates strategies |
+| `equation` <br /><span class="type-text">string</span> | CVA segment equation string, see [Get Custom Voter Audience Segment Details](/political-vertical/audience-segments/#get-custom-voter-audience-segment-details) for segment IDs |
 
 </div>
 <div class="child2">
 
 ```json title="Request Sample"
 {
-  "stateIds": [123, 456],
-  "reach": 1234566,
-  "equation": "(iqm1234&iqm3456)|(iqm21345|!iqm45675)"
+  "stateIds": [30200005],
+  "reach": 1629051,
+  "equation": "((IQMCVACA069112|(IQMCVACA080323))&(IQMCVACA101616))"
 }
 ```
 
@@ -2209,6 +2135,85 @@ Update an existing Custom Voter Audience (CVA) detail record with new state IDs,
   "success": true,
   "data": {
     "id": 12345
+  }
+}
+```
+
+</div></div>
+
+---
+
+### Estimate Plan Reach
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/plan/reach" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Estimate the reach for a Political Plan based on optional CVA details and targeting criteria. If a <var>cvaId</var> is provided, CVA details are fetched from the database. The targeting and CVA data are forwarded to the data API for reach estimation.
+
+| Request Schema |  |
+| ----  | --- |
+| `cvaId` <br /><span class="type-text">integer</span> | [CVA ID](#create-cva-details) (optional, fetches CVA details if provided) |
+| `targeting` <br /><span class="type-text">object</span> | Targeting object (see [Plan Resource Properties](#political-planner-resource-properties)) |
+
+</div>
+<div class="child2">
+
+```json title="Request Sample"
+{
+  "cvaId": 12234,
+  "targeting": {
+    "whiteListedLocations": {
+      "country": 1,
+      "states": [30200035],
+      "dma": [30900026],
+      "city": [30436781],
+      "county": [30318981],
+      "congressionalDistrict": [30617273],
+      "stateHouse": [30803564],
+      "stateSenate": [30718340],
+      "zipCodes": [10002]
+    },
+    "blackListedLocations": {
+      "country": 1,
+      "states": [30200003],
+      "dma": [30900139],
+      "city": [30442811],
+      "county": [30321244],
+      "congressionalDistrict": [30601009],
+      "stateHouse": [30800263],
+      "stateSenate": [30701056],
+      "zipCodes": [10001]
+    },
+    "whiteListedAudienceIds": [1101831, 1101829],
+    "blackListedAudienceIds": [1101826],
+    "prebidSegmentIds": [323212],
+    "audienceSegments": [2133],
+    "creative": {
+      "creativeTypeIds": [11, 13, 14],
+      "isTvAutoBuying": true
+    },
+    "device": {
+      "deviceTypeIds": [20300001, 20300002],
+      "channelTypeIds": [11]
+    },
+    "inventory": {
+      "openExchange": {
+        "iabCategories": [123],
+        "exchanges": [90, 93]
+      },
+      "inventoryGroupIds": []
+    }
+  }
+}
+```
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": {
+    "reach": 10
   }
 }
 ```

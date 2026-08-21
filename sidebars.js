@@ -6223,14 +6223,7 @@ const sidebars = {
               href: '/political-vertical/planner#get-strategy-details',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
-            },
-            {
-              type: 'link',
-              label: 'Estimate Plan Reach',
-              href: '/political-vertical/planner#estimate-plan-reach',
-              customProps: { method: 'POST' },
-              className: 'sidebarItem'
-            },
+            }
           ]
         },
         {
@@ -6320,6 +6313,13 @@ const sidebars = {
               label: 'Update CVA Details',
               href: '/political-vertical/planner#update-cva-details',
               customProps: { method: 'PATCH' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Estimate Plan Reach',
+              href: '/political-vertical/planner#estimate-plan-reach',
+              customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
