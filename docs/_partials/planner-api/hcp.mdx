@@ -18,20 +18,20 @@ import Caret from '@site/static/img/caret.svg'
   <td>Plan name</td>
 </tr>
 <tr>
-  <td>`startDate` <br /><span class="type-text">integer</span></td>
-  <td>Unix epoch start date, in milliseconds</td>
+  <td>`startDate` / `startTime` <br /><span class="type-text">integer</span></td>
+  <td>Unix epoch start date, in milliseconds <br /><var>startTime</var> is the request parameter, <var>startDate</var> is the response property</td>
 </tr>
 <tr>
-  <td>`endDate` <br /><span class="type-text">integer</span></td>
-  <td>Unix epoch end date, in milliseconds</td>
+  <td>`endDate` / `endTime` <br /><span class="type-text">integer</span></td>
+  <td>Unix epoch end date, in milliseconds <br /><var>endTime</var> is the request parameter, <var>endDate</var> is the response property</td>
 </tr>
 <tr>
   <td>`timezoneId` <br /><span class="type-text">integer</span></td>
   <td>[Timezone ID](/guidelines/master-api#get-timezones) specifies data collection start time</td>
 </tr>
 <tr>
-  <td>`budgetModeId` <br /><span class="type-text">integer</span></td>
-  <td>Budget mode ID</td>
+  <td>`budgetModeId` / `budgetTypeId` <br /><span class="type-text">integer</span></td>
+  <td>Budget type ID: budget(<var>1</var>) or impression(<var>2</var>)<br /><var>budgetTypeId</var> is the request parameter, <var>budgetModeId</var> is the response property</td>
 </tr>
 <tr>
   <td>`budget` <br /><span class="type-text">integer</span></td>
@@ -50,8 +50,8 @@ import Caret from '@site/static/img/caret.svg'
   <td>Maximum reach</td>
 </tr>
 <tr>
-  <td>`impressions` <br /><span class="type-text">integer</span></td>
-  <td>Impressions</td>
+  <td>`impressions` / `impression` <br /><span class="type-text">integer</span></td>
+  <td>Impressions <br /><var>impression</var> is the request parameter, <var>impressions</var> is the response property</td>
 </tr>
 <tr>
   <td>`maxImpressions` <br /><span class="type-text">integer</span></td>
@@ -424,6 +424,14 @@ import Caret from '@site/static/img/caret.svg'
   <td>`maxReach` <br /><span class="type-text">integer</span></td>
   <td>Maximum Reach</td>
   </tr>
+  <tr>
+  <td>`frequencyCap` <br /><span class="type-text">integer</span></td>
+  <td>Frequency cap</td>
+  </tr>
+    <tr>
+  <td>`frequencyCapTypeId` <br /><span class="type-text">integer</span></td>
+  <td>[Frequency Cap Type ID](/guidelines/campaign-api/#get-frequency-cap-types)</td>
+  </tr>
     <tr>
   <td>`impressions` <br /><span class="type-text">integer</span></td>
   <td>Impressions</td>
@@ -668,7 +676,7 @@ A plan <var>id</var> can be used in the [HCP Planner Details by ID](#hcp-planner
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field: account name |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>) <br />Supported values: <var>id</var>, <var>name</var>, <var>createdBy</var>, <var>createdOn</var>, <var>startDate</var>, <var>reach</var>, <var>impression</var>, <var>budget</var> |
 | `statusIds` <br /><span class="type-text">string</span> | Comma separated status IDs |
-| `budgetTypeIds` <br /><span class="type-text">string</span> | Comma separated budget type IDs |
+| `budgetTypeIds` <br /><span class="type-text">string</span> | Comma separated budget type IDs: budget(<var>1</var>) or impression(<var>2</var>) |
 | `startDate` <br /><span class="type-text">integer</span> | Epoch time in milliseconds |
 | `endDate` <br /><span class="type-text">integer</span> | Epoch time in milliseconds |
 
@@ -726,7 +734,7 @@ A plan <var>id</var> can be used in the [HCP Planner Details by ID](#hcp-planner
 </tr>
 <tr>
   <td>`budgetTypeId` <br /><span class="type-text">integer</span></td>
-  <td>Budget Type ID</td>     
+  <td>Budget Type ID</td>
 </tr>
 <tr>
   <td>`campaignCount` <br /><span class="type-text">integer</span></td>
@@ -1143,208 +1151,11 @@ Update an existing Healthcare Proposal Planner by ID. See resource properties fo
 
 ```json title="Response 200"
 {
-  "id": 123,
-  "name": "Sample HCP Planner Request",
-  "startTime": 1735124399000,
-  "endTime": 1757534400000,
-  "timezoneId": 4,
-  "budgetTypeId": 1,
-  "budget": 75000,
-  "maxBudget": 80000,
-  "reach": 250000,
-  "maxReach": 300000,
-  "impression": 1000000,
-  "maxImpressions": 1200000,
-  "frequencyCap": 5,
-  "frequencyCapTypeId": 1,
-  "npiTypeIds": [3, 4],
-  "audienceBlocks": [
-    {
-      "audienceSelectionMethodId": 1,
-      "speciality": {
-        "specialityIds": [
-          101,
-          102
-        ],
-        "allSpecialitiesSelected": false
-      },
-      "accounts": [
-        {
-          "accountTypeId": 1,
-          "accountIds": [
-            201,
-            202
-          ],
-          "allAccountsSelected": false
-        },
-        {
-          "accountTypeId": 2,
-          "accountIds": [],
-          "allAccountsSelected": true
-        }
-      ],
-      "locations": {
-        "countryId": 1,
-        "whiteListedStateIds": [
-          501,
-          502
-        ],
-        "blackListedStateIds": [],
-        "whiteListedCityIds": [],
-        "blackListedCityIds": [],
-        "whiteListedZipcodes": [
-          90210,
-          10001
-        ],
-        "blackListedZipcodes": []
-      },
-      "dataPartners": {
-        "dataPartnerIds": [
-          1,
-          2
-        ],
-        "allDataPartnersSelected": false
-      },
-      "storagePathId": null,
-      "includeAudienceIds": null,
-      "excludeAudienceIds": null
-    },
-    {
-      "audienceSelectionMethodId": 2,
-      "speciality": {
-        "specialityIds": [
-          101,
-          102
-        ],
-        "allSpecialitiesSelected": false
-      },
-      "accounts": null,
-      "locations": {
-        "countryId": 1,
-        "whiteListedStateIds": [
-          501,
-          502
-        ],
-        "blackListedStateIds": [],
-        "whiteListedCityIds": [],
-        "blackListedCityIds": [],
-        "whiteListedZipcodes": [
-          90210,
-          10001
-        ],
-        "blackListedZipcodes": []
-      },
-      "dataPartners": {
-        "dataPartnerIds": [
-          1,
-          2
-        ],
-        "allDataPartnersSelected": false
-      },
-      "storagePathId": 1,
-      "includeAudienceIds": null,
-      "excludeAudienceIds": null
-    },
-    {
-      "audienceSelectionMethodId": 3,
-      "speciality": null,
-      "accounts": null,
-      "locations": null,
-      "dataPartners": null,
-      "storagePathId": null,
-      "includeAudienceIds": [
-        301,
-        302
-      ],
-      "excludeAudienceIds": [
-        401
-      ]
-    }
-  ],
-  "planLevelTargeting": {
-    "devices": {
-      "deviceTypeIds": [
-        1,
-        2
-      ],
-      "allDeviceTypesSelected": false
-    },
-    "channels": {
-      "channelTypeIds": [
-        1,
-        2
-      ],
-      "allChannelTypesSelected": false
-    },
-    "creativeTypes": {
-      "creativeTypeIds": [
-        10,
-        11
-      ],
-      "allCreativeTypesSelected": false,
-      "isTvAutoBuying": true
-    },
-    "inventory": {
-      "openExchanges": {
-        "exchangeIds": [
-          1,
-          2
-        ],
-        "allExchangesSelected": false,
-        "iabCategoryIds": [
-          1,
-          2
-        ],
-        "allIabCategoriesSelected": false
-      },
-      "inventoryGroup": {
-        "inventoryGroupIds": [
-          1,
-          2
-        ],
-        "allInventoryGroupsSelected": false
-      }
-    }
-  },
-  "splitStrategy": [
-    {
-      "splitDimensionTypeId": 1,
-      "selectedValueIds": [
-        10,
-        11
-      ]
-    }
-  ],
-  "campaigns": [
-    {
-      "id": null,
-      "name": "Campaign A",
-      "startTime": 1754942400000,
-      "endTime": 1757534400000,
-      "budget": 37500,
-      "maxBudget": 40000,
-      "mediaCpm": 50,
-      "dataCpm": 15,
-      "reach": 125000,
-      "maxReach": 150000,
-      "impressions": 500000,
-      "maxImpressions": 600000,
-      "isAbm": false,
-      "targeting": {
-        "dataPartnerIds": [
-          1
-        ],
-        "creativeTypeId": 10,
-        "deviceTypeIds": [
-          1
-        ],
-        "npiTypeId": 1,
-        "audienceTypeIds": [
-          1
-        ]
-      }
-    }
-  ]
+  "success": true,
+  "data": {
+    "message": "Sample proposal updated successfully",
+    "id": 123
+  }
 }
 ```
 
@@ -2811,9 +2622,13 @@ Use this API to preview the size and composition of each Audience block before g
 <div class="endpoint-container">
   <div class="child1">
 
-This API accepts a planner configuration with Audience blocks, plan level targeting, and split strategy to generate Campaigns data. It then returns that same input data with an array of generated Campaigns data based on the input criteria. That response data can be used in the [Publish Campaigns Plan](#publish-campaigns-plan) API to create draft Campaigns in IQM.
+This API accepts a planner configuration (audience blocks, plan-level targeting, and split strategy) and computes proposed Campaigns from it — resolving real audience data via the Audience API and real reach estimates via a separate Data API for each generated Campaign. It is a read-only computation: nothing is created or persisted by this call, so it's safe to call repeatedly while iterating on a plan's targeting.
 
-This API also validates that the user has permissions for this Healthcare vertical tool. 
+It returns the same input data with the computed <var>campaigns</var> array added (sorted by reach, descending). That response can be submitted directly to [Publish Campaigns Plan](#publish-campaigns-plan) to create draft Campaigns in IQM.
+
+If you call this endpoint without <var>id</var>, the response has none either, and Publish will create a new proposal. 
+
+If you call this endpoint with an existing proposal's <var>id</var> (to recompute Campaigns for a proposal you already have), that ID is preserved, and Publish will instead edit that proposal — which requires the payload's <var>statusId</var> to exactly match the proposal's current status.
 
 See the full resource properties for request schema and response properties.
 
@@ -3081,6 +2896,10 @@ See the full resource properties for request schema and response properties.
   <div class="child1">
 
 Generate an Insertion Order and draft Campaigns based on a provided planner configuration. To generate the planner configuration with Campaigns data, use the [Generate Campaigns Plan](#generate-campaigns-plan) API.
+
+This endpoint accepts existing [HCP Planner ID](#get-list-of-hcp-planners) (<var>id</var>) and updates it with the provided planner configuration and Campaigns data. The <var>statusId</var> must match the status of the existing Plan, or the request will fail. 
+
+If no existing HCP Planner ID is provided, a new Plan will be created.
 
 See the full resource properties for request schema and response properties.
 

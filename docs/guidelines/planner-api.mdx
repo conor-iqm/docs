@@ -79,7 +79,7 @@ Get proposal details by ID.
 <td>Targeted reach</td>
 </tr>
 <tr>
-<td>`targetedImpresions` <br /><span class="type-text">integer</span></td>
+<td>`targetedImpressions` <br /><span class="type-text">integer</span></td>
 <td>Targeted impressions</td>
 </tr>
 <tr>
@@ -144,7 +144,7 @@ Get proposal details by ID.
     <td>Targeted reach</td>
     </tr>
     <tr>
-    <td>`targetedImpresions` <br /><span class="type-text">integer</span></td>
+    <td>`targetedImpressions` <br /><span class="type-text">integer</span></td>
     <td>Targeted impressions</td>
     </tr>
     <tr>
@@ -496,7 +496,7 @@ Get proposal details by ID.
         "name": "sample",
         "startTime": 1730658720000,
         "endTime": 1733250720000,
-        "status": 3,
+        "status": 6,
         "targetedReach": 2147483646,
         "targetedImpressions": 2147483646,
         "maxTargetedReach": 2147483646,
@@ -651,7 +651,7 @@ interface Responses {
           endTime: number;
           status: number;
           targetedReach: number;
-          targetedImpresions: number;
+          targetedImpressions: number;
           maxTargetedReach: number;
           maxTargetedImpressions: number;
           budget: number;
@@ -846,7 +846,7 @@ interface Responses {
             createdOn: number;
             userAvatarUrl: string;
             reach: number;
-            impressions: number;
+            impression: number;
             ioId: number;
             budget: number;
             startDate: number;
@@ -2553,7 +2553,7 @@ function generateS3LinkForDownloadProposal(): Promise<Responses> {
 <td>Unix epoch timestamp (in milliseconds) of end time </td>
 </tr>
 <tr>
-<td>`advertiserId` <br /><span class="type-text">integer</span></td>
+<td>`politicalAdvertiserId` <br /><span class="type-text">integer</span></td>
 <td>[Advertiser ID](/guidelines/workspace-api#get-list-of-advertiser-profile-and-details)</td>
 </tr>
 <tr>
@@ -2752,7 +2752,7 @@ function generateS3LinkForDownloadProposal(): Promise<Responses> {
   "name": "sample_planner",
   "startTime": 1730658720000,
   "endTime": 1733250720000,
-  "advertiserId": 644,
+  "politicalAdvertiserId": 644,
   "margin": 10,
   "location": {
     "country": 30100001,
@@ -2986,7 +2986,7 @@ function createProposal(): Promise<Responses> {
 <td>Unix epoch timestamp (in milliseconds) of end time </td>
 </tr>
 <tr>
-<td>`advertiserId` <br /><span class="type-text">integer</span></td>
+<td>`politicalAdvertiserId` <br /><span class="type-text">integer</span></td>
 <td>[Advertiser ID](/guidelines/workspace-api#get-list-of-advertiser-profile-and-details)</td>
 </tr>
 <tr>
@@ -3185,7 +3185,7 @@ function createProposal(): Promise<Responses> {
   "name": "sample_planner",
   "startTime": 1730658720000,
   "endTime": 1733250720000,
-  "advertiserId": 644,
+  "politicalAdvertiserId": 644,
   "margin": 10,
   "location": {
     "country": 30100001,
@@ -4215,7 +4215,7 @@ function updateDraftProposal(): Promise<Responses> {
 <div class="endpoint-container">
   <div class="child1">
 
-Validate the proposal details and update its status to in-progress. An Insertion Order and Campaign will then be generated. 
+Updates the Proposal status to <var>processing</var>, and triggers async Campaign generation, once completed its status will be <var>converted</var>. Target proposal must be in <var>ready</var> or <var>failed</var> status.
 
 | Path Parameters | |
 | --- | --- |

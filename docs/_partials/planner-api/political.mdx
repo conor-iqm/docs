@@ -844,7 +844,7 @@ Get a paginated list of Political Proposals with comprehensive metadata includin
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>  |
 | `searchField` <br /><span class="type-text">string</span> | Search by proposal name, ID, or created by user name |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>), default: <var>-id</var> <br />Supported values: <var>id</var>, <var>name</var>, <var>createdOn</var>, <var>createdBy</var>, <var>startDate</var>, <var>endDate</var>, <var>reach</var>, <var>impressions</var>, <var>cpm</var>, <var>budget</var> |
-| `statusIds` <br /><span class="type-text">string</span> | Comma-separated [Status IDs](#get-plan-statuses) |
+| `statusIds` <br /><span class="type-text">string</span> | Comma-separated [Status IDs](/guidelines/planner-api/#proposal-status-list) |
 | `planId` <br /><span class="type-text">integer</span> | Filter proposals by [Plan ID](#get-list-of-political-plans) |
 
 
@@ -1601,7 +1601,9 @@ Get the details of a single Political Strategy by ID.
 <div class="endpoint-container">
   <div class="child1">
 
-Create a new ready or draft Political Plan. A ready plan requires name, details, and targeting. A draft plan requires only a name; all other fields are optional but validated if present.
+Create a new ready or draft Political Plan. A ready plan requires name, details, and targeting. A Voter TV+ (<var>objectiveId: 3</var>) plan requires <var>graphId</var> and <var>overview</var>.
+
+A draft plan requires only a name; all other fields are optional but validated if present.
 
 See resource properties for request schema.
 
@@ -1613,7 +1615,7 @@ See resource properties for request schema.
 ```json title="Request Sample"
 {
   "name": "Plan Name",
-  "objectiveId": 3,
+  "objectiveId": 2,
   "totalBudget": 120000,
   "details": {
     "startDate": 1747195200000,
@@ -1953,7 +1955,7 @@ Update the name of an existing Political Proposal.
 <div class="endpoint-container">
   <div class="child1">
 
-Convert a Political Proposal into an Insertion Order with draft Campaigns. Updates the Proposal, sets status to <var>PROCESSING</var>, and triggers async Campaign generation.
+Convert a Political Proposal into an Insertion Order with draft Campaigns. Updates the Proposal status to <var>processing</var>, and triggers async Campaign generation, once completed its status will be <var>converted</var>. Target proposal must be in <var>ready</var> or <var>failed</var> status.
 
 | Path Parameters  |  |
 | ----  | --- |
@@ -1962,7 +1964,7 @@ Convert a Political Proposal into an Insertion Order with draft Campaigns. Updat
 | Request Schema |  |
 | ----  | --- |
 | `politicalAdvertiserId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | Political Advertiser profile ID |
-| `startTime` <br /><span class="type-text">integer</span> | New Unix epoch start date override, in milliseconds |
+| `startTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | New Unix epoch start date override, in milliseconds |
 | `endTime` <br /><span class="type-text">integer</span> | New Unix epoch end date override, in milliseconds |
 
 </div>
@@ -2629,9 +2631,9 @@ Get the list of available plan objectives for Political Planners.
     },
     {
       "id": 3,
-      "name": "format selection",
+      "name": "voter_tv+",
       "order": 3,
-      "displayName": "Format Selection"
+      "displayName": "Voter TV+"
     }
   ]
 }
