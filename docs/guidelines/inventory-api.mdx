@@ -773,67 +773,38 @@ Blocklisted Inventories refer to digital media placements or websites that are d
   <summary style={{ fontSize: "16px" }}>Response Properties</summary>
 
 <table className="objectProperties">
-  <tr>
-  <td>`globalBlockedInventoryData` <br /><span class="type-text">object</span></td>
-  <td>Global blocked inventory data details</td>
-  </tr>
-    <tr>
-      <td colSpan="2">
-        <details className="objectPropertiesDetails">
-        <summary>`globalBlockedInventoryData` object properties</summary>
-        <table className="objectProperties">
         <tr>
           <td>`id` <br /><span class="type-text">integer</span></td>
-          <td>Inventory ID</td>
+          <td>Inventory ID, or subdomain group ID on wildcard entries (<var>invGroupSubType: 2</var>)</td>
         </tr>
         <tr>
           <td>`name` <br /><span class="type-text">string</span></td>
-          <td>Inventory name</td>
+          <td>Inventory name, or the <var>*.</var>-prefixed wildcard domain on subdomain entries</td>
         </tr>
         <tr>
-          <td>`publisher` <br /><span class="type-text">string</span></td>
-          <td>Publisher</td>
-          </tr>
-        <tr>
           <td>`appId` <br /><span class="type-text">string</span></td>
-          <td>The bundle ID (for app request) or domain (for web request)</td>
+          <td>The bundle ID (for app request) or domain (for web request), not present on subdomain entries</td>
           </tr>
         <tr>
           <td>`inventoryType` <br /><span class="type-text">string</span></td>
-          <td>Inventory type</td>
+          <td>Inventory type (always <var>Site</var> on subdomain entries)</td>
           </tr>
         <tr>
           <td>`comment` <br /><span class="type-text">string</span></td>
-          <td>Comment associated with this Inventory</td>
+          <td>Comment associated with this Inventory, if one was added via [Add Comment for Blocked Inventory](#add-comment-for-blocked-inventory)</td>
           </tr>
         <tr>
           <td>`impressions` <br /><span class="type-text">integer</span></td>
           <td>Impressions count</td>
           </tr>
         <tr>
-          <td>`uniques` <br /><span class="type-text">integer</span></td>
-          <td>Number of unique users</td>
-          </tr>
-        <tr>
-          <td>`videoPercentage` <br /><span class="type-text">integer</span></td>
-          <td>Percentage of total ad impressions that are video-based</td>
-          </tr>
-        <tr>
-          <td>`displayPercentage` <br /><span class="type-text">integer</span></td>
-          <td>Percentage of total ad impressions that are display-based</td>
+          <td>`reach` <br /><span class="type-text">integer</span></td>
+          <td>Reach count</td>
           </tr>
         <tr>
           <td>`invGroupSubType` <br /><span class="type-text">integer</span></td>
-          <td>Present instead of the fields above on entries representing an account-level blocked subdomain group rather than a single Inventory item</td>
+          <td>Blocked inventory group sub-type: regular Inventory entry (<var>1</var>) or an account-level blocked subdomain (wildcard) group entry (<var>2</var>)</td>
           </tr>
-        </table></details>
-        </td>
-        <td></td>
-  </tr>
-    <tr>
-  <td>`globalBlockedInventoryIds` <br /><span class="type-text">integer</span></td>
-  <td>Global blocked inventory IDs</td>
-  </tr>
   </table>
   </details>
 
@@ -846,28 +817,30 @@ Blocklisted Inventories refer to digital media placements or websites that are d
 {
     "success": true,
     "data": {
+        "totalRecords": 2,
+        "filteredRecords": 2,
         "globalBlockedInventoryData": [
             {
-                "id": 35109,
-                "name": "Pluto TV - It's Free TV",
-                "publisher": "UNKNOWN",
-                "appId": "74519",
+                "id": 2793823,
+                "name": "Watchfree (Vizio)",
+                "appId": "vizio.watchfree",
                 "inventoryType": "Other App",
-                "comment": "This is the comment for this Inventory",
                 "impressions": 0,
-                "uniques": 0,
-                "videoPercentage": 0,
-                "displayPercentage": 0
+                "reach": 0,
+                "comment": "live test comment with id",
+                "invGroupSubType": 1
             },
             {
-                "id": 101,
-                "name": "*.com.au",
-                "invGroupSubType": 2
+                "id": 1280,
+                "name": "nypost.com",
+                "appId": "nypost.com",
+                "inventoryType": "Site",
+                "impressions": 0,
+                "reach": 0,
+                "invGroupSubType": 1
             }
         ]
-    },
-    "globalBlockedInventoryIds": 1,
-    "filteredRecords": 13
+    }
 }
 ```
 
@@ -892,21 +865,18 @@ interface Responses {
       "application/json": {
         success: boolean;
         data: {
+          totalRecords: number;
+          filteredRecords: number;
           globalBlockedInventoryData: {
             id: number;
             name: string;
-            publisher?: string;
             appId?: string;
-            inventoryType?: string;
+            inventoryType: string;
+            impressions: number;
+            reach: number;
             comment?: string;
-            impressions?: number;
-            uniques?: number;
-            videoPercentage?: number;
-            displayPercentage?: number;
-            invGroupSubType?: number;
+            invGroupSubType: number;
           }[];
-          globalBlockedInventoryIds: number;
-          filteredRecords: number;
         };
       };
     };
@@ -1137,11 +1107,12 @@ function addInventoriesToBlockedList(): Promise<Responses> {
 <div class="endpoint-container">
   <div class="child1">
 
-Remove inventories from the blocked list by ID or search field.
+Remove inventories from the blocked list by ID, subdomain group ID, or search field. If neither `inventoryIds` nor `subdomainInventoryIds` is provided, all currently blocked inventories and blocked subdomain groups matching `searchField` are unblocked.
 
 | Request Schema |  |
 | ---- | --- |
 | `inventoryIds` <br /><span class="type-text">array of integers</span> | [Inventory ID](#get-list-of-inventories)s to unblock |
+| `subdomainInventoryIds` <br /><span class="type-text">array of integers</span> | IDs of blocked subdomain/wildcard groups to unblock — see the `invGroupSubType` entries returned by [Get List of Blocked Inventories](#get-list-of-blocked-inventories) |
 | `searchField` <br /><span class="type-text">string</span> | Unblock Inventories by search field |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -1165,6 +1136,9 @@ Remove inventories from the blocked list by ID or search field.
         1,
         2,
         3
+    ],
+    "subdomainInventoryIds": [
+        101
     ]
 }
 ```
@@ -1207,6 +1181,7 @@ function unblockInventoriesFromBlockedList(): Promise<Responses> {
       content: {
         "application/json": {
           inventoryIds: `number[]`,
+          subdomainInventoryIds: `number[]`,
           searchField: `string`,
         }
       }
@@ -1322,6 +1297,10 @@ function addCommentForInventoryBlocking(): Promise<Responses> {
 
 Block Inventories by uploading a CSV file containing Inventory IDs. The CSV file should have domains and bundles as columns.
 
+Prefix a domain with <var>\*.</var> (e.g. <var>\*.example.com</var>) to block that domain and all of its subdomains as a single wildcard entry, instead of blocking one domain at a time. The value after <var>\*.</var> must be the domain's registrable root — <var>\*.example.com</var> is valid, but <var>\*.blog.example.com</var> is not, since <var>blog.example.com</var> isn't itself a root domain. Wildcard entries appear in [Get List of Blocked Inventories](#get-list-of-blocked-inventories) with <var>invGroupSubType</var> set, and count toward the same <var>message</var>/<var>Error</var> totals below as regular domain and bundle rows.
+
+CSV columns must be named exactly <var>Domains</var> and <var>Bundles</var>, no more than these two columns are allowed. Leave a column empty to block by only the other. See the example below.
+
 | Query Parameters |  |
 | ---- | --- |
 | `blocklistFile` <br /><span class="type-text">file</span> | CSV file containing Inventory IDs to block |
@@ -1331,7 +1310,22 @@ Block Inventories by uploading a CSV file containing Inventory IDs. The CSV file
 | ---- | --- |
 | `blocklistFile` <br /><span class="type-text">file</span> | CSV file containing Inventory IDs to block |
 
+
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>CSV Example</summary>
+
+This example blocks <var>example.com</var> by itself, <var>*.example.com</var> and all of its subdomains as one wildcard entry, <var>com.example.app</var> by bundle ID, and <var>example.org</var> together with <var>com.another.app</var> in a single row.
+
+```csv
+Domains,Bundles
+example.com,
+*.example.com,
+,com.example.app
+example.org,com.another.app
+```
+</details>
+
+<p /><details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response Properties</summary>
 
 <table className="objectProperties">
@@ -1360,6 +1354,8 @@ Block Inventories by uploading a CSV file containing Inventory IDs. The CSV file
   "blocklistFile": "string",
   "fileTypeId": 1
 }
+```
+
 ```
 
 ```json title="Response 200 (all rows valid)"
