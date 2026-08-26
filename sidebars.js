@@ -7222,6 +7222,12 @@ const sidebars = {
                   },
                   {
                     type: 'link',
+                    label: 'Targeting Consistency Rule',
+                    href: '/healthcare-vertical/planner/#targeting-consistency-rule',
+                    className: 'sidebarItem',
+                  },
+                  {
+                    type: 'link',
                     label: 'HCP Planner Details by ID',
                     href: '/healthcare-vertical/planner/#hcp-planner-details-by-id',
                     customProps: { method: 'GET' },
