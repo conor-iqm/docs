@@ -751,162 +751,9 @@ function getInventoryGroupTypes(): Promise<Responses> {
 
 </div></div>
 
----
-
-
-### Get List of Blocked Inventories
-
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/inv/blocked-inventories" />
-
-<div class="endpoint-container">
-  <div class="child1">
-
-Blocklisted Inventories refer to digital media placements or websites that are deemed inappropriate (adult content, hate speech, misleading information) or of low quality (low engagement, poor user experience).
-
-| Query Parameters|  |
-| ---- | --- |
-| `searchField` <br /><span class="type-text">string</span> | Filter results by search field |
-| `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>200</var> |
-| `pageNo`<br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var> |
-
-<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
-  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
-
-<table className="objectProperties">
-        <tr>
-          <td>`id` <br /><span class="type-text">integer</span></td>
-          <td>Inventory ID, or subdomain group ID on wildcard entries (<var>invGroupSubType: 2</var>)</td>
-        </tr>
-        <tr>
-          <td>`name` <br /><span class="type-text">string</span></td>
-          <td>Inventory name, or the <var>*.</var>-prefixed wildcard domain on subdomain entries</td>
-        </tr>
-        <tr>
-          <td>`appId` <br /><span class="type-text">string</span></td>
-          <td>The bundle ID (for app request) or domain (for web request), not present on subdomain entries</td>
-          </tr>
-        <tr>
-          <td>`inventoryType` <br /><span class="type-text">string</span></td>
-          <td>Inventory type (always <var>Site</var> on subdomain entries)</td>
-          </tr>
-        <tr>
-          <td>`comment` <br /><span class="type-text">string</span></td>
-          <td>Comment associated with this Inventory, if one was added via [Add Comment for Blocked Inventory](#add-comment-for-blocked-inventory)</td>
-          </tr>
-        <tr>
-          <td>`impressions` <br /><span class="type-text">integer</span></td>
-          <td>Impressions count</td>
-          </tr>
-        <tr>
-          <td>`reach` <br /><span class="type-text">integer</span></td>
-          <td>Reach count</td>
-          </tr>
-        <tr>
-          <td>`invGroupSubType` <br /><span class="type-text">integer</span></td>
-          <td>Blocked inventory group sub-type: regular Inventory entry (<var>1</var>) or an account-level blocked subdomain (wildcard) group entry (<var>2</var>)</td>
-          </tr>
-  </table>
-  </details>
-
-</div><div class="child2">
-
-<Tabs>
-<TabItem value="JSON" label="JSON" default>
-
-```json title="Response 200"
-{
-    "success": true,
-    "data": {
-        "totalRecords": 2,
-        "filteredRecords": 2,
-        "globalBlockedInventoryData": [
-            {
-                "id": 2793823,
-                "name": "Watchfree (Vizio)",
-                "appId": "vizio.watchfree",
-                "inventoryType": "Other App",
-                "impressions": 0,
-                "reach": 0,
-                "comment": "live test comment with id",
-                "invGroupSubType": 1
-            },
-            {
-                "id": 1280,
-                "name": "nypost.com",
-                "appId": "nypost.com",
-                "inventoryType": "Site",
-                "impressions": 0,
-                "reach": 0,
-                "invGroupSubType": 1
-            }
-        ]
-    }
-}
-```
-
-</TabItem>
-<TabItem value="TypeScript" label="TypeScript">
-
-See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
-
-```ts
-import {
-  getInstance
-} from "prerequisites"
-
-const axios = getInstance();
-
-interface Responses {
-  200: {
-    headers: {
-      [name: string]: unknown;
-    };
-    content: {
-      "application/json": {
-        success: boolean;
-        data: {
-          totalRecords: number;
-          filteredRecords: number;
-          globalBlockedInventoryData: {
-            id: number;
-            name: string;
-            appId?: string;
-            inventoryType: string;
-            impressions: number;
-            reach: number;
-            comment?: string;
-            invGroupSubType: number;
-          }[];
-        };
-      };
-    };
-  };
-}
-
-function getBlockedInventories(): Promise<Responses> {
-  const options = {
-    method: 'GET',
-    url: 'https://api.iqm.com/api/v3/inv/blocked-inventories',
-    params: {
-      query: {
-        searchField: `string`,
-        noOfEntries: `number`,
-        pageNo: `number`
-      }
-    }
-  };
-
-  return axios.request(options).then(({ data }: { data: Responses }) => data);
-}
-```
-
-</TabItem></Tabs>
-
-</div></div>
-
 ## Inventory Management
 
-Optimize Inventories for specific Campaigns, download detailed Inventory files, or block Inventories.
+Optimize Inventories for specific Campaigns, or download detailed Inventory files.
 
 ### Campaign Inventory Targeting
 
@@ -990,429 +837,6 @@ function Inventory-AddInclude/Exclude(): Promise<Responses> {
           campaignId: `number`,
           ids: `string`,
           isExcluded: `number`
-        }
-      }
-    }
-  };
-
-  return axios.request(options).then(({ data }: { data: Responses }) => data);
-}
-```
-
-</TabItem></Tabs>
-
-</div></div>
-
----
-
-### Block Inventories
-
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/inventories/block" />
-
-<div class="endpoint-container">
-  <div class="child1">
-
-Inventories can be blocked at the account level by ID or search field.
-
-| Request Schema |  |
-| ---- | --- |
-| `inventoryIds` <br /><span class="type-text">array of integers</span> | [Inventory ID](#get-list-of-inventories)s to block |
-| `searchField` <br /><span class="type-text">string</span> | Block Inventories by search field |
-
-<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
-  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
-
-<table className="objectProperties">
-  <tr>
-  <td>`data` <br /><span class="type-text">string</span></td>
-  <td>Success message</td>
-  </tr>
-  </table></details>
-
-</div><div class="child2">
-
-<Tabs>
-<TabItem value="JSON" label="JSON" default>
-
-```json title="Request Sample"
-{
-    "inventoryIds": [
-        0,
-        1,
-        5
-    ]
-}
-```
-
-```json title="Response 200"
-{
-    "success": true,
-    "data": "Inventories blocked successfully."
-}
-```
-
-</TabItem>
-<TabItem value="TypeScript" label="TypeScript">
-
-See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
-
-```ts
-import {
-  getInstance
-} from "prerequisites"
-
-const axios = getInstance();
-
-interface Responses {
-  200: {
-    content: {
-      "application/json;charset=UTF-8": {
-        statusCode: number;
-        responseObject: {
-          message: string;
-        };
-      };
-    };
-  };
-}
-
-function addInventoriesToBlockedList(): Promise<Responses> {
-  const options = {
-    method: 'POST',
-    url: 'https://api.iqm.com/api/v3/inv/inventories/block',
-    requestBody: {
-      content: {
-        "application/json": {
-          inventoryIds: `number`,
-          searchField: `string`,
-        }
-      }
-    }
-  };
-
-  return axios.request(options).then(({ data }: { data: Responses }) => data);
-}
-```
-
-</TabItem></Tabs>
-
-</div></div>
-
----
-
-### Unblock Inventories
-
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/inventories/unblock" />
-
-<div class="endpoint-container">
-  <div class="child1">
-
-Remove inventories from the blocked list by ID, subdomain group ID, or search field. If neither `inventoryIds` nor `subdomainInventoryIds` is provided, all currently blocked inventories and blocked subdomain groups matching `searchField` are unblocked.
-
-| Request Schema |  |
-| ---- | --- |
-| `inventoryIds` <br /><span class="type-text">array of integers</span> | [Inventory ID](#get-list-of-inventories)s to unblock |
-| `subdomainInventoryIds` <br /><span class="type-text">array of integers</span> | IDs of blocked subdomain/wildcard groups to unblock — see the `invGroupSubType` entries returned by [Get List of Blocked Inventories](#get-list-of-blocked-inventories) |
-| `searchField` <br /><span class="type-text">string</span> | Unblock Inventories by search field |
-
-<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
-  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
-
-<table className="objectProperties">
-  <tr>
-  <td>`data` <br /><span class="type-text">string</span></td>
-  <td>Success message</td>
-  </tr>
-  </table></details>
-
-</div><div class="child2">
-
-<Tabs>
-<TabItem value="JSON" label="JSON" default>
-
-```json title="Request Sample"
-{
-    "inventoryIds": [
-        1,
-        2,
-        3
-    ],
-    "subdomainInventoryIds": [
-        101
-    ]
-}
-```
-
-```json title="Response 200"
-{
-    "success": true,
-    "data": "Inventories unblocked successfully."
-}
-```
-
-</TabItem>
-<TabItem value="TypeScript" label="TypeScript">
-
-See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
-
-```ts
-import {
-  getInstance
-} from "prerequisites"
-
-const axios = getInstance();
-
-interface Responses {
-  200: {
-    content: {
-      "application/json;charset=UTF-8": {
-        success: boolean;
-        data: string;
-      };
-    };
-  };
-}
-
-function unblockInventoriesFromBlockedList(): Promise<Responses> {
-  const options = {
-    method: 'POST',
-    url: 'https://api.iqm.com/api/v3/inv/inventories/unblock',
-    requestBody: {
-      content: {
-        "application/json": {
-          inventoryIds: `number[]`,
-          subdomainInventoryIds: `number[]`,
-          searchField: `string`,
-        }
-      }
-    }
-  };
-
-  return axios.request(options).then(({ data }: { data: Responses }) => data);
-}
-```
-
-</TabItem></Tabs>
-
-</div></div>
-
----
-
-### Add Comment for Blocked Inventory
-
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/comment/add" />
-
-<div class="endpoint-container">
-  <div class="child1">
-
-Add a comment to a blocked inventory item.
-
-| Request Schema |  |
-| ---- | --- |
-| `inventoryId` <br /><span class="type-text">integer</span> | The [Inventory ID](#get-list-of-inventories) to add a comment to (minimum: 1) |
-| `comment` <br /><span class="type-text">string</span> | Comment text (required) |
-
-<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
-  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
-
-<table className="objectProperties">
-  <tr>
-  <td>`data` <br /><span class="type-text">string</span></td>
-  <td>Success message</td>
-  </tr>
-  </table></details>
-
-</div><div class="child2">
-
-<Tabs>
-<TabItem value="JSON" label="JSON" default>
-
-```json title="Request Sample"
-{
-    "inventoryId": 1234,
-    "comment": "Blocking due to brand safety concerns"
-}
-```
-
-```json title="Response 200"
-{
-    "success": true,
-    "data": "Comment added successfully."
-}
-```
-
-</TabItem>
-<TabItem value="TypeScript" label="TypeScript">
-
-See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
-
-```ts
-import {
-  getInstance
-} from "prerequisites"
-
-const axios = getInstance();
-
-interface Responses {
-  200: {
-    content: {
-      "application/json;charset=UTF-8": {
-        success: boolean;
-        data: string;
-      };
-    };
-  };
-}
-
-function addCommentForInventoryBlocking(): Promise<Responses> {
-  const options = {
-    method: 'POST',
-    url: 'https://api.iqm.com/api/v3/inv/comment/add',
-    requestBody: {
-      content: {
-        "application/json": {
-          inventoryId: `number`,
-          comment: `string`,
-        }
-      }
-    }
-  };
-
-  return axios.request(options).then(({ data }: { data: Responses }) => data);
-}
-```
-
-</TabItem></Tabs>
-
-</div></div>
-
----
-
-### Block Inventory File
-
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/blocked-inventories/block-file" />
-
-<div class="endpoint-container">
-  <div class="child1">
-
-Block Inventories by uploading a CSV file containing Inventory IDs. The CSV file should have domains and bundles as columns.
-
-Prefix a domain with <var>\*.</var> (e.g. <var>\*.example.com</var>) to block that domain and all of its subdomains as a single wildcard entry, instead of blocking one domain at a time. The value after <var>\*.</var> must be the domain's registrable root — <var>\*.example.com</var> is valid, but <var>\*.blog.example.com</var> is not, since <var>blog.example.com</var> isn't itself a root domain. Wildcard entries appear in [Get List of Blocked Inventories](#get-list-of-blocked-inventories) with <var>invGroupSubType</var> set, and count toward the same <var>message</var>/<var>Error</var> totals below as regular domain and bundle rows.
-
-CSV columns must be named exactly <var>Domains</var> and <var>Bundles</var>, no more than these two columns are allowed. Leave a column empty to block by only the other. See the example below.
-
-| Query Parameters |  |
-| ---- | --- |
-| `blocklistFile` <br /><span class="type-text">file</span> | CSV file containing Inventory IDs to block |
-| `fileTypeId` <br /><span class="type-text">integer</span> | File type ID: <var>1</var> for CSV |
-
-| Request Schema |  |
-| ---- | --- |
-| `blocklistFile` <br /><span class="type-text">file</span> | CSV file containing Inventory IDs to block |
-
-
-<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
-  <summary style={{ fontSize: "16px" }}>CSV Example</summary>
-
-This example blocks <var>example.com</var> by itself, <var>*.example.com</var> and all of its subdomains as one wildcard entry, <var>com.example.app</var> by bundle ID, and <var>example.org</var> together with <var>com.another.app</var> in a single row.
-
-```csv
-Domains,Bundles
-example.com,
-*.example.com,
-,com.example.app
-example.org,com.another.app
-```
-</details>
-
-<p /><details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
-  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
-
-<table className="objectProperties">
-  <tr>
-  <td>`message` <br /><span class="type-text">string</span></td>
-  <td>Success message with the number of Inventories blocked. Present only when every row in the file was valid.</td>
-  </tr>
-  <tr>
-  <td>`Error` <br /><span class="type-text">string</span></td>
-  <td>Error message with the number of rows that could not be uploaded. Present instead of <var>message</var> when one or more rows in the file are invalid -- the request still returns <var>200</var>.</td>
-  </tr>
-  <tr>
-  <td>`errorFileUrl` <br /><span class="type-text">string</span></td>
-  <td>Download URL for a file listing the invalid rows. Present alongside <var>Error</var>.</td>
-  </tr>
-  </table></details>
-
-</div>
-<div class="child2">
-
-<Tabs>
-<TabItem value="JSON" label="JSON" default>
-
-```json title="Request Sample"
-{
-  "blocklistFile": "string",
-  "fileTypeId": 1
-}
-```
-
-```
-
-```json title="Response 200 (all rows valid)"
-{
-    "success": true,
-    "data": {
-        "message": "5 inventories blocked successfully"
-    }
-}
-```
-
-```json title="Response 200 (some rows invalid)"
-{
-    "success": true,
-    "data": {
-        "Error": "2 Entries could not be uploaded. Download the error file and retry",
-        "errorFileUrl": "https://iqm-ephemeral-2aca615e13f8-stage.s3.amazonaws.com/inventory/block-file/errors/invalid_rows_1720435555550.csv?response-expires-Amz-Credential"
-    }
-}
-```
-
-</TabItem>
-<TabItem value="TypeScript" label="TypeScript">
-
-See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
-
-```ts
-import {
-  getInstance
-} from "prerequisites"
-
-const axios = getInstance();
-
-interface Responses {
-  200: {
-    content: {
-      "application/json": {
-        success: boolean;
-        data: {
-          message?: string;
-          Error?: string;
-          errorFileUrl?: string;
-        };
-      };
-    };
-  };
-}
-
-function blockInventoriesToBlockedListViaFile(): Promise<Responses> {
-  const options = {
-    method: 'POST',
-    url: 'https://api.iqm.com/api/v3/inv/blocked-inventories/block-file',
-    requestBody: {
-      content: {
-        "application/json": {
-          blocklistFile: `string`,
-          fileTypeId: `number`,
         }
       }
     }
@@ -2414,6 +1838,583 @@ function addContextualInventoriesToGroups(): Promise<Responses> {
         "application/json": {
           groupIds: `number[]`,
           contextualIds: `number[]`,
+        }
+      }
+    }
+  };
+
+  return axios.request(options).then(({ data }: { data: Responses }) => data);
+}
+```
+
+</TabItem></Tabs>
+
+</div></div>
+
+---
+
+## Blocked Inventories
+
+Blocklisted Inventories refer to digital media placements or websites that are deemed inappropriate (adult content, hate speech, misleading information) or of low quality (low engagement, poor user experience).
+
+### Get List of Blocked Inventories
+
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/inv/blocked-inventories" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Get a list of blocked Inventories and blocked subdomain (wildcard) groups.
+
+| Query Parameters|  |
+| ---- | --- |
+| `searchField` <br /><span class="type-text">string</span> | Filter results by search field |
+| `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>200</var> |
+| `pageNo`<br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var> |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
+
+<table className="objectProperties">
+        <tr>
+          <td>`id` <br /><span class="type-text">integer</span></td>
+          <td>Inventory ID, or subdomain group ID on wildcard entries (<var>invGroupSubType: 2</var>)</td>
+        </tr>
+        <tr>
+          <td>`name` <br /><span class="type-text">string</span></td>
+          <td>Inventory name, or the <var>*.</var>-prefixed wildcard domain on subdomain entries</td>
+        </tr>
+        <tr>
+          <td>`appId` <br /><span class="type-text">string</span></td>
+          <td>The bundle ID (for app request) or domain (for web request), not present on subdomain entries</td>
+          </tr>
+        <tr>
+          <td>`inventoryType` <br /><span class="type-text">string</span></td>
+          <td>Inventory type (always <var>Site</var> on subdomain entries)</td>
+          </tr>
+        <tr>
+          <td>`comment` <br /><span class="type-text">string</span></td>
+          <td>Comment associated with this Inventory, if one was added via [Add Comment for Blocked Inventory](#add-comment-for-blocked-inventory)</td>
+          </tr>
+        <tr>
+          <td>`impressions` <br /><span class="type-text">integer</span></td>
+          <td>Impressions count</td>
+          </tr>
+        <tr>
+          <td>`reach` <br /><span class="type-text">integer</span></td>
+          <td>Reach count</td>
+          </tr>
+        <tr>
+          <td>`invGroupSubType` <br /><span class="type-text">integer</span></td>
+          <td>Blocked inventory group sub-type: regular Inventory entry (<var>1</var>) or an account-level blocked subdomain (wildcard) group entry (<var>2</var>)</td>
+          </tr>
+  </table>
+  </details>
+
+</div><div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Response 200"
+{
+    "success": true,
+    "data": {
+        "totalRecords": 2,
+        "filteredRecords": 2,
+        "globalBlockedInventoryData": [
+            {
+                "id": 2793823,
+                "name": "Watchfree (Vizio)",
+                "appId": "vizio.watchfree",
+                "inventoryType": "Other App",
+                "impressions": 0,
+                "reach": 0,
+                "comment": "live test comment with id",
+                "invGroupSubType": 1
+            },
+            {
+                "id": 1280,
+                "name": "nypost.com",
+                "appId": "nypost.com",
+                "inventoryType": "Site",
+                "impressions": 0,
+                "reach": 0,
+                "invGroupSubType": 1
+            }
+        ]
+    }
+}
+```
+
+</TabItem>
+<TabItem value="TypeScript" label="TypeScript">
+
+See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
+
+```ts
+import {
+  getInstance
+} from "prerequisites"
+
+const axios = getInstance();
+
+interface Responses {
+  200: {
+    headers: {
+      [name: string]: unknown;
+    };
+    content: {
+      "application/json": {
+        success: boolean;
+        data: {
+          totalRecords: number;
+          filteredRecords: number;
+          globalBlockedInventoryData: {
+            id: number;
+            name: string;
+            appId?: string;
+            inventoryType: string;
+            impressions: number;
+            reach: number;
+            comment?: string;
+            invGroupSubType: number;
+          }[];
+        };
+      };
+    };
+  };
+}
+
+function getBlockedInventories(): Promise<Responses> {
+  const options = {
+    method: 'GET',
+    url: 'https://api.iqm.com/api/v3/inv/blocked-inventories',
+    params: {
+      query: {
+        searchField: `string`,
+        noOfEntries: `number`,
+        pageNo: `number`
+      }
+    }
+  };
+
+  return axios.request(options).then(({ data }: { data: Responses }) => data);
+}
+```
+
+</TabItem></Tabs>
+
+</div></div>
+
+### Block Inventories
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/inventories/block" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Inventories can be blocked at the account level by ID or search field.
+
+| Request Schema |  |
+| ---- | --- |
+| `inventoryIds` <br /><span class="type-text">array of integers</span> | [Inventory ID](#get-list-of-inventories)s to block |
+| `searchField` <br /><span class="type-text">string</span> | Block Inventories by search field |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
+
+<table className="objectProperties">
+  <tr>
+  <td>`data` <br /><span class="type-text">string</span></td>
+  <td>Success message</td>
+  </tr>
+  </table></details>
+
+</div><div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Request Sample"
+{
+    "inventoryIds": [
+        0,
+        1,
+        5
+    ]
+}
+```
+
+```json title="Response 200"
+{
+    "success": true,
+    "data": "Inventories blocked successfully."
+}
+```
+
+</TabItem>
+<TabItem value="TypeScript" label="TypeScript">
+
+See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
+
+```ts
+import {
+  getInstance
+} from "prerequisites"
+
+const axios = getInstance();
+
+interface Responses {
+  200: {
+    content: {
+      "application/json;charset=UTF-8": {
+        statusCode: number;
+        responseObject: {
+          message: string;
+        };
+      };
+    };
+  };
+}
+
+function addInventoriesToBlockedList(): Promise<Responses> {
+  const options = {
+    method: 'POST',
+    url: 'https://api.iqm.com/api/v3/inv/inventories/block',
+    requestBody: {
+      content: {
+        "application/json": {
+          inventoryIds: `number`,
+          searchField: `string`,
+        }
+      }
+    }
+  };
+
+  return axios.request(options).then(({ data }: { data: Responses }) => data);
+}
+```
+
+</TabItem></Tabs>
+
+</div></div>
+
+---
+
+### Unblock Inventories
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/inventories/unblock" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Remove inventories from the blocked list by ID, subdomain group ID, or search field. If neither <var>inventoryIds</var> nor <var>subdomainInventoryIds</var> is provided, all currently blocked inventories and blocked subdomain groups matching <var>searchField</var> are unblocked.
+
+| Request Schema |  |
+| ---- | --- |
+| `inventoryIds` <br /><span class="type-text">array of integers</span> | [Inventory ID](#get-list-of-inventories)s to unblock |
+| `subdomainInventoryIds` <br /><span class="type-text">array of integers</span> | IDs of blocked subdomain/wildcard groups to unblock — see the `invGroupSubType` entries returned by [Get List of Blocked Inventories](#get-list-of-blocked-inventories) |
+| `searchField` <br /><span class="type-text">string</span> | Unblock Inventories by search field |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
+
+<table className="objectProperties">
+  <tr>
+  <td>`data` <br /><span class="type-text">string</span></td>
+  <td>Success message</td>
+  </tr>
+  </table></details>
+
+</div><div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Request Sample"
+{
+    "inventoryIds": [
+        1,
+        2,
+        3
+    ],
+    "subdomainInventoryIds": [
+        101
+    ]
+}
+```
+
+```json title="Response 200"
+{
+    "success": true,
+    "data": "Inventories unblocked successfully."
+}
+```
+
+</TabItem>
+<TabItem value="TypeScript" label="TypeScript">
+
+See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
+
+```ts
+import {
+  getInstance
+} from "prerequisites"
+
+const axios = getInstance();
+
+interface Responses {
+  200: {
+    content: {
+      "application/json;charset=UTF-8": {
+        success: boolean;
+        data: string;
+      };
+    };
+  };
+}
+
+function unblockInventoriesFromBlockedList(): Promise<Responses> {
+  const options = {
+    method: 'POST',
+    url: 'https://api.iqm.com/api/v3/inv/inventories/unblock',
+    requestBody: {
+      content: {
+        "application/json": {
+          inventoryIds: `number[]`,
+          subdomainInventoryIds: `number[]`,
+          searchField: `string`,
+        }
+      }
+    }
+  };
+
+  return axios.request(options).then(({ data }: { data: Responses }) => data);
+}
+```
+
+</TabItem></Tabs>
+
+</div></div>
+
+---
+
+### Add Comment for Blocked Inventory
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/comment/add" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Add a comment to a blocked inventory item.
+
+| Request Schema |  |
+| ---- | --- |
+| `inventoryId` <br /><span class="type-text">integer</span> | The [Inventory ID](#get-list-of-inventories) to add a comment to (minimum: 1) |
+| `comment` <br /><span class="type-text">string</span> | Comment text (required) |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
+
+<table className="objectProperties">
+  <tr>
+  <td>`data` <br /><span class="type-text">string</span></td>
+  <td>Success message</td>
+  </tr>
+  </table></details>
+
+</div><div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Request Sample"
+{
+    "inventoryId": 1234,
+    "comment": "Blocking due to brand safety concerns"
+}
+```
+
+```json title="Response 200"
+{
+    "success": true,
+    "data": "Comment added successfully."
+}
+```
+
+</TabItem>
+<TabItem value="TypeScript" label="TypeScript">
+
+See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
+
+```ts
+import {
+  getInstance
+} from "prerequisites"
+
+const axios = getInstance();
+
+interface Responses {
+  200: {
+    content: {
+      "application/json;charset=UTF-8": {
+        success: boolean;
+        data: string;
+      };
+    };
+  };
+}
+
+function addCommentForInventoryBlocking(): Promise<Responses> {
+  const options = {
+    method: 'POST',
+    url: 'https://api.iqm.com/api/v3/inv/comment/add',
+    requestBody: {
+      content: {
+        "application/json": {
+          inventoryId: `number`,
+          comment: `string`,
+        }
+      }
+    }
+  };
+
+  return axios.request(options).then(({ data }: { data: Responses }) => data);
+}
+```
+
+</TabItem></Tabs>
+
+</div></div>
+
+---
+
+### Block Inventory File
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/inv/blocked-inventories/block-file" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Block Inventories by uploading a CSV file containing Inventory IDs. The CSV file should have domains and bundles as columns.
+
+Prefix a domain with <var>\*.</var> (e.g. <var>\*.example.com</var>) to block that domain and all of its subdomains as a single wildcard entry, instead of blocking one domain at a time. The value after <var>\*.</var> must be the domain's registrable root — <var>\*.example.com</var> is valid, but <var>\*.blog.example.com</var> is not, since <var>blog.example.com</var> isn't itself a root domain. Wildcard entries appear in [Get List of Blocked Inventories](#get-list-of-blocked-inventories) with <var>invGroupSubType</var> set, and count toward the same <var>message</var>/<var>Error</var> totals below as regular domain and bundle rows.
+
+CSV columns must be named exactly <var>Domains</var> and <var>Bundles</var>, no more than these two columns are allowed. Leave a column empty to block by only the other. See the example below.
+
+| Query Parameters |  |
+| ---- | --- |
+| `blocklistFile` <br /><span class="type-text">file</span> | CSV file containing Inventory IDs to block |
+| `fileTypeId` <br /><span class="type-text">integer</span> | File type ID: <var>1</var> for CSV |
+
+| Request Schema |  |
+| ---- | --- |
+| `blocklistFile` <br /><span class="type-text">file</span> | CSV file containing Inventory IDs to block |
+
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>CSV Example</summary>
+
+This example blocks <var>example.com</var> by itself, <var>*.example.com</var> and all of its subdomains as one wildcard entry, <var>com.example.app</var> by bundle ID, and <var>example.org</var> together with <var>com.another.app</var> in a single row.
+
+```csv
+Domains,Bundles
+example.com,
+*.example.com,
+,com.example.app
+example.org,com.another.app
+```
+</details>
+
+<p /><details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
+
+<table className="objectProperties">
+  <tr>
+  <td>`message` <br /><span class="type-text">string</span></td>
+  <td>Success message with the number of Inventories blocked. Present only when every row in the file was valid.</td>
+  </tr>
+  <tr>
+  <td>`Error` <br /><span class="type-text">string</span></td>
+  <td>Error message with the number of rows that could not be uploaded. Present instead of <var>message</var> when one or more rows in the file are invalid -- the request still returns <var>200</var>.</td>
+  </tr>
+  <tr>
+  <td>`errorFileUrl` <br /><span class="type-text">string</span></td>
+  <td>Download URL for a file listing the invalid rows. Present alongside <var>Error</var>.</td>
+  </tr>
+  </table></details>
+
+</div>
+<div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Request Sample"
+{
+  "blocklistFile": "string",
+  "fileTypeId": 1
+}
+```
+
+```
+
+```json title="Response 200 (all rows valid)"
+{
+    "success": true,
+    "data": {
+        "message": "5 inventories blocked successfully"
+    }
+}
+```
+
+```json title="Response 200 (some rows invalid)"
+{
+    "success": true,
+    "data": {
+        "Error": "2 Entries could not be uploaded. Download the error file and retry",
+        "errorFileUrl": "https://iqm-ephemeral-2aca615e13f8-stage.s3.amazonaws.com/inventory/block-file/errors/invalid_rows_1720435555550.csv?response-expires-Amz-Credential"
+    }
+}
+```
+
+</TabItem>
+<TabItem value="TypeScript" label="TypeScript">
+
+See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
+
+```ts
+import {
+  getInstance
+} from "prerequisites"
+
+const axios = getInstance();
+
+interface Responses {
+  200: {
+    content: {
+      "application/json": {
+        success: boolean;
+        data: {
+          message?: string;
+          Error?: string;
+          errorFileUrl?: string;
+        };
+      };
+    };
+  };
+}
+
+function blockInventoriesToBlockedListViaFile(): Promise<Responses> {
+  const options = {
+    method: 'POST',
+    url: 'https://api.iqm.com/api/v3/inv/blocked-inventories/block-file',
+    requestBody: {
+      content: {
+        "application/json": {
+          blocklistFile: `string`,
+          fileTypeId: `number`,
         }
       }
     }

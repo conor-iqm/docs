@@ -3522,13 +3522,6 @@ const sidebars = {
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
-            {
-              type: 'link',
-              label: 'List of Blocked Inventories',
-              href: '/guidelines/inventory-api#get-list-of-blocked-inventories',
-              customProps: { method: 'GET' },
-              className: 'sidebarItem'
-            },
           ]
         },
         {
@@ -3540,34 +3533,6 @@ const sidebars = {
               type: 'link',
               label: 'Campaign Inventory Targeting',
               href: '/guidelines/inventory-api#campaign-inventory-targeting',
-              customProps: { method: 'POST' },
-              className: 'sidebarItem'
-            },
-            {
-              type: 'link',
-              label: 'Block Inventories',
-              href: '/guidelines/inventory-api#block-inventories',
-              customProps: { method: 'POST' },
-              className: 'sidebarItem'
-            },
-            {
-              type: 'link',
-              label: 'Unblock Inventories',
-              href: '/guidelines/inventory-api#unblock-inventories',
-              customProps: { method: 'POST' },
-              className: 'sidebarItem'
-            },
-            {
-              type: 'link',
-              label: 'Add Comment for Blocked Inventory',
-              href: '/guidelines/inventory-api#add-comment-for-blocked-inventory',
-              customProps: { method: 'POST' },
-              className: 'sidebarItem'
-            },
-            {
-              type: 'link',
-              label: 'Block Inventory File',
-              href: '/guidelines/inventory-api#block-inventory-file',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -3624,6 +3589,48 @@ const sidebars = {
               type: 'link',
               label: 'Add Contextual Inventories to Groups',
               href: '/guidelines/inventory-api#add-contextual-inventories-to-inventory-groups',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+          ]
+        },
+        {
+          type: `category`,
+          label: `Blocked Inventories`,
+          className: 'sidebarItem',
+          items: [
+            {
+              type: 'link',
+              label: 'List of Blocked Inventories',
+              href: '/guidelines/inventory-api#get-list-of-blocked-inventories',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Block Inventories',
+              href: '/guidelines/inventory-api#block-inventories',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Unblock Inventories',
+              href: '/guidelines/inventory-api#unblock-inventories',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Add Comment for Blocked Inventory',
+              href: '/guidelines/inventory-api#add-comment-for-blocked-inventory',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Block Inventory File',
+              href: '/guidelines/inventory-api#block-inventory-file',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
