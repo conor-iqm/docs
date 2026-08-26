@@ -916,6 +916,43 @@ td:nth-child(2) {
   font-size: 90%;
 }
 
+.targetingRuleTable {
+  margin-top: 0 !important;
+  width: 100%;
+  max-width: 1500px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.targetingRuleTable th,
+.targetingRuleTable td {
+  border: 1px solid var(--ifm-table-border-color);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
+  font-size: 100%;
+}
+
+.targetingRuleTable th {
+  font-weight: 800;
+  padding: 0.75rem;
+}
+
+.targetingRuleTable td:first-child,
+.targetingRuleTable th:first-child {
+  width: 20%;
+}
+
+.targetingRuleTable td:nth-child(2),
+.targetingRuleTable th:nth-child(2) {
+  width: 50%;
+}
+
+.targetingRuleTable td:nth-child(3),
+.targetingRuleTable th:nth-child(3) {
+  width: 30%;
+}
+
 .objectPropertiesDetails {
   text-align: left;
   background-color: transparent;
