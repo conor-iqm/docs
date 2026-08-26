@@ -1,7 +1,5 @@
 import CopyUrl from '@site/src/components/CopyUrl';
 
-## Cross-Screen Planner Graph
-
 ### Get Reach Saturation Graph
 
 <CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/reach-saturation-graph" />
@@ -9,7 +7,11 @@ import CopyUrl from '@site/src/components/CopyUrl';
 <div class="endpoint-container">
   <div class="child1">
 
-Fetch cross-screen planner graph data based on the targeting and budgeting criteria provided, including a venn-diagram audience overlap breakdown and a line graph of linear TV and CTV reach over time.
+Fetch cross-screen Planner graph data based on the targeting and budgeting criteria provided, including a venn-diagram audience overlap breakdown and a line graph of linear TV and CTV reach over time.
+
+:::info
+Computation time for this endpoint may take more than 60 seconds depending on the complexity of the targeting criteria and the size of the Proposal being split. Please allow for sufficient time for the request to complete.
+:::
 
 | Request Schema |  |
 | ---- | --- |
@@ -181,8 +183,6 @@ Fetch cross-screen planner graph data based on the targeting and budgeting crite
 
 ---
 
-## Demographics Segments
-
 ### Get Demographics Keys
 
 <CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/static/demographics-key" />
@@ -235,8 +235,6 @@ Get active demographics segment definitions used for cross-screen planning audie
 
 ---
 
-## Cross-Screen Proposal Management
-
 ### Split Proposal
 
 <CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}/split" />
@@ -244,7 +242,11 @@ Get active demographics segment definitions used for cross-screen planning audie
 <div class="endpoint-container">
   <div class="child1">
 
-Split an existing Proposal across linear TV and CTV using the provided advanced targeting criteria.
+Split an existing Proposal across linear TV and CTV using the provided advanced targeting criteria. Only works for cross-screen Proposals with a [Plan Objective ID](#get-plan-objectives) of <var>3</var>. 
+
+:::info
+Computation time for this endpoint may take more than 60 seconds depending on the complexity of the targeting criteria and the size of the Proposal being split. Please allow for sufficient time for the request to complete.
+:::
 
 | Path Parameters |  |
 | ---- | --- |
@@ -256,7 +258,7 @@ Split an existing Proposal across linear TV and CTV using the provided advanced 
 | `locations` <br /><span class="type-text">array of integers</span> | [Targeting Type IDs](#get-targeting-types) for locations |
 | `devices` <br /><span class="type-text">array of integers</span> | [Device Type IDs](/guidelines/master-api/#get-device-type) |
 | `inventoryGroupIds` <br /><span class="type-text">array of integers</span> | [Inventory Group IDs](/guidelines/inventory-api/#get-inventory-groups-list) |
-| `audienceTypes` <br /><span class="type-text">array of integers</span> | Audience Type IDs |
+| `audienceTypes` <br /><span class="type-text">array of integers</span> | [Audience Type IDs](/guidelines/audience-api/#audience-type-list) |
 | `creatives` <br /><span class="type-text">array of integers</span> | [Creative Type IDs](/guidelines/creative-api/#get-creative-types-list) |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
