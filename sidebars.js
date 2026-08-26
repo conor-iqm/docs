@@ -3089,6 +3089,48 @@ const sidebars = {
             },
           ]
         },
+        {
+          type: `category`,
+          label: `Power Segment Insights`,
+          className: 'sidebarItem',
+          items: [
+            {
+              type: 'link',
+              label: 'Generate PSI Report',
+              href: '/guidelines/insights-api#generate-psi-report',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Power Segment Insights List',
+              href: '/guidelines/insights-api#get-power-segment-insights-list',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Download PSI Report',
+              href: '/guidelines/insights-api#download-psi-report',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Email PSI Report',
+              href: '/guidelines/insights-api#email-psi-report',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'PSI Category Types',
+              href: '/guidelines/insights-api#get-power-segment-insights-category-types',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+          ]
+        },
                 {
           type: 'category',
           label: 'Audience Quality Score Reports',
@@ -6078,6 +6120,48 @@ const sidebars = {
         id: 'political-vertical/insights-vld'
       },
       items: [
+        {
+          type: `category`,
+          label: `Power Segment Insights`,
+          className: 'sidebarItem',
+          items: [
+            {
+              type: 'link',
+              label: 'Generate PSI Report',
+              href: '/political-vertical/insights-vld/#generate-psi-report',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Power Segment Insights List',
+              href: '/political-vertical/insights-vld/#get-power-segment-insights-list',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Download PSI Report',
+              href: '/political-vertical/insights-vld/#download-psi-report',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Email PSI Report',
+              href: '/political-vertical/insights-vld/#email-psi-report',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'PSI Category Types',
+              href: '/political-vertical/insights-vld/#get-power-segment-insights-category-types',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+          ]
+        },
         {
           type: `category`,
           label: `Voter Level Data Reports`,

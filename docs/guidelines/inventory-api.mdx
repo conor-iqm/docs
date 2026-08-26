@@ -766,7 +766,6 @@ Blocklisted Inventories refer to digital media placements or websites that are d
 | Query Parameters|  |
 | ---- | --- |
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field |
-| `inventoryIds` <br /><span class="type-text">string</span> | Filter Inventories by [Inventory ID](#get-list-of-inventories) |
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>200</var> |
 | `pageNo`<br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var> |
 
@@ -804,16 +803,28 @@ Blocklisted Inventories refer to digital media placements or websites that are d
           <td>Inventory type</td>
           </tr>
         <tr>
+          <td>`comment` <br /><span class="type-text">string</span></td>
+          <td>Comment associated with this Inventory</td>
+          </tr>
+        <tr>
           <td>`impressions` <br /><span class="type-text">integer</span></td>
           <td>Impressions count</td>
           </tr>
         <tr>
-          <td>`reach` <br /><span class="type-text">integer</span></td>
-          <td>The number of unique individuals reached by an Inventory, does not count repeat views </td>
+          <td>`uniques` <br /><span class="type-text">integer</span></td>
+          <td>Number of unique users</td>
           </tr>
         <tr>
           <td>`videoPercentage` <br /><span class="type-text">integer</span></td>
           <td>Percentage of total ad impressions that are video-based</td>
+          </tr>
+        <tr>
+          <td>`displayPercentage` <br /><span class="type-text">integer</span></td>
+          <td>Percentage of total ad impressions that are display-based</td>
+          </tr>
+        <tr>
+          <td>`invGroupSubType` <br /><span class="type-text">integer</span></td>
+          <td>Present instead of the fields above on entries representing an account-level blocked subdomain group rather than a single Inventory item</td>
           </tr>
         </table></details>
         </td>
@@ -847,6 +858,11 @@ Blocklisted Inventories refer to digital media placements or websites that are d
                 "uniques": 0,
                 "videoPercentage": 0,
                 "displayPercentage": 0
+            },
+            {
+                "id": 101,
+                "name": "*.com.au",
+                "invGroupSubType": 2
             }
         ]
     },
@@ -879,13 +895,15 @@ interface Responses {
           globalBlockedInventoryData: {
             id: number;
             name: string;
-            publisher: string;
-            inventoryType: string;
-            comment: string;
-            impressions: number;
-            uniques: number;
-            videoPercentage: number;
-            displayPercentage: number;
+            publisher?: string;
+            appId?: string;
+            inventoryType?: string;
+            comment?: string;
+            impressions?: number;
+            uniques?: number;
+            videoPercentage?: number;
+            displayPercentage?: number;
+            invGroupSubType?: number;
           }[];
           globalBlockedInventoryIds: number;
           filteredRecords: number;
@@ -902,7 +920,6 @@ function getBlockedInventories(): Promise<Responses> {
     params: {
       query: {
         searchField: `string`,
-        inventoryIds: `string`,
         noOfEntries: `number`,
         pageNo: `number`
       }
@@ -1314,8 +1331,102 @@ Block Inventories by uploading a CSV file containing Inventory IDs. The CSV file
 | ---- | --- |
 | `blocklistFile` <br /><span class="type-text">file</span> | CSV file containing Inventory IDs to block |
 
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+  <summary style={{ fontSize: "16px" }}>Response Properties</summary>
+
+<table className="objectProperties">
+  <tr>
+  <td>`message` <br /><span class="type-text">string</span></td>
+  <td>Success message with the number of Inventories blocked. Present only when every row in the file was valid.</td>
+  </tr>
+  <tr>
+  <td>`Error` <br /><span class="type-text">string</span></td>
+  <td>Error message with the number of rows that could not be uploaded. Present instead of <var>message</var> when one or more rows in the file are invalid -- the request still returns <var>200</var>.</td>
+  </tr>
+  <tr>
+  <td>`errorFileUrl` <br /><span class="type-text">string</span></td>
+  <td>Download URL for a file listing the invalid rows. Present alongside <var>Error</var>.</td>
+  </tr>
+  </table></details>
+
 </div>
 <div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Request Sample"
+{
+  "blocklistFile": "string",
+  "fileTypeId": 1
+}
+```
+
+```json title="Response 200 (all rows valid)"
+{
+    "success": true,
+    "data": {
+        "message": "5 inventories blocked successfully"
+    }
+}
+```
+
+```json title="Response 200 (some rows invalid)"
+{
+    "success": true,
+    "data": {
+        "Error": "2 Entries could not be uploaded. Download the error file and retry",
+        "errorFileUrl": "https://iqm-ephemeral-2aca615e13f8-stage.s3.amazonaws.com/inventory/block-file/errors/invalid_rows_1720435555550.csv?response-expires-Amz-Credential"
+    }
+}
+```
+
+</TabItem>
+<TabItem value="TypeScript" label="TypeScript">
+
+See [TypeScript Prerequisites](/getting-started/typescript-prerequisites.mdx) for usage.
+
+```ts
+import {
+  getInstance
+} from "prerequisites"
+
+const axios = getInstance();
+
+interface Responses {
+  200: {
+    content: {
+      "application/json": {
+        success: boolean;
+        data: {
+          message?: string;
+          Error?: string;
+          errorFileUrl?: string;
+        };
+      };
+    };
+  };
+}
+
+function blockInventoriesToBlockedListViaFile(): Promise<Responses> {
+  const options = {
+    method: 'POST',
+    url: 'https://api.iqm.com/api/v3/inv/blocked-inventories/block-file',
+    requestBody: {
+      content: {
+        "application/json": {
+          blocklistFile: `string`,
+          fileTypeId: `number`,
+        }
+      }
+    }
+  };
+
+  return axios.request(options).then(({ data }: { data: Responses }) => data);
+}
+```
+
+</TabItem></Tabs>
 
 </div></div>
 
