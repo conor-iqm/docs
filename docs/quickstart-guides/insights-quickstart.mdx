@@ -10,11 +10,11 @@ import TabItem from '@theme/TabItem';
 import ExternalLink from '@site/static/img/external-link2.svg';
 import CopyUrl from '@site/src/components/CopyUrl';
 
-# Create an insights report
+# Create an Insights report
 
-Create an insights report with this in-depth tutorial using IQM's API.
+Create an Insights report with this in-depth tutorial using IQM's API.
 
-The following endpoints are used to check campaigns for eligibility and create different types of insights reports:
+The following endpoints are used to check campaigns for eligibility and create different types of Insights reports:
 
 <CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
 <br /><CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" />
@@ -29,7 +29,7 @@ The following endpoints are used to check campaigns for eligibility and create d
 
 ## About IQM insights
 
-Insights reports are one of IQM's analytics tools that help Advertisers quickly identify trends and apply precise adjustments to deliver better results for Campaigns. With pre-defined metrics and dimensions, Insights reports can be generated for the following areas:
+Insights reports are one of IQM's analytics tools that help Advertisers quickly identify trends and apply precise adjustments to deliver better results for campaigns. With pre-defined metrics and dimensions, Insights reports can be generated for the following areas:
    * **Campaign Bidding Insights** reports capture rejected campaigns and segment them based on rejection reason, allowing you to assess which parameters are limiting a campaign's success.
    * **Audience Insights** reports provide an in-depth view of audience characteristics, interests, and behaviors to give you a deeper understanding of your target audience and create targeted and personalized advertising strategies.
    * **Voter Level Data (VLD) Insights** reports offer information about targeting in current or prior political campaigns. These reports include ad exposure, engagement data, demographic data, and voting-history details by voter.
@@ -44,7 +44,7 @@ Insights reports are one of IQM's analytics tools that help Advertisers quickly 
  
 ## Before you begin
 
-To generate an insights report, you need an account on the IQM platform (see [Getting started](/getting-started/before-you-begin)). Once you have an account you can log in and review the eligibility requirements table for each kind of insights report.
+To generate an Insights report, you need an account on the IQM platform (see [Getting started](/getting-started/before-you-begin)). Once you have an account you can log in and review the eligibility requirements table for each kind of Insights report.
 
 ### Log in
 
@@ -225,7 +225,7 @@ Use the following header parameters for all requests after logging in:
 
 ### Eligibility requirements
 
-The table below outlines the eligibility requirements for each insights report type and includes relevant resources. Click on a type to jump to the instructions for generating that insights report. 
+The table below outlines the eligibility requirements for each Insights report type and includes relevant resources. Click on a type to jump to the instructions for generating that Insights report. 
 
 <table>
 <th>Type</th>
@@ -264,7 +264,7 @@ The table below outlines the eligibility requirements for each insights report t
 
 To generate a Campaign Bidding Insights report, use the <var>campaignId</var> and the Get campaign details endpoint to check if the eligibility requirements are met. 
 
-The endpoint returns a JSON schema of campaign details; the relevant parameters are highlighted in the sample <var>Response 200</var> code block. A campaign type of <var>1</var> means it's an "advanced" campaign. In the sample response the status is <var>running</var>, and the impressions count is <var>5</var>. This campaign meets the eligibility requirements to generate an insights report. 
+The endpoint returns a JSON schema of campaign details; the relevant parameters are highlighted in the sample <var>Response 200</var> code block. A campaign type of <var>1</var> means it's an "advanced" campaign. In the sample response the status is <var>running</var>, and the impressions count is <var>5</var>. This campaign meets the eligibility requirements to generate an Insights report. 
 
 | Path parameters |  |
 | ---- | --- |
