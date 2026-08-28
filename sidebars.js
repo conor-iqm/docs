@@ -892,8 +892,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Create Audience Insights',
-              href: '/guidelines/audience-api#create-audience-insights',
+              label: 'Create Audience Insights report',
+              href: '/guidelines/audience-api#create-audience-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -942,7 +942,7 @@ const sidebars = {
             {
               type: 'link',
               label: 'Refresh Matched Audience',
-              href: '/healthcare-vertical/audience-healthcare#refresh-matched-audience',
+              href: '/guidelines/audience-api/#refresh-matched-audience',
               customProps: { method: 'PUT' },
             },
             {

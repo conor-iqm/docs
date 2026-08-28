@@ -15,11 +15,11 @@ Get a list of healthcare titles.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field
-| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | List of [Audience Subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the healthcare titles. Comma-separated string of IDs is also allowed.
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | List of [Audience subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the healthcare titles. Comma-separated string of IDs is also allowed.
 | `includeGenericAudience` <br /><span class="type-text">boolean</span> | When <var>true</var>, includes records with no audience subtype alongside any matched subtype IDs. Default: <var>false</var>
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -147,11 +147,11 @@ Get a list of healthcare specialties.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field
-| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | List of [Audience Subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the healthcare specialties. Comma-separated string of IDs is also allowed.
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | List of [Audience subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the healthcare specialties. Comma-separated string of IDs is also allowed.
 | `includeGenericAudience` <br /><span class="type-text">boolean</span> | When <var>true</var>, includes records with no audience subtype alongside any matched subtype IDs. Default: <var>false</var>
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -279,11 +279,11 @@ Get a list of healthcare systems.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field
-| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | List of [Audience Subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the healthcare systems. Comma-separated string of IDs is also allowed.
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | List of [Audience subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the healthcare systems. Comma-separated string of IDs is also allowed.
 | `includeGenericAudience` <br /><span class="type-text">boolean</span> | When <var>true</var>, includes records with no audience subtype alongside any matched subtype IDs. Default: <var>false</var>
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -411,20 +411,20 @@ Get a healthcare data list by specified filters.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
-| `healthCareSystemIds` <br /><span class="type-text">array of integers </span> | [Healthcare System IDs](#healthcare-systems-list)
-| `accountNameIds` <br /><span class="type-text">array of integers </span> | [Healthcare Account Name IDs](#healthcare-account-names)
-| `accountTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare Account Type IDs](#healthcare-account-types) 
-| `accountSubTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare Account Subtype IDs](#healthcare-account-subtypes)
+| `healthCareSystemIds` <br /><span class="type-text">array of integers </span> | [Healthcare system IDs](#healthcare-systems-list)
+| `accountNameIds` <br /><span class="type-text">array of integers </span> | [Healthcare account name IDs](#healthcare-account-names)
+| `accountTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare account type IDs](#healthcare-account-types) 
+| `accountSubTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare account subtype IDs](#healthcare-account-subtypes)
 | `countryIds` <br /><span class="type-text">array of integers </span> | [Country IDs](/guidelines/master-api#get-country-segment) 
 | `stateIds` <br /><span class="type-text">array of integers </span> | [State IDs](/guidelines/master-api#get-state-segment)
 | `cityIds` <br /><span class="type-text">array of integers </span> | [City IDs](/guidelines/master-api#get-city-segment)
-| `titleIds` <br /><span class="type-text">array of integers </span> | [Healthcare Title IDs](#healthcare-titles-list)
-| `specialityIds` <br /><span class="type-text">array of integers </span> | [Healthcare Specialty IDs](#healthcare-specialties-list) 
+| `titleIds` <br /><span class="type-text">array of integers </span> | [Healthcare title IDs](#healthcare-titles-list)
+| `specialityIds` <br /><span class="type-text">array of integers </span> | [Healthcare specialty IDs](#healthcare-specialties-list) 
 | `ids` <br /><span class="type-text">array of integers </span> | IDs
-| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience Subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
 | `includeGenericAudience` <br /><span class="type-text">boolean</span> | When <var>true</var>, includes records with no audience subtype alongside any matched subtype IDs. Default: <var>false</var>
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -445,7 +445,7 @@ Get a healthcare data list by specified filters.
 </tr>
 <tr>
   <td>`healthCareSystemId` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare System ID](#healthcare-systems-list)</td>
+  <td>[Healthcare system ID](#healthcare-systems-list)</td>
 </tr>
 <tr>
   <td>`healthCareSystemName` <br /><span class="type-text">string</span></td>
@@ -453,7 +453,7 @@ Get a healthcare data list by specified filters.
 </tr>
 <tr>
   <td>`accountId` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Account ID](#healthcare-account-names)</td>
+  <td>[Healthcare account ID](#healthcare-account-names)</td>
 </tr>
 <tr>
   <td>`accountName` <br /><span class="type-text">string</span></td>
@@ -461,7 +461,7 @@ Get a healthcare data list by specified filters.
 </tr>
 <tr>
   <td>`accountTypeId` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Account Type ID](#healthcare-account-types)</td>
+  <td>[Healthcare account type ID](#healthcare-account-types)</td>
 </tr>
 <tr>
   <td>`accountTypeName` <br /><span class="type-text">string</span></td>
@@ -469,7 +469,7 @@ Get a healthcare data list by specified filters.
 </tr>
 <tr>
   <td>`accountSubTypeId` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Account Subtype ID](#healthcare-account-subtypes)</td>
+  <td>[Healthcare account subtype ID](#healthcare-account-subtypes)</td>
 </tr>
 <tr>
   <td>`accountSubTypeName` <br /><span class="type-text">string</span></td>
@@ -477,7 +477,7 @@ Get a healthcare data list by specified filters.
 </tr>
 <tr>
   <td>`titleId` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Title ID](#healthcare-titles-list)</td>
+  <td>[Healthcare title ID](#healthcare-titles-list)</td>
 </tr>
 <tr>
   <td>`titleName` <br /><span class="type-text">string</span></td>
@@ -485,7 +485,7 @@ Get a healthcare data list by specified filters.
 </tr>
 <tr>
   <td>`specialityId` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Specialty ID](#healthcare-specialties-list)</td>
+  <td>[Healthcare specialty ID](#healthcare-specialties-list)</td>
 </tr>
 <tr>
   <td>`specialityName` <br /><span class="type-text">string</span></td>
@@ -517,7 +517,7 @@ Get a healthcare data list by specified filters.
 </tr>
 <tr>
   <td>`dataProviderId` <br /><span class="type-text">integer</span></td>
-  <td>[Data Provider ID](/guidelines/audience-api/#segment-partner-provider-list)</td>
+  <td>[Data provider ID](/guidelines/audience-api/#segment-partner-provider-list)</td>
 </tr>
 <tr>
   <td>`dataProviderName` <br /><span class="type-text">string</span></td>
@@ -751,20 +751,20 @@ Get healthcare statistics details.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
 | `healthCareSystemIds` <br /><span class="type-text">array of integers </span> | Healthcare system IDs 
 | `accountNameIds` <br /><span class="type-text">array of integers </span> | Account name IDs 
-| `accountTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare Account Type IDs](#healthcare-account-types) 
+| `accountTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare account type IDs](#healthcare-account-types) 
 | `accountSubTypeIds` <br /><span class="type-text">array of integers </span> | Account subtype IDs 
 | `countryIds` <br /><span class="type-text">array of integers </span> | [Country IDs](/guidelines/master-api#get-country-segment) 
 | `stateIds` <br /><span class="type-text">array of integers </span> | [State IDs](/guidelines/master-api#get-state-segment)
 | `cityIds` <br /><span class="type-text">array of integers </span> | [City IDs](/guidelines/master-api#get-city-segment) 
 | `titleIds` <br /><span class="type-text">array of integers </span> | Title IDs 
-| `specialityIds` <br /><span class="type-text">array of integers </span> | [Healthcare Specialty IDs](#healthcare-specialties-list) 
+| `specialityIds` <br /><span class="type-text">array of integers </span> | [Healthcare specialty IDs](#healthcare-specialties-list) 
 | `ids` <br /><span class="type-text">array of integers </span> | IDs
-| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience Subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
 | `includeGenericAudience` <br /><span class="type-text">boolean</span> | When <var>true</var>, includes records with no audience subtype alongside any matched subtype IDs. Default: <var>false</var>
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -773,15 +773,15 @@ Get healthcare statistics details.
 <table className="objectProperties">
 <tr>
   <td>`healthSystem` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare System ID](#healthcare-systems-list)</td>
+  <td>[Healthcare system ID](#healthcare-systems-list)</td>
 </tr>
 <tr>
   <td>`account` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Account ID](#healthcare-account-names)</td>
+  <td>[Healthcare account ID](#healthcare-account-names)</td>
 </tr>
 <tr>
   <td>`accountType` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Account Type ID](#healthcare-account-types)</td>
+  <td>[Healthcare account type ID](#healthcare-account-types)</td>
 </tr>
 <tr>
   <td>`npiReach` <br /><span class="type-text">integer</span></td>
@@ -789,7 +789,7 @@ Get healthcare statistics details.
 </tr>
 <tr>
   <td>`speciality` <br /><span class="type-text">integer</span></td>
-  <td>[Healthcare Specialty ID](#healthcare-specialties-list)</td>
+  <td>[Healthcare specialty ID](#healthcare-specialties-list)</td>
 </tr>
 </table>
 </details>
@@ -946,13 +946,13 @@ Get a list of healthcare account types.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
 | `healthCareSystemIds` <br /><span class="type-text">array of integers </span> | Healthcare system IDs 
 | `accountNameIds` <br /><span class="type-text">array of integers </span> | Account name IDs 
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field
-| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience Subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
 | `includeGenericAudience` <br /><span class="type-text">boolean</span> | When <var>true</var>, includes records with no audience subtype alongside any matched subtype IDs. Default: <var>false</var>
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -1109,14 +1109,14 @@ Get a list of healthcare account subtypes.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
 | `healthCareSystemIds` <br /><span class="type-text">array of integers </span> | Healthcare system IDs 
 | `accountNameIds` <br /><span class="type-text">array of integers </span> | Account name IDs 
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field
-| `accountTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare Account Type IDs](#healthcare-account-types)s
-| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience Subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
+| `accountTypeIds` <br /><span class="type-text">array of integers </span> | [Healthcare account type IDs](#healthcare-account-types)s
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience subtype IDs](/guidelines/audience-api/#audience-subtype-list) to filter the records
 | `includeGenericAudience` <br /><span class="type-text">boolean</span> | When <var>true</var>, includes records with no audience subtype alongside any matched subtype IDs. Default: <var>false</var>
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
@@ -1278,7 +1278,7 @@ Get a list of healthcare account names.
 
 | Query Parameters | |
 | --- | --- |
-| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider ID](/guidelines/audience-api/#segment-partner-provider-list)s |
+| `dataProviderIds` <br /><span class="type-text">array of integers</span> | Data [Provider IDs](/guidelines/audience-api/#segment-partner-provider-list) |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>0</var>
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>
 | `healthCareSystemIds` <br /><span class="type-text">array of integers </span> | Healthcare system IDs 
