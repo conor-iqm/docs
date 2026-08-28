@@ -85,19 +85,19 @@ IQM's Bid Model currently supports applying bid modifiers to the following dimen
 <th>Notes</th>
 <tr>
   <td>Add Bid Modeling</td>
-  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-modeling)</td>
+  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-model-settings)</td>
   <td>[<span class="badge bar badge--success">POST</span><span class="path-text">/rest/v2/bid-modifiers</span>](https://api-docs.freewheel.tv/advertiser/v2.0/reference/bid_modifiers_create)</td>
   <td></td>
 </tr>
 <tr>
   <td>Add Bid Modeling to Insertion Order/Campaign</td>
-  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/io/\{ioId}/bid-models</span>](/guidelines/bid-model-api#manage-insertion-order-bid-modeling)</td>
+  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/io/\{ioId}/bid-models</span>](/guidelines/bid-model-api#manage-insertion-order-bid-model-settings)</td>
   <td>[<span class="badge bar badge--success">POST</span><span class="path-text">/rest/v2/campaigns</span>](https://api-docs.freewheel.tv/advertiser/v2.0/reference/campaigns_create) <br />[<span class="badge bar badge--success">POST</span><span class="path-text">/rest/v2/line-items</span>](https://api-docs.freewheel.tv/advertiser/v2.0/reference/line_items_create)</td>
   <td>Add Bid Modeling to an Insertion Order and its associated Campaigns. <p />Beeswax endpoints use the <var>bid_modifier_id</var> parameter when creating/updating a Campaign or Line Item to add a bid modifier.</td>
 </tr>
 <tr>
   <td>Update Bid Modeling</td>
-  <td rowSpan={2}>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-modeling)</td>
+  <td rowSpan={2}>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-model-settings)</td>
   <td>[<span class="badge bar badge--info">PATCH</span><span class="path-text">/rest/v2/campaigns/\{id}</span>](https://api-docs.freewheel.tv/advertiser/v2.0/reference/campaigns_partial_update)<br />[<span class="badge bar badge--info">PATCH</span><span class="path-text">/rest/v2/line-items/\{id}</span>](https://api-docs.freewheel.tv/advertiser/v2.0/reference/line_items_partial_update)</td>
   <td></td>
 </tr>

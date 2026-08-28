@@ -1275,7 +1275,7 @@ const sidebars = {
       items: [
         {
           type: 'category',
-          label: 'Bid Model Details',
+          label: 'Bid Model Settings Details',
           className: 'sidebarItem',
           items: [
             {
@@ -1338,19 +1338,19 @@ const sidebars = {
         },
         {
           type: `category`,
-          label: `Bid Model Management`,
+          label: `Bid Model Settings Management`,
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'Bid Modeling Criteria',
-              href: '/guidelines/bid-model-api#bid-modeling-criteria',
+              label: 'Bid Model Settings Criteria',
+              href: '/guidelines/bid-model-api#bid-model-settings-criteria',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Manage Bid Modeling',
-              href: '/guidelines/bid-model-api#manage-bid-modeling',
+              label: 'Manage Bid Model Settings',
+              href: '/guidelines/bid-model-api#manage-bid-model-settings',
               customProps: { method: 'PUT' },
               className: 'sidebarItem'
             },
@@ -1377,8 +1377,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'IO Bid Modeling',
-              href: '/guidelines/bid-model-api#manage-insertion-order-bid-modeling',
+              label: 'IO Bid Model Settings',
+              href: '/guidelines/bid-model-api#manage-insertion-order-bid-model-settings',
               customProps: { method: 'PUT' },
               className: 'sidebarItem'
             },

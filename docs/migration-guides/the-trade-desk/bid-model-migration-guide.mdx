@@ -84,19 +84,19 @@ IQM's Bid Model currently supports applying bid modifiers to the following dimen
 <th>Notes</th>
 <tr>
   <td>Add Bid Modeling</td>
-  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-modeling)</td>
+  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-model-settings)</td>
   <td>[<span class="badge bar badge--success">POST</span><span class="path-text">/v3/bidlist</span>](https://partner.thetradedesk.com/v3/portal/api/ref/post-bidlist)</td>
   <td></td>
 </tr>
 <tr>
   <td>Add Bid Modeling to Insertion Order</td>
-  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/io/\{ioId}/bid-models</span>](/guidelines/bid-model-api#manage-insertion-order-bid-modeling)</td>
+  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/io/\{ioId}/bid-models</span>](/guidelines/bid-model-api#manage-insertion-order-bid-model-settings)</td>
   <td>[<span class="badge bar badge--success">POST</span><span class="path-text">/v3/bidlist</span>](https://partner.thetradedesk.com/v3/portal/api/ref/post-bidlist) <br />[<span class="badge bar badge--success">POST</span><span class="path-text">/v3/bidlist/batch</span>](https://partner.thetradedesk.com/v3/portal/api/ref/post-bidlist-batch)</td>
   <td>Add Bid Modeling to an Insertion Order and its associated Campaigns. <p />The Trade Desk endpoints use the <var>BidListOWner</var> parameter to specify whether the created Bid List will be applied at the Campaign level or the Ad Group level.</td>
 </tr>
 <tr>
   <td>Update Bid Modeling</td>
-  <td rowSpan={2}>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-modeling)</td>
+  <td rowSpan={2}>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-model-settings)</td>
   <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/v3/bidlist</span>](https://partner.thetradedesk.com/v3/portal/api/ref/put-bidlist)</td>
   <td></td>
 </tr>

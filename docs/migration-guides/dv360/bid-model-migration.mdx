@@ -84,19 +84,19 @@ IQM's Bid Model currently supports applying bid modifiers to the following dimen
 <th>Notes</th>
 <tr>
   <td>Add Bid Modeling</td>
-  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-modeling)</td>
+  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-model-settings)</td>
   <td>[<span class="badge bar badge--success">POST</span><span class="path-text">/v4/customBiddingAlgorithms</span>](https://developers.google.com/display-video/api/reference/rest/v4/customBiddingAlgorithms/create)</td>
   <td></td>
 </tr>
 <tr>
   <td>Add Bid Modeling to Insertion Order</td>
-  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/io/\{ioId}/bid-models</span>](/guidelines/bid-model-api#manage-insertion-order-bid-modeling)</td>
+  <td>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/io/\{ioId}/bid-models</span>](/guidelines/bid-model-api#manage-insertion-order-bid-model-settings)</td>
   <td>[<span class="badge bar badge--success">POST</span><span class="path-text">/v4/advertisers/\{lineItem.advertiserId}/lineItems</span>](https://developers.google.com/display-video/api/reference/rest/v4/advertisers.lineItems/create) <br />[<span class="badge bar badge--info">PATCH</span><span class="path-text">/v4/advertisers/\{lineItem.advertiserId}/lineItems/\{lineItem.lineItemId}</span>](https://developers.google.com/display-video/api/reference/rest/v4/advertisers.lineItems/patch)</td>
   <td>Add Bid Modeling to an Insertion Order and its associated Campaigns. <p />DV360  adds Custom Bidding when creating/updating Line Items. Add a <var>customBiddingAlgorithmId</var> to the <var>MaximizeSpendBidStrategy</var> object within the <var>bidStrategy</var> object. </td>
 </tr>
 <tr>
   <td>Update Bid Modeling</td>
-  <td rowSpan={2}>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-modeling)</td>
+  <td rowSpan={2}>[<span class="badge bar badge--warning">PUT</span><span class="path-text">/api/v3/bm/campaigns/\{campaignId\}/bid-models/\{dimensionId\}</span>](/guidelines/bid-model-api/#manage-bid-model-settings)</td>
   <td>[<span class="badge bar badge--info">PATCH</span><span class="path-text">/v4/customBiddingAlgorithms/\{customBiddingAlgorithm.customBiddingAlgorithmId}</span>](https://developers.google.com/display-video/api/reference/rest/v4/customBiddingAlgorithms/patch)</td>
   <td></td>
 </tr>
