@@ -1549,7 +1549,7 @@ const sidebars = {
             {
               type: 'link',
               label: 'List of Campaign Start/End Dates',
-              href: '/guidelines/Campaign-API-guidelines/#get-list-of-campaign-start-dates-or-end-dates',
+              href: '/guidelines/campaign-api/#get-list-of-campaign-start-dates-or-end-dates',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -1883,8 +1883,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Goal-AI Objectives and Goals',
-              href: '/guidelines/campaign-api#get-goal-ai-objectives-and-goals',
+              label: 'AI-Based Optimization Campaign Goals and Objectives',
+              href: '/guidelines/campaign-api/#ai-based-optimization-campaign-goals-and-objectives',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
