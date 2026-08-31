@@ -2925,7 +2925,7 @@ const sidebars = {
             {
               type: 'link',
               label: 'Payment Types',
-              href: '/guidelines/finance-api#static-details-lists',
+              href: '/guidelines/finance-api#payment-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
