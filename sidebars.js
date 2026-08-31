@@ -2341,15 +2341,15 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Get Campaign Goal AI Graph Data',
-              href: '/guidelines/dashboard-api#get-campaign-goal-ai-graph-data',
+              label: 'Get Campaign AI-Based Optimization Graph Data',
+              href: '/guidelines/dashboard-api#get-campaign-ai-based-optimization-graph-data',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Get Campaign Goal AI Optimization Activity',
-              href: '/guidelines/dashboard-api#get-campaign-goal-ai-optimization-activity',
+              label: 'Get Campaign AI-Based Optimization Activity',
+              href: '/guidelines/dashboard-api#get-campaign-ai-based-optimization-activity',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -2385,41 +2385,41 @@ const sidebars = {
         },
         {
           type: 'category',
-          label: 'Campaign Pulse',
+          label: 'CampaignPulse',
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'Campaign Pulse Categories',
-              href: '/guidelines/dashboard-api#get-campaign-pulse-categories',
+              label: 'CampaignPulse Categories',
+              href: '/guidelines/dashboard-api#get-campaignpulse-categories',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Campaign Pulse Diagnosis Results',
-              href: '/guidelines/dashboard-api#get-campaign-pulse-diagnosis-results',
+              label: 'CampaignPulse Diagnosis Results',
+              href: '/guidelines/dashboard-api#get-campaignpulse-diagnosis-results',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Campaign Pulse Severity Counts',
-              href: '/guidelines/dashboard-api#get-campaign-pulse-severity-counts',
+              label: 'CampaignPulse Severity Counts',
+              href: '/guidelines/dashboard-api#get-campaignpulse-severity-counts',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Run Campaign Pulse Now',
-              href: '/guidelines/dashboard-api#run-campaign-pulse-now',
+              label: 'Run CampaignPulse Now',
+              href: '/guidelines/dashboard-api#run-campaignpulse-now',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Run Campaign Pulse Severity Check Now',
-              href: '/guidelines/dashboard-api#run-campaign-pulse-severity-check-now',
+              label: 'Run CampaignPulse Severity Check Now',
+              href: '/guidelines/dashboard-api#run-campaignpulse-severity-check-now',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
