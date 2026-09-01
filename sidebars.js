@@ -1480,7 +1480,7 @@ const sidebars = {
               type: 'link',
               label: 'Campaign Budget Details',
               href: '/guidelines/campaign-api#get-campaign-budget-details',
-              customProps: { method: 'GET' },
+              customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
