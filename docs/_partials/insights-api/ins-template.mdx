@@ -125,7 +125,7 @@ A <var>templateId</var> can be used to get [Get template details](#get-template-
 
 | Query parameters |  |
 | ---- | --- |
-| `category` <br /><span class="type-text">string</span> <span class="required-text">required</span> | Insight type category: <var>pld</var>, <var>ict</var>, or <var>nld</var> |
+| `category` <br /><span class="type-text">string</span> <span class="required-text">required</span> | Insights type category: <var>pld</var>, <var>ict</var>, or <var>nld</var> |
 | `searchField` <br /><span class="type-text">string</span> | Filter templates by name |
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries per page, default: <var>20</var> |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number for pagination, default: <var>1</var> |
@@ -720,7 +720,7 @@ Checks if the given template name is available (not already in use) within the c
 | Request schema |  |
 | ---- | --- |
 | `name` <br /><span class="type-text">string</span> | Template name to validate (3–100 characters) |
-| `category` <br /><span class="type-text">string</span> | Insight type category: <var>pld</var>, <var>ict</var>, or <var>nld</var> |
+| `category` <br /><span class="type-text">string</span> | Insights type category: <var>pld</var>, <var>ict</var>, or <var>nld</var> |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -894,7 +894,7 @@ When the template is <var>ACTIVE</var>, the platform will use the configured sch
 </tr>
 <tr>
 <td>`category` <br /><span class="type-text">string</span></td>
-<td>Insight type category: <var>pld</var>, <var>ict</var>, or <var>nld</var></td>
+<td>Insights type category: <var>pld</var>, <var>ict</var>, or <var>nld</var></td>
 </tr>
 </table>
 

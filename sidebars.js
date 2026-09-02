@@ -3445,7 +3445,7 @@ const sidebars = {
             {
               type: 'link',
               label: 'List of Insights Types',
-              href: '/guidelines/insights-api#get-more-insights-reports-details',
+              href: '/guidelines/insights-api#get-list-of-insights-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
