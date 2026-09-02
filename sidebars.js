@@ -2979,13 +2979,13 @@ const sidebars = {
       items: [
         {
           type: 'category',
-          label: 'Insights Details',
+          label: 'Insights Report Details',
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'List of Insights',
-              href: '/guidelines/insights-api#get-insights-details',
+              label: 'List of Insights Reports',
+              href: '/guidelines/insights-api#insights-report-details',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -2998,8 +2998,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Insights Count by Type',
-              href: '/guidelines/insights-api#get-insights-count-by-type',
+              label: 'Insights Reports Count by Type',
+              href: '/guidelines/insights-api#get-insights-reports-count-by-type',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -3021,13 +3021,13 @@ const sidebars = {
         },
         {
           type: `category`,
-          label: `Insights Management`,
+          label: `Insights Report Management`,
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'Delete Insights Record',
-              href: '/guidelines/insights-api#delete-insights-record',
+              label: 'Delete Insights Report Record',
+              href: '/guidelines/insights-api#delete-insights-report-record',
               customProps: { method: 'DEL' },
               className: 'sidebarItem'
             },
@@ -3040,8 +3040,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Send Insights Email',
-              href: '/guidelines/insights-api#send-insights-email',
+              label: 'Send Insights Report Email',
+              href: '/guidelines/insights-api#send-insights-report-email',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -3049,7 +3049,7 @@ const sidebars = {
         },
         {
           type: `category`,
-          label: `Audience Insights`,
+          label: `Audience Insights Report`,
           className: 'sidebarItem',
           items: [
             {
@@ -3075,8 +3075,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Create Audience Insights',
-              href: '/guidelines/insights-api#create-audience-insights',
+              label: 'Create Audience Insights Report',
+              href: '/guidelines/insights-api#create-audience-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -3133,74 +3133,74 @@ const sidebars = {
         },
                 {
           type: 'category',
-          label: 'Audience Quality Score Reports',
+          label: 'Audience Quality (AQ) Insights Report',
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'AQS Eligibility Requirements',
-              href: '/guidelines/insights-api#aqs-eligibility-requirements',
+              label: 'AQ Insights Report Eligibility Requirements',
+              href: '/guidelines/insights-api#aq-insights-report-eligibility-requirements',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'AQS Resource Properties',
-              href: '/guidelines/insights-api#aqs-resource-properties',
+              label: 'AQ Insights Report Resource Properties',
+              href: '/guidelines/insights-api#aq-insights-report-resource-properties',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'List of AQS Reports',
-              href: '/guidelines/insights-api#get-list-of-aqs-reports',
+              label: 'List of AQ Insights Reports',
+              href: '/guidelines/insights-api#get-list-of-aq-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Campaigns Eligible for AQS Reports',
-              href: '/guidelines/insights-api#get-list-of-campaigns-eligible-for-aqs-reports',
+              label: 'Campaigns Eligible for AQ Insights Reports',
+              href: '/guidelines/insights-api#get-list-of-campaigns-eligible-for-aq-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Validate AQS Report Name',
-              href: '/guidelines/insights-api#validate-aqs-report-name',
+              label: 'Validate AQ Insights Report Name',
+              href: '/guidelines/insights-api#validate-aq-insights-report-name',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Compute AQS Report Cost',
-              href: '/guidelines/insights-api#compute-aqs-report-cost',
+              label: 'Compute AQ Insights Report Cost',
+              href: '/guidelines/insights-api#compute-aq-insights-report-cost',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Generate AQS Report',
-              href: '/guidelines/insights-api#generate-aqs-report',
+              label: 'Generate AQ Insights Report',
+              href: '/guidelines/insights-api#generate-aq-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'AQS Report Types',
-              href: '/guidelines/insights-api#get-aqs-report-types',
+              label: 'AQ Insights Report Types',
+              href: '/guidelines/insights-api#get-aq-insights-report-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Download AQS Report',
-              href: '/guidelines/insights-api#download-aqs-report',
+              label: 'Download AQ Insights Report',
+              href: '/guidelines/insights-api#download-aq-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Delete AQS Report',
-              href: '/guidelines/insights-api#delete-aqs-report',
+              label: 'Delete AQ Insights Report',
+              href: '/guidelines/insights-api#delete-aq-insights-report',
               customProps: { method: 'DEL' },
               className: 'sidebarItem'
             },
@@ -3208,60 +3208,60 @@ const sidebars = {
         },
         {
           type: `category`,
-          label: `Voter Level Data Reports`,
+          label: `Voter Level Data (VLD) Insights Report`,
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'VLD Eligibility Requirements',
-              href: '/guidelines/insights-api#vld-eligibility-requirements',
+              label: 'VLD Insights Eligibility Requirements',
+              href: '/guidelines/insights-api#vld-insights-eligibility-requirements',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'VLD Resource Properties',
-              href: '/guidelines/insights-api#voter-level-data-reports',
+              label: 'VLD Insights Resource Properties',
+              href: '/guidelines/insights-api#vld-insights-resource-properties',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'List of VLD Reports',
-              href: '/guidelines/insights-api#get-list-of-vld-reports',
+              label: 'List of VLD Insights Reports',
+              href: '/guidelines/insights-api#get-list-of-vld-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'List of Campaigns Eligible for VLD Reports',
-              href: '/guidelines/insights-api#get-list-of-campaigns-eligible-for-vld-reports',
+              label: 'List of Campaigns Eligible for VLD Insights Reports',
+              href: '/guidelines/insights-api#get-list-of-campaigns-eligible-for-vld-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Generate VLD Report',
-              href: '/guidelines/insights-api#generate-vld-report',
+              label: 'Generate VLD Insights Report',
+              href: '/guidelines/insights-api#generate-vld-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Cost Assessment for VLD Report',
-              href: '/guidelines/insights-api#get-cost-assessment-for-vld-report',
+              label: 'Cost Assessment for VLD Insights Report',
+              href: '/guidelines/insights-api#get-cost-assessment-for-vld-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Download VLD Insight Report',
-              href: '/guidelines/insights-api#download-vld-insight-report',
+              label: 'Download VLD Insights Report',
+              href: '/guidelines/insights-api#download-vld-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Delete VLD Report',
-              href: '/guidelines/insights-api#delete-vld-report',
+              label: 'Delete VLD Insights Report',
+              href: '/guidelines/insights-api#delete-vld-insights-report',
               customProps: { method: 'DEL' },
               className: 'sidebarItem'
             },
@@ -3269,67 +3269,67 @@ const sidebars = {
         },
                 {
           type: 'category',
-          label: 'ScriptLift Studies Reports',
+          label: 'Script Lift Study (SLS) Insights Report',
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'SLS Eligibility Requirements',
-              href: '/guidelines/insights-api#sls-eligiblity-requirements',
+              label: 'SLS Insights Eligibility Requirements',
+              href: '/guidelines/insights-api#sls-insights-eligibility-requirements',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'SLS Resource Properties',
-              href: '/guidelines/insights-api#sls-resource-properties',
+              label: 'SLS Insights Resource Properties',
+              href: '/guidelines/insights-api#sls-insights-resource-properties',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'List of SLS Reports',
-              href: '/guidelines/insights-api#get-list-of-sls-reports',
+              label: 'List of SLS Insights Reports',
+              href: '/guidelines/insights-api#get-list-of-sls-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Generate SLS Report',
-              href: '/guidelines/insights-api#generate-sls-report',
+              label: 'Generate SLS Insights Report',
+              href: '/guidelines/insights-api#generate-sls-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'SLS Reports Computation',
-              href: '/guidelines/insights-api#sls-reports-computation',
+              label: 'SLS Insights Reports Computation',
+              href: '/guidelines/insights-api#sls-insights-reports-computation',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Validate SLS Report Name',
-              href: '/guidelines/insights-api#validate-sls-report-name',
+              label: 'Validate SLS Insights Report Name',
+              href: '/guidelines/insights-api#validate-sls-insights-report-name',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Campaigns Eligible for SLS Reports',
-              href: '/guidelines/insights-api#get-list-of-campaigns-eligible-for-sls-reports',
+              label: 'Campaigns Eligible for SLS Insights Reports',
+              href: '/guidelines/insights-api#get-list-of-campaigns-eligible-for-sls-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Download SLS Insight Report',
-              href: '/guidelines/insights-api#download-sls-report',
+              label: 'Download SLS Insights Report',
+              href: '/guidelines/insights-api#download-sls-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Delete SLS Report',
-              href: '/guidelines/insights-api#delete-sls-report',
+              label: 'Delete SLS Insights Report',
+              href: '/guidelines/insights-api#delete-sls-insights-report',
               customProps: { method: 'DEL' },
               className: 'sidebarItem'
             },
@@ -3342,20 +3342,20 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'PLD Eligibility Requirements',
-              href: '/guidelines/insights-api#pld-eligibility-requirements',
+              label: 'PLD Insights Eligibility Requirements',
+              href: '/guidelines/insights-api#pld-insights-eligibility-requirements',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'NLD Eligibility Requirements',
-              href: '/guidelines/insights-api#nld-eligibility-requirements',
+              label: 'NLD Insights Eligibility Requirements',
+              href: '/guidelines/insights-api#nld-insights-eligibility-requirements',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'ICT Eligibility Requirements',
-              href: '/guidelines/insights-api#ict-eligibility-requirements',
+              label: 'ICT Insights Eligibility Requirements',
+              href: '/guidelines/insights-api#ict-insights-eligibility-requirements',
               className: 'sidebarItem'
             },
             {
@@ -3445,21 +3445,21 @@ const sidebars = {
             {
               type: 'link',
               label: 'List of Insights Types',
-              href: '/guidelines/insights-api#get-more-insights-details',
+              href: '/guidelines/insights-api#get-more-insights-reports-details',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
               label: 'List of Insights Status',
-              href: '/guidelines/insights-api#get-list-of-insights-status',
+              href: '/guidelines/insights-api#get-list-of-insights-status-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
               label: 'Template Statuses',
-              href: '/guidelines/insights-api#get-list-of-template-statuses',
+              href: '/guidelines/insights-api#get-list-of-template-status-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -6171,60 +6171,60 @@ const sidebars = {
         },
         {
           type: `category`,
-          label: `Voter Level Data Reports`,
+          label: `Voter Level Data (VLD) Insights Report`,
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'VLD Eligibility Requirements',
-              href: '/political-vertical/insights-vld/#vld-eligibility-requirements',
+              label: 'VLD Insights Eligibility Requirements',
+              href: '/political-vertical/insights-vld/#vld-insights-eligibility-requirements',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'VLD Resource Properties',
-              href: '/political-vertical/insights-vld/#vld-resource-properties',
+              label: 'VLD Insights Resource Properties',
+              href: '/political-vertical/insights-vld/#vld-insights-resource-properties',
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'List of VLD Reports',
-              href: '/political-vertical/insights-vld/#get-list-of-vld-reports',
+              label: 'List of VLD Insights Reports',
+              href: '/political-vertical/insights-vld/#get-list-of-vld-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'List of Campaigns Eligible for VLD Reports',
-              href: '/political-vertical/insights-vld/#get-list-of-campaigns-eligible-for-vld-reports',
+              label: 'List of Campaigns Eligible for VLD Insights Reports',
+              href: '/political-vertical/insights-vld/#get-list-of-campaigns-eligible-for-vld-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Generate VLD Report',
-              href: '/political-vertical/insights-vld/#generate-vld-report',
+              label: 'Generate VLD Insights Report',
+              href: '/political-vertical/insights-vld/#generate-vld-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Cost Assessment for VLD Report',
-              href: '/political-vertical/insights-vld/#get-cost-assessment-for-vld-report',
+              label: 'Cost Assessment for VLD Insights Report',
+              href: '/political-vertical/insights-vld/#get-cost-assessment-for-vld-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Download VLD Insight Report',
-              href: '/political-vertical/insights-vld/#download-vld-insight-report',
+              label: 'Download VLD Insights Report',
+              href: '/political-vertical/insights-vld/#download-vld-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
-              label: 'Delete VLD Report',
-              href: '/political-vertical/insights-vld/#delete-vld-report',
+              label: 'Delete VLD Insights Report',
+              href: '/political-vertical/insights-vld/#delete-vld-insights-report',
               customProps: { method: 'DEL' },
               className: 'sidebarItem'
             },
@@ -7011,73 +7011,73 @@ const sidebars = {
         },
         {  
           type: 'category',
-          label: 'Audience Quality Score Reports',
+          label: 'Audience Quality (AQ) Insights Report',
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'AQS Eligibility Requirements',
-              href: '/healthcare-vertical/insights-pld#aqs-eligibility-requirements',
+              label: 'AQ Insights Report Eligibility Requirements',
+              href: '/healthcare-vertical/insights-pld#aq-insights-report-eligibility-requirements',
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'AQS Resource Properties',
-              href: '/healthcare-vertical/insights-pld#aqs-resource-properties',
+              label: 'AQ Insights Report Resource Properties',
+              href: '/healthcare-vertical/insights-pld#aq-insights-report-resource-properties',
             },
             {
               type: 'link',
-              label: 'List of AQS Reports',
-              href: '/healthcare-vertical/insights-pld#get-list-of-aqs-reports',
+              label: 'List of AQ Insights Reports',
+              href: '/healthcare-vertical/insights-pld#get-list-of-aq-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Campaigns Eligible for AQS Reports',
-              href: '/healthcare-vertical/insights-pld#get-list-of-campaigns-eligible-for-aqs-reports',
+              label: 'Campaigns Eligible for AQ Insights Reports',
+              href: '/healthcare-vertical/insights-pld#get-list-of-campaigns-eligible-for-aq-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Validate AQS Report Name',
-              href: '/healthcare-vertical/insights-pld#validate-aqs-report-name',
+              label: 'Validate AQ Insights Report Name',
+              href: '/healthcare-vertical/insights-pld#validate-aq-insights-report-name',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Compute AQS Report Cost',
-              href: '/healthcare-vertical/insights-pld#compute-aqs-report-cost',
+              label: 'Compute AQ Insights Report Cost',
+              href: '/healthcare-vertical/insights-pld#compute-aq-insights-report-cost',
               customProps: { method: 'POST' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Generate AQS Report',
-              href: '/healthcare-vertical/insights-pld#generate-aqs-report',
+              label: 'Generate AQ Insights Report',
+              href: '/healthcare-vertical/insights-pld#generate-aq-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'AQS Report Types',
-              href: '/healthcare-vertical/insights-pld#get-aqs-report-types',
+              label: 'AQ Insights Report Types',
+              href: '/healthcare-vertical/insights-pld#get-aq-insights-report-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Download AQS Report',
-              href: '/healthcare-vertical/insights-pld#download-aqs-report',
+              label: 'Download AQ Insights Report',
+              href: '/healthcare-vertical/insights-pld#download-aq-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Delete AQS Report',
-              href: '/healthcare-vertical/insights-pld#delete-aqs-report',
+              label: 'Delete AQ Insights Report',
+              href: '/healthcare-vertical/insights-pld#delete-aq-insights-report',
               customProps: { method: 'DEL' },
               className: 'sidebarItem',
             },
@@ -7085,68 +7085,68 @@ const sidebars = {
         },
         {
           type: 'category',
-          label: 'ScriptLift Studies Reports',
+          label: 'Script Lift Study (SLS) Insights Report',
           className: 'sidebarItem',
           items: [
             {
               type: 'link',
-              label: 'SLS Eligibility Requirements',
-              href: '/healthcare-vertical/insights-pld#sls-eligiblity-requirements',
+              label: 'SLS Insights Eligibility Requirements',
+              href: '/healthcare-vertical/insights-pld#sls-insights-eligibility-requirements',
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'SLS Resource Properties',
-              href: '/healthcare-vertical/insights-pld#sls-resource-properties',
+              label: 'SLS Insights Resource Properties',
+              href: '/healthcare-vertical/insights-pld#sls-insights-resource-properties',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'List of SLS Reports',
-              href: '/healthcare-vertical/insights-pld#get-list-of-sls-reports',
+              label: 'List of SLS Insights Reports',
+              href: '/healthcare-vertical/insights-pld#get-list-of-sls-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Generate SLS Report',
-              href: '/healthcare-vertical/insights-pld#generate-sls-report',
+              label: 'Generate SLS Insights Report',
+              href: '/healthcare-vertical/insights-pld#generate-sls-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'SLS Reports Computation',
-              href: '/healthcare-vertical/insights-pld#sls-reports-computation',
+              label: 'SLS Insights Reports Computation',
+              href: '/healthcare-vertical/insights-pld#sls-insights-reports-computation',
               customProps: { method: 'POST' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Validate SLS Report Name',
-              href: '/healthcare-vertical/insights-pld#validate-sls-report-name',
+              label: 'Validate SLS Insights Report Name',
+              href: '/healthcare-vertical/insights-pld#validate-sls-insights-report-name',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Campaigns Eligible for SLS Reports',
-              href: '/healthcare-vertical/insights-pld#get-list-of-campaigns-eligible-for-sls-reports',
+              label: 'Campaigns Eligible for SLS Insights Reports',
+              href: '/healthcare-vertical/insights-pld#get-list-of-campaigns-eligible-for-sls-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Download SLS Insight Report',
-              href: '/healthcare-vertical/insights-pld#download-sls-report',
+              label: 'Download SLS Insights Report',
+              href: '/healthcare-vertical/insights-pld#download-sls-insights-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'Delete SLS Report',
-              href: '/healthcare-vertical/insights-pld#delete-sls-report',
+              label: 'Delete SLS Insights Report',
+              href: '/healthcare-vertical/insights-pld#delete-sls-insights-report',
               customProps: { method: 'DEL' },
               className: 'sidebarItem',
             },
@@ -7159,20 +7159,20 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'PLD Eligibility Requirements',
-              href: '/healthcare-vertical/insights-pld#pld-eligibility-requirements',
+              label: 'PLD Insights Eligibility Requirements',
+              href: '/healthcare-vertical/insights-pld#pld-insights-eligibility-requirements',
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'NLD Eligibility Requirements',
-              href: '/healthcare-vertical/insights-pld#nld-eligibility-requirements',
+              label: 'NLD Insights Eligibility Requirements',
+              href: '/healthcare-vertical/insights-pld#nld-insights-eligibility-requirements',
               className: 'sidebarItem',
             },
             {
               type: 'link',
-              label: 'ICT Eligibility Requirements',
-              href: '/healthcare-vertical/insights-pld#ict-eligibility-requirements',
+              label: 'ICT Insights Eligibility Requirements',
+              href: '/healthcare-vertical/insights-pld#ict-insights-eligibility-requirements',
               className: 'sidebarItem',
             },
             {
@@ -7269,14 +7269,14 @@ const sidebars = {
             {
               type: 'link',
               label: 'List of Insights Status',
-              href: '/healthcare-vertical/insights-pld#get-list-of-insights-status',
+              href: '/healthcare-vertical/insights-pld#get-list-of-insights-status-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
             {
               type: 'link',
               label: 'Template Statuses',
-              href: '/healthcare-vertical/insights-pld#get-list-of-template-statuses',
+              href: '/healthcare-vertical/insights-pld#get-list-of-template-status-types',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },

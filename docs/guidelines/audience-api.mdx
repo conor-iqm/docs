@@ -144,7 +144,7 @@ Regenerate a failed audience.
 
 ---
 
-### Get audience insights
+### Get audience Insights
 
 <CopyUrl method="GET" url="https://api.iqm.com/api/v3/audience/{audienceId}/insights" />
 
@@ -157,7 +157,7 @@ This endpoint only returns insight content for audiences that resolve to an actu
 
 | Path parameters | |
 | --- | --- |
-| `audienceId` <br /><span class="type-text">integer</span> | [Audience ID](/guidelines/audience-api#audience-details-list) to get insights for |
+| `audienceId` <br /><span class="type-text">integer</span> | [Audience ID](/guidelines/audience-api#audience-details-list) to get Insights for |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
  <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -300,9 +300,9 @@ This endpoint only returns insight content for audiences that resolve to an actu
 
 Generate an Audience Insights report for any given audience IDs.
 
-This is the same mechanism as the Insights API's [Create Audience Insights report](/guidelines/insights-api#create-audience-insights) endpoint.
+This is the same mechanism as the Insights API's [Create Audience Insights report](/guidelines/insights-api#create-audience-insights-report) endpoint.
 
-The <var>id</var> returned here identifies the report. Track its status through the Insights API's [Get a list of Insights](/guidelines/insights-api#get-a-list-of-insights), and once ready, retrieve it via [Download Insights report](/guidelines/insights-api#download-insights-report).
+The <var>id</var> returned here identifies the report. Track its status through the Insights API's [Get a list of Insights reports](/guidelines/insights-api#get-a-list-of-insights-reports), and once ready, retrieve it via [Download Insights report](/guidelines/insights-api#download-insights-report).
 
 :::info 
 
