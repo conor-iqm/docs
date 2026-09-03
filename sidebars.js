@@ -6526,8 +6526,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Request Schema',
-              href: '/guidelines/master-api#request-schema',
+              label: 'Filtering and Pagination',
+              href: '/guidelines/master-api#filtering-and-pagination',
               className: 'sidebarItem'
             },
             {
