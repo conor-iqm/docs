@@ -8078,6 +8078,12 @@ const sidebars = {
         },
         {
           type: 'doc',
+          label: 'HCP Planner tutorial',
+          id: `mcp/mcp-tutorials/mcp-hcp-tutorial`,
+          className: 'sidebarItem'
+        },
+        {
+          type: 'doc',
           label: 'Inventory tutorial',
           id: `mcp/mcp-tutorials/mcp-inventory-tutorial`,
           className: 'sidebarItem'
