@@ -8084,6 +8084,12 @@ const sidebars = {
         },
         {
           type: 'doc',
+          label: 'Political Planner tutorial',
+          id: `mcp/mcp-tutorials/mcp-political-tutorial`,
+          className: 'sidebarItem'
+        },
+        {
+          type: 'doc',
           label: 'Inventory tutorial',
           id: `mcp/mcp-tutorials/mcp-inventory-tutorial`,
           className: 'sidebarItem'
