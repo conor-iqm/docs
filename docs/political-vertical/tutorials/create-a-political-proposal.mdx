@@ -287,7 +287,7 @@ The forecasting service decides which targeting and budget combinations can be p
 </tr>
 <tr>
 <td>`cva` <br /><span class="type-text">object</span></td>
-<td>CVA to target. Send all five fields; a <var>cva</var> object with only <var>id</var> returns a generic <var>500</var> error. See [Target a Custom Voter audience](#target-a-custom-voter-audience).</td>
+<td>CVA to target. Send all five fields; a <var>cva</var> object with only <var>id</var> is rejected with a <var>422</var> error, <var>Exception while calling DSI strategies API</var>. See [Target a Custom Voter audience](#target-a-custom-voter-audience).</td>
 </tr>
 <tr>
 <td colSpan="2">
@@ -725,7 +725,7 @@ To change the proposal's budget, dates, or campaigns first, see [Edit proposal](
   </tr>
   <tr>
     <td>`campaignGeneratable` <br /><span class="type-text">boolean</span></td>
-    <td>Whether an IO and campaigns can be generated from the proposal. Only meaningful while the proposal is <var>Ready</var> or <var>Failed</var>; it isn't reset after the proposal is converted.</td>
+    <td>Whether an IO and campaigns can be generated from the proposal. <var>false</var> once the proposal is converted.</td>
   </tr>
   <tr>
     <td>`linearTvReach` <br /><span class="type-text">integer</span></td>
@@ -1092,7 +1092,7 @@ When the IO is generated, only the CTV proposed campaigns become campaigns; line
 Voter TV+ plans:
 
   * Must have a flight of 7 to 31 days
-  * Must have a budget over <var>100</var>
+  * Must have a budget of at least <var>100</var>
   * Can't target [Power Segment audiences](/political-vertical/audience-segments#power-segment-audience-details)
 
 ### Step 1: Get a reach saturation graph
@@ -1376,7 +1376,7 @@ Voter TV+ plans don't generate strategies, so [Get the plan's strategies](#step-
 </tr>
 <tr>
   <td>`totalBudget` <br /><span class="type-text">number</span> <span class="required-text">required</span></td>
-  <td>Total plan budget; must be more than <var>100</var>.</td>
+  <td>Total plan budget; must be at least <var>100</var>.</td>
 </tr>
 <tr>
   <td>`graphId` <br /><span class="type-text">string</span> <span class="required-text">required</span></td>
@@ -1518,11 +1518,11 @@ Voter TV+ plans don't generate strategies, so [Get the plan's strategies](#step-
   "name": "Voter TV+ Plan",
   "objectiveId": 3,
   "totalBudget": 100000,
-  "graphId": "0f6c7400-a8f5-4a1b-ab65-af15372cc0ff",
+  "graphId": "2ac6eab4-8815-4896-8c37-5a1bc672e22e",
   "overview": {
     "linearTvCpm": 20,
-    "ctvCpm": 7,
-    "grp": 180,
+    "ctvCpm": 20,
+    "grp": 500,
     "linearTvPercentage": 50,
     "ctvFrequency": 3
   },
@@ -1579,7 +1579,7 @@ Voter TV+ plans don't generate strategies, so [Get the plan's strategies](#step-
 <div class="endpoint-container">
   <div class="child1">
 
-Pass the <var>planId</var> from the previous step to create a proposal from the plan's graph. The budget is split between linear TV and CTV campaigns using the <var>linearTvPercentage</var> from the overview. The proposal is created in <var>Ready</var> (<var>6</var>) status.
+Pass the <var>planId</var> from the previous step to create a proposal from the plan's graph. The budget is split between linear TV and CTV campaigns using the <var>linearTvPercentage</var> from the overview. The proposal's <var>budget</var>, <var>reach</var>, and <var>impressions</var> are the CTV share only; the linear TV share is in <var>linearTvBudget</var>, <var>linearTvReach</var>, and <var>linearTvImpressions</var>. For example, with the sample's 50% split, a 100,000 plan gives a proposal <var>budget</var> of 50,000. The proposal is created in <var>Ready</var> (<var>6</var>) status.
 
 | Request schema |  |
 | ---- | --- |
@@ -1618,13 +1618,13 @@ Pass the <var>planId</var> from the previous step to create a proposal from the 
 <div class="endpoint-container">
   <div class="child1">
 
-Split a Voter TV+ proposal's CTV campaigns into one campaign per value of a targeting dimension, such as one campaign per state. The existing CTV campaigns are replaced. Send an empty <var>locations</var> list to merge them back into a single CTV campaign. This step is optional.
+Split a Voter TV+ proposal's CTV campaigns into one campaign per value of a targeting dimension, such as one campaign per state. The existing CTV campaigns are replaced. Send an empty <var>locations</var> list to merge them back into a single CTV campaign. Check the merged campaign's budget before you generate an IO: a merge can give it a budget far above the proposal's <var>budget</var>. This step is optional.
 
-A split only has an effect for dimensions that the plan targets with more than one value. The sample splits by state (<var>8</var>), because the sample plan targets two states; splitting it by ZIP code or device gives a single CTV campaign. Split campaigns are named with a numbered suffix, such as <var>_Video + Loc_1</var> and <var>_Loc_2</var>, not with the state name.
+A split only has an effect for dimensions that the plan targets with more than one value. The sample splits by state (<var>8</var>), because the sample plan targets two states; splitting it by ZIP code or device gives a single CTV campaign. A split can also create fewer campaigns than the dimension has values: with the sample's age and gender segments, a state split currently gives one CTV campaign, while the same plan without them gives one per state. Re-read the proposal to check how many campaigns were created. Split campaigns are named after the plan with a numbered suffix, such as <var>&lt;plan name&gt;_Video + Loc_1</var> and <var>&lt;plan name&gt;_Video + Loc_2</var>, not with the state name.
 
 The response shows the proposal as it was before the split. To see the new campaigns, get the proposal again with [Check proposal details](#step-4-check-proposal-details).
 
-This endpoint only works on Voter TV+ proposals. On a proposal with <var>0</var> budgets, such as one created from a graph with no reach, it returns a generic <var>500</var> error.
+This endpoint only works on Voter TV+ proposals. On a proposal with <var>0</var> budgets, such as one created from a graph with no reach, it returns a <var>422</var> error, <var>Exception while calling data API to estimate campaign reach</var>.
 
 :::tip
 
@@ -1638,7 +1638,7 @@ Splitting can take more than 60 seconds for large proposals. Set your client tim
 
 | Request schema |  |
 | ---- | --- |
-| `locations` <br /><span class="type-text">array of integers</span> | [Targeting type IDs](/political-vertical/planner#get-targeting-types) to split by. Despite the field name, these are targeting dimension IDs, not location IDs. For example, <var>8</var> (state), <var>12</var> (DMA), <var>15</var> (ZIP code), <var>29</var> (device). |
+| `locations` <br /><span class="type-text">array of integers</span> | [Targeting type IDs](/political-vertical/planner#get-targeting-types) to split by. Despite the field name, these are targeting dimension IDs, not location IDs. For example, <var>8</var> (state), <var>12</var> (DMA), <var>15</var> (ZIP code), <var>29</var> (device). An ID that isn't a targeting type returns a generic <var>500</var> error. |
 
 
 
@@ -1681,17 +1681,17 @@ Splitting can take more than 60 seconds for large proposals. Set your client tim
     "proposedCampaigns": [
       {
         "id": 501,
-        "name": "Voter TV+ Plan_Mix_01_VTV + Video",
+        "name": "Voter TV+ Plan_VTV + Video",
         "type": "Linear TV",
         "strategy": "VTV + Video",
         "budget": 50000.0
       },
       {
         "id": 502,
-        "name": "Voter TV+ Plan_Mix_01_Video",
+        "name": "Voter TV+ Plan_Video",
         "type": "CTV",
         "strategy": "Video",
-        "budget": 653388.96
+        "budget": 50000.0
       }
     ]
   }
@@ -1712,7 +1712,7 @@ A Custom Voter audience (CVA) combines voter segments into a single audience for
 1. Create CVA details
 1. [Add the CVA to a plan](#add-the-cva-to-a-plan)
 
-When you add the CVA to a plan, send the full <var>cva</var> object: <var>id</var>, <var>equation</var>, <var>stateIds</var>, <var>segmentIds</var>, and <var>reach</var>. A plan request with only <var>cva.id</var> returns a generic <var>500</var> error, even though the other fields are stored with the CVA ID.
+When you add the CVA to a plan, send the full <var>cva</var> object: <var>id</var>, <var>equation</var>, <var>stateIds</var>, <var>segmentIds</var>, and <var>reach</var>. A plan request with only <var>cva.id</var> is rejected with a <var>422</var> error, <var>Exception while calling DSI strategies API</var>, even though the other fields are stored with the CVA ID.
 
 ### Step 1: Find segment IDs
 
@@ -1930,7 +1930,7 @@ Equation syntax:
 
 For example, <var>((IQMCVACA069112|(IQMCVACA080323))&(IQMCVACA101616))</var> targets voters in either of the first two segments who are also in the third.
 
-An equation with an unknown taxonomy ID or unbalanced parentheses returns a <var>500</var> error with the message <var>Invalid CVA details provided</var>. This is a validation error, not an outage: fix the equation and try again.
+An equation with an unknown taxonomy ID or unbalanced parentheses returns a <var>422</var> error with the message <var>Invalid CVA details provided</var>. Fix the equation and try again.
 
 | Request schema |  |
 | ---- | --- |

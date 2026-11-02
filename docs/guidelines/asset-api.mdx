@@ -11,7 +11,18 @@ import ApiHeaders from '@site/docs/_partials/common/api-headers.mdx';
 
 # Asset API
 
-The Asset API streamlines the management and storage of assets in the system, such as images, PDF files, and HTML5 creative assets (ZIP files). This service plays a critical role in handling media uploads, temporary storage, and coordination with other services (such as the Creative API) for final storage and metadata management.
+The Asset API stores and manages files in two ways:
+
+* **Assets** are files for creatives, such as images, PDF files, and HTML5 creative assets (ZIP files), served from a CDN URL. The Asset API handles media uploads and temporary storage, and works with other services, such as the Creative API, for final storage and metadata management.
+* **Secure files** are kept in private storage and shared through presigned URLs that expire. They have no CDN URL. Each secure file belongs to the Organization Workspace that uploaded it, and only users in that Workspace can access it.
+
+To upload a secure file:
+
+1. [Initiate secure file upload](#initiate-secure-file-upload) to get a <var>fileId</var> and a presigned <var>uploadUrl</var>.
+2. Send the file to <var>uploadUrl</var> in a `PUT` request before the URL expires. Set the `Content-Type` header to the file type's content type and send exactly the number of bytes given in <var>size</var>. Don't send IQM authentication headers to this URL.
+3. [Complete secure file upload](#complete-secure-file-upload) to confirm the file is uploaded.
+
+After that, you can [get a download URL](#get-secure-file-download-url) for the file.
 
 This page covers the common endpoints and methods associated with the Asset API.
 
@@ -524,6 +535,477 @@ Delete a single asset by ID.
   "data": "Asset deleted successfully."
 }
 ```
+
+</TabItem>
+</Tabs>
+
+</div></div>
+
+## Secure files
+
+### Initiate secure file upload
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/asset/files" operationId="initiateUpload" />
+
+<div class="endpoint-container">
+<div class="child1">
+
+Start a secure file upload. Returns a file ID and a presigned URL to upload the file to, which expires after <var>expiresInSeconds</var> (currently <var>600</var> seconds).
+
+| Request schema | |
+| --- | --- |
+| `fileName` <br /><span class="type-text">string</span> <span class="required-text">required</span> | File name, including the extension. The extension must match <var>fileType</var>. Spaces are replaced with underscores, and characters other than letters, numbers, `.`, `_`, and `-` are removed. |
+| `fileType` <br /><span class="type-text">string</span> <span class="required-text">required</span> | File type. See the table below for allowed values. |
+| `size` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | File size in bytes, up to <var>524288000</var> (500 MB). The uploaded file must be exactly this size. |
+| `folderName` <br /><span class="type-text">string</span> | Folder to group the file under in storage. Letters, numbers, `_`, and `-` only, up to 100 characters. |
+
+| `fileType` | Extensions | `Content-Type` for the upload |
+| --- | --- | --- |
+| <var>CSV</var> | `.csv` | `text/csv` |
+| <var>EXCEL</var> | `.xlsx`, `.xls` | `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` (`.xlsx`) or `application/vnd.ms-excel` (`.xls`) |
+| <var>ZIP</var> | `.zip` | `application/zip` |
+| <var>KMZ</var> | `.kmz` | `application/vnd.google-earth.kmz` |
+| <var>KML</var> | `.kml` | `application/vnd.google-earth.kml+xml` |
+| <var>PDF</var> | `.pdf` | `application/pdf` |
+| <var>DOC</var> | `.doc` | `application/msword` |
+| <var>DOCX</var> | `.docx` | `application/vnd.openxmlformats-officedocument.wordprocessingml.document` |
+| <var>TXT</var> | `.txt` | `text/plain` |
+| <var>MD</var> | `.md` | `text/markdown` |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>Response properties</summary>
+
+<table className="objectProperties">
+<tr>
+<td>`fileId` <br /><span class="type-text">string</span></td>
+<td>File ID (UUID). Use it in the other secure file endpoints.</td>
+</tr>
+<tr>
+<td>`uploadUrl` <br /><span class="type-text">string</span></td>
+<td>Presigned URL to `PUT` the file to.</td>
+</tr>
+<tr>
+<td>`expiresInSeconds` <br /><span class="type-text">integer</span></td>
+<td>Seconds until <var>uploadUrl</var> expires.</td>
+</tr>
+</table>
+
+</details>
+
+</div>
+<div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Request sample"
+{
+  "fileName": "campaign_assets.zip",
+  "fileType": "ZIP",
+  "size": 204800,
+  "folderName": "customer-imports"
+}
+```
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": {
+    "fileId": "a3f1c2d4-8b7e-4f5a-9c6d-1e2b3a4c5d6e",
+    "uploadUrl": "https://s3.amazonaws.com/secure-bucket/123/a3f1c2d4.../campaign_assets.zip?X-Amz-Signature=...",
+    "expiresInSeconds": 600
+  }
+}
+```
+
+```bash title="Upload sample"
+curl -X PUT "<uploadUrl>" \
+  -H "Content-Type: application/zip" \
+  --data-binary @campaign_assets.zip
+```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 400"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "fileType ZIP requires a .zip file extension"
+    }
+  ]
+}
+```
+
+```json title="Response 409"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "Unable to generate unique file id. Please retry."
+    }
+  ]
+}
+```
+
+</details>
+
+</TabItem>
+</Tabs>
+
+</div></div>
+
+---
+
+### Complete secure file upload
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/asset/files/{fileId}/complete" operationId="completeUpload" />
+
+<div class="endpoint-container">
+<div class="child1">
+
+Confirm that a file was uploaded to its presigned URL. IQM checks that the file is in storage and matches the <var>size</var> given when the upload was initiated, then sets its status to <var>UPLOADED</var>. Call this once per file.
+
+| Path parameters | |
+| --- | --- |
+| `fileId` <br /><span class="type-text">string</span> <span class="required-text">required</span> | [File ID](#initiate-secure-file-upload). |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>Response properties</summary>
+
+<table className="objectProperties">
+<tr>
+<td>`status` <br /><span class="type-text">string</span></td>
+<td>File status: <var>UPLOADED</var>.</td>
+</tr>
+</table>
+
+</details>
+
+</div>
+<div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": {
+    "status": "UPLOADED"
+  }
+}
+```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 400"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "Uploaded object not found"
+    }
+  ]
+}
+```
+
+```json title="Response 401"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "You are not authorized to access this file"
+    }
+  ]
+}
+```
+
+```json title="Response 404"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "File not found"
+    }
+  ]
+}
+```
+
+```json title="Response 409"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "Uploaded file size mismatch"
+    }
+  ]
+}
+```
+
+</details>
+
+</TabItem>
+</Tabs>
+
+</div></div>
+
+---
+
+### Get secure file details
+
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/asset/files/{fileId}" operationId="getFileMetadata" />
+
+<div class="endpoint-container">
+<div class="child1">
+
+Get the details of a secure file by ID. Deleted files return a 404 response.
+
+| Path parameters | |
+| --- | --- |
+| `fileId` <br /><span class="type-text">string</span> <span class="required-text">required</span> | [File ID](#initiate-secure-file-upload). |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>Response properties</summary>
+
+<table className="objectProperties">
+<tr>
+<td>`fileId` <br /><span class="type-text">string</span></td>
+<td>File ID.</td>
+</tr>
+<tr>
+<td>`fileName` <br /><span class="type-text">string</span></td>
+<td>Stored file name, after spaces and unsupported characters are replaced or removed.</td>
+</tr>
+<tr>
+<td>`originalFileName` <br /><span class="type-text">string</span></td>
+<td>File name as given when the upload was initiated. Downloads use this name.</td>
+</tr>
+<tr>
+<td>`fileType` <br /><span class="type-text">string</span></td>
+<td>[File type](#initiate-secure-file-upload).</td>
+</tr>
+<tr>
+<td>`size` <br /><span class="type-text">integer</span></td>
+<td>File size in bytes.</td>
+</tr>
+<tr>
+<td>`status` <br /><span class="type-text">string</span></td>
+<td>File status: <var>INITIATED</var> (waiting for the upload to be completed) or <var>UPLOADED</var>.</td>
+</tr>
+</table>
+
+</details>
+
+</div>
+<div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": {
+    "fileId": "a3f1c2d4-8b7e-4f5a-9c6d-1e2b3a4c5d6e",
+    "fileName": "campaign_assets.zip",
+    "originalFileName": "campaign_assets.zip",
+    "fileType": "ZIP",
+    "size": 204800,
+    "status": "UPLOADED"
+  }
+}
+```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 401"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "You are not authorized to access this file"
+    }
+  ]
+}
+```
+
+```json title="Response 404"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "File not found"
+    }
+  ]
+}
+```
+
+</details>
+
+</TabItem>
+</Tabs>
+
+</div></div>
+
+---
+
+### Get secure file download URL
+
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/asset/files/{fileId}/download" operationId="downloadFile" />
+
+<div class="endpoint-container">
+<div class="child1">
+
+Get a presigned URL to download a secure file. The file must have the <var>UPLOADED</var> status. The URL needs no authentication headers, downloads the file under its <var>originalFileName</var>, and expires after <var>expiresInSeconds</var> (currently <var>120</var> seconds).
+
+| Path parameters | |
+| --- | --- |
+| `fileId` <br /><span class="type-text">string</span> <span class="required-text">required</span> | [File ID](#initiate-secure-file-upload). |
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>Response properties</summary>
+
+<table className="objectProperties">
+<tr>
+<td>`downloadUrl` <br /><span class="type-text">string</span></td>
+<td>Presigned URL to download the file.</td>
+</tr>
+<tr>
+<td>`expiresInSeconds` <br /><span class="type-text">integer</span></td>
+<td>Seconds until <var>downloadUrl</var> expires.</td>
+</tr>
+</table>
+
+</details>
+
+</div>
+<div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": {
+    "downloadUrl": "https://s3.amazonaws.com/secure-bucket/123/a3f1c2d4.../campaign_assets.zip?X-Amz-Signature=...",
+    "expiresInSeconds": 120
+  }
+}
+```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 401"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "You are not authorized to access this file"
+    }
+  ]
+}
+```
+
+```json title="Response 404"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "File not found"
+    }
+  ]
+}
+```
+
+```json title="Response 409"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "File is not ready for download"
+    }
+  ]
+}
+```
+
+</details>
+
+</TabItem>
+</Tabs>
+
+</div></div>
+
+---
+
+### Delete secure file
+
+<CopyUrl method="DELETE" url="https://api.iqm.com/api/v3/asset/files/{fileId}" operationId="deleteFile" />
+
+<div class="endpoint-container">
+<div class="child1">
+
+Delete a secure file by ID and remove it from storage. Works whether or not the upload was completed. Deleting a file that's already deleted also returns a 200 response.
+
+| Path parameters | |
+| --- | --- |
+| `fileId` <br /><span class="type-text">string</span> <span class="required-text">required</span> | [File ID](#initiate-secure-file-upload). |
+
+</div>
+<div class="child2">
+
+<Tabs>
+<TabItem value="JSON" label="JSON" default>
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": null
+}
+```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 401"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "You are not authorized to access this file"
+    }
+  ]
+}
+```
+
+```json title="Response 404"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "File not found"
+    }
+  ]
+}
+```
+
+```json title="Response 409"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "File status changed during deletion"
+    }
+  ]
+}
+```
+
+</details>
 
 </TabItem>
 </Tabs>

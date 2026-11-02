@@ -38,7 +38,6 @@ export const hcpCreativeTypes = [
 ];
 export const hcpProposalStatuses = [
   { id: 2, label: 'Draft' },
-  { id: 3, label: 'Expired' },
   { id: 4, label: 'Failed' },
   { id: 5, label: 'Processing' },
   { id: 6, label: 'Ready' },
@@ -71,9 +70,10 @@ An HCP plan targets healthcare professionals by their National Provider Identifi
 
 **Generate campaigns → Save plan → Edit (optional) → Publish IO and campaigns**
 
-There are two key rules to keep in mind when working with HCP plans:
+There are three key rules to keep in mind when working with HCP plans:
   1. **Targeting consistency:** The split strategy must agree with the plan-level targeting when you save, edit, or publish the plan. See [Step 1](#step-1-plan-the-audience-and-targeting).
   2. **Status echo:** Every edit and publish request must include the plan's *current* <var>statusId</var>. See [Step 5](#step-5-edit-the-plan).
+  3. **Round trip:** A plan from [Step 4](#step-4-get-plan-details) can't be sent back unchanged. Set <var>inventoryGroup</var> to <var>null</var> and, for Ready plans, add <var>minBudget</var> and <var>minImpressions</var> back. See [Step 5](#step-5-edit-the-plan).
 
 ### More resources
   * [Planner API](/healthcare-vertical/planner) guidelines
@@ -91,7 +91,7 @@ To create and publish an HCP plan, the following are required:
   * An Advertiser Organization
     * Publishing and downloading a plan is only available to Advertiser Organizations.
 
-All Planner times are Unix epoch **milliseconds**, not seconds. For example, November 1, 2026 at 00:00 US/Eastern is <var>1793505600000</var>.
+All Planner times are Unix epoch **milliseconds**, not seconds. For example, January 1, 2027 at 00:00 US/Eastern is <var>1798779600000</var>. The samples in this tutorial use a January 1–30, 2027 flight; use future dates in your own requests.
 
 ### Log in
 
@@ -218,7 +218,7 @@ The audience type of each block is set by IQM from its method, as in the table a
 
 #### Plan-level targeting
 
-<var>planLevelTargeting</var> sets the creative types, devices, channels, and inventory for the whole plan. All four objects are required: a request without <var>channels</var> or <var>inventory</var> returns a generic <var>500</var> error. To target all channels and all Open Exchange inventory, send:
+<var>planLevelTargeting</var> sets the creative types, devices, channels, and inventory for the whole plan. All four objects are required: a request without <var>channels</var> or <var>inventory</var> returns a <var>422</var> error, <var>Unable to fetch reach for the given campaign targeting</var>, which doesn't name the missing object. To target all channels and all Open Exchange inventory, send:
 
 ```json title="Channels and inventory, all selected"
 "channels": {
@@ -244,9 +244,17 @@ Any other combination is rejected.
 
 #### Split strategy and the targeting consistency rule
 
-<var>splitStrategy</var> decides how the plan is divided into campaigns. Each entry names a [split dimension](/healthcare-vertical/planner#get-split-strategy-list) and the values to split by. Each listed value becomes its own campaign slice, and campaigns are created for every combination of slices. A split strategy must include the creative type dimension, and the NPI type dimension unless the only audience block is an existing audience.
+<var>splitStrategy</var> decides how the plan is divided into campaigns. Each entry names a [split dimension](/healthcare-vertical/planner#get-split-strategy-list) and its <var>selectedValueIds</var>. The split controls how targeted values are grouped into campaigns, not which values are targeted:
 
-The values in each split dimension must agree with the plan's targeting when you save, edit, or publish the plan (Steps 3, 5, and 6). This is the most common cause of rejected HCP requests. Generating campaigns (Step 2) doesn't check the rule: it ignores <var>selectedValueIds</var> and splits by every plan-level value of each listed dimension. For example, an NPI type split of <var>[3]</var> on a plan targeting NPI types <var>3</var> and <var>4</var> still creates campaigns for both. See [Targeting consistency rule](/healthcare-vertical/planner#targeting-consistency-rule).
+  * Each selected value gets its own campaign slice.
+  * Plan-level values that aren't selected are still targeted, and are grouped into one slice.
+  * Campaigns are created for every combination of slices across dimensions.
+
+For example, a plan targeting Mobile, Desktop, and Tablet devices with a device split of <var>[20300001]</var> gets one Mobile slice and one Desktop + Tablet slice. To stop targeting a value, remove it from the plan-level targeting (for example, <var>npiTypeIds</var>), not from the split.
+
+A split strategy must include the creative type dimension, and the NPI type dimension unless the only audience block is an existing audience.
+
+The values in each split dimension must agree with the plan's targeting when you save, edit, or publish the plan (Steps 3, 5, and 6). This is the most common cause of rejected HCP requests. Generating campaigns (Step 2) doesn't check the rule, and drops split values that aren't in the plan-level targeting, so a split that generates campaigns can still be rejected when you save. See [Targeting consistency rule](/healthcare-vertical/planner#targeting-consistency-rule).
 
 | Split dimension | <var>splitDimensionTypeId</var> | <var>selectedValueIds</var> must agree with | Rule | Campaign field |
 | --- | --- | --- | --- | --- |
@@ -260,7 +268,7 @@ When "select all" is used for creative types or devices, compare against the ful
 
 :::caution
 
-Mismatches are reported with a general message, such as <var>Selected creative type IDs and split IDs do not match.</var> Check the dimension named in the message against the table above.
+Mismatches are rejected with a message that names the dimension, such as <var>Selected device type IDs and split IDs do not match.</var> Check that dimension against the table above.
 
 :::
 
@@ -290,7 +298,7 @@ Each campaign's <var>dataCpm</var> is the average data cost of its selected data
 </tr>
 <tr>
   <td>`startTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
-  <td>Unix epoch start time in milliseconds; can't be in the past.</td>
+  <td>Unix epoch start time in milliseconds. Use a future date.</td>
 </tr>
 <tr>
   <td>`endTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
@@ -591,7 +599,7 @@ Each campaign's <var>dataCpm</var> is the average data cost of its selected data
     </tr>
     <tr>
       <td>`selectedValueIds` <br /><span class="type-text">array of integers</span> <span class="required-text">required</span></td>
-      <td>Values to split by. Ignored when generating campaigns: every plan-level value of the dimension becomes its own campaign slice. Saving, editing, and publishing check them: creative type must exactly match the plan-level creative types, and other dimensions must be a subset of the matching targeting.</td>
+      <td>Values that each get their own campaign slice. Plan-level values that aren't selected are grouped into one slice. Saving, editing, and publishing check them: creative type must exactly match the plan-level creative types, and other dimensions must be a subset of the matching targeting. Generating campaigns doesn't check them.</td>
     </tr>
   </table>
   </details>
@@ -712,8 +720,8 @@ The response contains every request field, plus:
 ```json title="Request sample"
 {
   "name": "Q4 Cardiology Awareness",
-  "startTime": 1793505600000,
-  "endTime": 1796101199000,
+  "startTime": 1798779600000,
+  "endTime": 1801371599000,
   "timezoneId": 29,
   "budgetTypeId": 1,
   "frequencyCap": 3,
@@ -777,8 +785,8 @@ The response contains every request field, plus:
   "data": {
     "id": null,
     "name": "Q4 Cardiology Awareness",
-    "startTime": 1793505600000,
-    "endTime": 1796101199000,
+    "startTime": 1798779600000,
+    "endTime": 1801371599000,
     "timezoneId": 29,
     "budgetTypeId": 1,
     "owId": 200001,
@@ -803,8 +811,8 @@ The response contains every request field, plus:
       {
         "id": null,
         "name": "Campaign_Video_HCP_Matched_Audience",
-        "startTime": 1793505600000,
-        "endTime": 1796101199000,
+        "startTime": 1798779600000,
+        "endTime": 1801371599000,
         "frequencyCap": 3,
         "frequencyCapTypeId": 1,
         "minMediaCpm": 1.2,
@@ -812,8 +820,8 @@ The response contains every request field, plus:
         "maxMediaCpm": 1000.0,
         "dataCpm": 12.5,
         "minBudget": 30.5,
-        "budget": 2909581.97,
-        "maxBudget": 2909581.97,
+        "budget": 2909581.965,
+        "maxBudget": 2909581.965,
         "minReach": 10,
         "reach": 1059957,
         "maxReach": 1059957,
@@ -835,8 +843,8 @@ The response contains every request field, plus:
       {
         "id": null,
         "name": "Campaign_Image_HCP_Matched_Audience",
-        "startTime": 1793505600000,
-        "endTime": 1796101199000,
+        "startTime": 1798779600000,
+        "endTime": 1801371599000,
         "frequencyCap": 3,
         "frequencyCapTypeId": 1,
         "minMediaCpm": 1.2,
@@ -899,7 +907,7 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
 </tr>
 <tr>
   <td>`startTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
-  <td>Unix epoch start time in milliseconds; can't be in the past.</td>
+  <td>Unix epoch start time in milliseconds. Use a future date.</td>
 </tr>
 <tr>
   <td>`endTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
@@ -1232,7 +1240,7 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
     </tr>
     <tr>
       <td>`selectedValueIds` <br /><span class="type-text">array of integers</span> <span class="required-text">required</span></td>
-      <td>Values to split by; each value becomes its own campaign slice. For creative type, must exactly match the plan-level creative types. For other dimensions, must be a subset of the matching targeting.</td>
+      <td>Values that each get their own campaign slice; plan-level values that aren't selected are grouped into one slice. For creative type, must exactly match the plan-level creative types. For other dimensions, must be a subset of the matching targeting.</td>
     </tr>
   </table>
   </details>
@@ -1373,8 +1381,8 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
 ```json title="Request sample"
 {
   "name": "Q4 Cardiology Awareness",
-  "startTime": 1793505600000,
-  "endTime": 1796101199000,
+  "startTime": 1798779600000,
+  "endTime": 1801371599000,
   "timezoneId": 29,
   "budgetTypeId": 1,
   "minBudget": 98.00,
@@ -1422,7 +1430,7 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
   "campaigns": [
     {
       "name": "Image - Physicians",
-      "startTime": 1793505600000, "endTime": 1796101199000,
+      "startTime": 1798779600000, "endTime": 1801371599000,
       "frequencyCap": 3, "frequencyCapTypeId": 1,
       "minMediaCpm": 6.00, "mediaCpm": 6.00, "maxMediaCpm": 6.00, "dataCpm": 12.50,
       "minBudget": 18.50, "budget": 2331.00, "maxBudget": 2331.00,
@@ -1433,7 +1441,7 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
     },
     {
       "name": "Image - Nurses",
-      "startTime": 1793505600000, "endTime": 1796101199000,
+      "startTime": 1798779600000, "endTime": 1801371599000,
       "frequencyCap": 3, "frequencyCapTypeId": 1,
       "minMediaCpm": 6.00, "mediaCpm": 6.00, "maxMediaCpm": 6.00, "dataCpm": 12.50,
       "minBudget": 18.50, "budget": 999.00, "maxBudget": 999.00,
@@ -1444,7 +1452,7 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
     },
     {
       "name": "Video - Physicians",
-      "startTime": 1793505600000, "endTime": 1796101199000,
+      "startTime": 1798779600000, "endTime": 1801371599000,
       "frequencyCap": 3, "frequencyCapTypeId": 1,
       "minMediaCpm": 18.00, "mediaCpm": 18.00, "maxMediaCpm": 18.00, "dataCpm": 12.50,
       "minBudget": 30.50, "budget": 3843.00, "maxBudget": 3843.00,
@@ -1455,7 +1463,7 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
     },
     {
       "name": "Video - Nurses",
-      "startTime": 1793505600000, "endTime": 1796101199000,
+      "startTime": 1798779600000, "endTime": 1801371599000,
       "frequencyCap": 3, "frequencyCapTypeId": 1,
       "minMediaCpm": 18.00, "mediaCpm": 18.00, "maxMediaCpm": 18.00, "dataCpm": 12.50,
       "minBudget": 30.50, "budget": 1647.00, "maxBudget": 1647.00,
@@ -1507,6 +1515,12 @@ To save an incomplete plan instead, use the `/draft` endpoint, which saves it in
   <div class="child1">
 
 Use the <var>id</var> from Step 3 to get the saved plan. The response uses the same fields as the request in Step 3, plus the plan's <var>statusId</var> and <var>ioId</var>.
+
+A few values in the response differ from what you saved, so you can't send it straight back to edit or publish the plan (see [Step 5](#step-5-edit-the-plan)):
+  * <var>minBudget</var> and <var>minImpressions</var> are always <var>null</var>.
+  * <var>planLevelTargeting.inventory.inventoryGroup</var> is an empty object, even if you sent <var>null</var>.
+  * Campaign budgets are rounded to cents. The plan-level <var>budget</var> isn't.
+  * <var>campaigns[].id</var> values change every time the plan is edited or published, so don't store them. After publishing, use each campaign's <var>campaignId</var>.
 
 Use this endpoint to:
   * Get the current <var>statusId</var> before editing or publishing the plan
@@ -1902,7 +1916,7 @@ Use this endpoint to:
       </tr>
       <tr>
         <td>`selectedValueIds` <br /><span class="type-text">array of integers</span></td>
-        <td>Values the dimension is split by.</td>
+        <td>Values that each get their own campaign slice; other plan-level values of the dimension are grouped into one slice.</td>
       </tr>
     </table>
     </details>
@@ -2064,8 +2078,8 @@ Use this endpoint to:
   "data": {
     "id": 4512,
     "name": "Q4 Cardiology Awareness",
-    "startTime": 1793505600000,
-    "endTime": 1796101199000,
+    "startTime": 1798779600000,
+    "endTime": 1801371599000,
     "timezoneId": 29,
     "budgetTypeId": 1,
     "owId": 200001,
@@ -2132,8 +2146,8 @@ Use this endpoint to:
       {
         "id": 53104,
         "name": "Campaign_Video_HCP_Matched_Audience",
-        "startTime": 1793505600000,
-        "endTime": 1796101199000,
+        "startTime": 1798779600000,
+        "endTime": 1801371599000,
         "frequencyCap": 3,
         "frequencyCapTypeId": 1,
         "minMediaCpm": 1.2,
@@ -2210,7 +2224,12 @@ Use this endpoint to:
 
 Update the plan before publishing it. This step is optional. Send the full plan; the saved plan is replaced with the request body. Editing doesn't change the plan's status.
 
-To edit, get the plan with [Step 4](#step-4-get-plan-details), change the fields you need, and send it back.
+To edit, get the plan with [Step 4](#step-4-get-plan-details), change the fields you need, and send it back with these changes:
+  1. Set <var>planLevelTargeting.inventory.inventoryGroup</var> to <var>null</var>, unless you target inventory groups. The empty object from Step 4 is rejected with <var>Invalid inventory groups selected.</var>
+  2. For a Ready plan, add <var>minBudget</var> and <var>minImpressions</var> back from the Step 2 response. Step 4 returns them as <var>null</var>, which is rejected.
+  3. Keep <var>id</var> and <var>statusId</var> as Step 4 returned them.
+
+Changing the plan-level <var>frequencyCap</var> or <var>frequencyCapTypeId</var> also updates every campaign.
 
 The request schema is the same as [Step 3](#step-3-create-a-plan), except for the fields in the table below.
 
@@ -2233,7 +2252,7 @@ Plans in <var>Processing</var> (<var>5</var>) or <var>IO Created</var> (<var>7</
 </tr>
 <tr>
   <td>`id` <br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
-  <td>Plan ID; must be the same as the <var>planId</var> path parameter.</td>
+  <td>Plan ID; must be the same as the <var>planId</var> path parameter, or the request is rejected with <var>id in the request body must match planId in the URL</var>.</td>
 </tr>
 <tr>
   <td>`statusId` <br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
@@ -2241,11 +2260,11 @@ Plans in <var>Processing</var> (<var>5</var>) or <var>IO Created</var> (<var>7</
 </tr>
 <tr>
   <td>`minBudget` <br /><span class="type-text">number</span></td>
-  <td>Minimum plan budget, from Step 2. Required for Ready plans: Step 4 returns it as <var>null</var>, and a <var>null</var> value returns a generic <var>500</var> error. Draft plans accept <var>null</var>.</td>
+  <td>Minimum plan budget, from Step 2. Required for Ready plans: Step 4 returns it as <var>null</var>, and a <var>null</var> value is rejected with <var>minBudget is required</var>. Draft plans accept <var>null</var>.</td>
 </tr>
 <tr>
   <td>`minImpressions` <br /><span class="type-text">integer</span></td>
-  <td>Minimum plan impressions, from Step 2. Required for Ready plans: Step 4 returns it as <var>null</var>, and a <var>null</var> value returns a generic <var>500</var> error. Draft plans accept <var>null</var>.</td>
+  <td>Minimum plan impressions, from Step 2. Required for Ready plans: Step 4 returns it as <var>null</var>, and a <var>null</var> value is rejected with <var>minImpressions is required</var>. Draft plans accept <var>null</var>.</td>
 </tr>
 <tr>
   <td>`frequencyCap` <br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
@@ -2305,8 +2324,8 @@ Plans in <var>Processing</var> (<var>5</var>) or <var>IO Created</var> (<var>7</
   "id": 4512,
   "statusId": 6,
   "name": "Q4 Cardiology Awareness",
-  "startTime": 1793505600000,
-  "endTime": 1796101199000,
+  "startTime": 1798779600000,
+  "endTime": 1801371599000,
   "timezoneId": 29,
   "budgetTypeId": 1,
   "minBudget": 98.00,
@@ -2357,6 +2376,30 @@ Plans in <var>Processing</var> (<var>5</var>) or <var>IO Created</var> (<var>7</
 }
 ```
 
+```json title="Response 422 (minimums missing on a Ready plan)"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "minImpressions is required",
+      "field": "minImpressions"
+    }
+  ]
+}
+```
+
+```json title="Response 422 (id doesn't match planId)"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "id in the request body must match planId in the URL",
+      "field": "id"
+    }
+  ]
+}
+```
+
 </details>
 
 </TabItem>
@@ -2373,7 +2416,7 @@ Plans in <var>Processing</var> (<var>5</var>) or <var>IO Created</var> (<var>7</
 
 Publish the plan to create an IO and campaigns. Send the full plan with its <var>id</var> and current <var>statusId</var>, as in Step 5. Publishing saves the request body first using the same checks as an edit, so the [status echo rule](#step-5-edit-the-plan) applies here too.
 
-The request returns immediately and the plan moves to <var>Processing</var> (<var>5</var>) while the audiences, IO, and campaigns are created in the background. When publishing finishes, the plan moves to <var>IO Created</var> (<var>7</var>) and its <var>ioId</var> is set. If publishing fails, the plan moves to <var>Failed</var> (<var>4</var>) and you can publish it again. The response doesn't include the IO ID: use [Step 4](#step-4-get-plan-details) to check the result. Publishing can take more than a minute. It has finished successfully when <var>statusId</var> is <var>7</var>, <var>ioId</var> is greater than <var>0</var>, and every campaign's <var>campaignId</var> is greater than <var>0</var>.
+The request returns immediately and the plan moves to <var>Processing</var> (<var>5</var>) while the audiences, IO, and campaigns are created in the background. When publishing finishes, the plan moves to <var>IO Created</var> (<var>7</var>) and its <var>ioId</var> is set. If publishing fails, the plan moves to <var>Failed</var> (<var>4</var>) and you can publish it again. The response doesn't include the IO ID: use [Step 4](#step-4-get-plan-details) to check the result. Publishing usually takes under a minute, but can take longer; poll Step 4 every few seconds. It has finished successfully when <var>statusId</var> is <var>7</var>, <var>ioId</var> is greater than <var>0</var>, and every campaign's <var>campaignId</var> is greater than <var>0</var>.
 
 The campaigns are created as drafts. They don't run until creatives are attached and the campaigns are approved.
 
@@ -2381,7 +2424,7 @@ The request schema is the same as [Step 5](#step-5-edit-the-plan), except for th
 
 :::danger
 
-Publishing is a one-way step. A published plan can't be returned to <var>Ready</var>, and calls that require a <var>Ready</var>, <var>Failed</var>, or <var>Expired</var> plan, such as editing, no longer work for it. Manage the generated IO and campaigns with the [Campaign API](/guidelines/campaign-api). The Campaign API returns campaign <var>startTime</var> and <var>endTime</var> in Unix epoch seconds, while the planner uses milliseconds.
+Publishing is a one-way step. A published plan can't be returned to <var>Ready</var>, and calls that require a <var>Draft</var>, <var>Ready</var>, or <var>Failed</var> plan, such as editing, no longer work for it. Manage the generated IO and campaigns with the [Campaign API](/guidelines/campaign-api). The Campaign API returns campaign <var>startTime</var> and <var>endTime</var> in Unix epoch seconds, while the planner uses milliseconds.
 
 :::
 
@@ -2400,8 +2443,8 @@ Publishing is a one-way step. A published plan can't be returned to <var>Ready</
   "id": 4512,
   "statusId": 6,
   "name": "Q4 Cardiology Awareness",
-  "startTime": 1793505600000,
-  "endTime": 1796101199000,
+  "startTime": 1798779600000,
+  "endTime": 1801371599000,
   "timezoneId": 29,
   "budgetTypeId": 1,
   "minBudget": 98.00,
@@ -2467,7 +2510,7 @@ Publishing is a one-way step. A published plan can't be returned to <var>Ready</
 
 Download the plan as a spreadsheet or PDF to share. This step is optional. The response contains a temporary download link.
 
-Plans in <var>Ready</var> (<var>6</var>), <var>Processing</var> (<var>5</var>), <var>IO Created</var> (<var>7</var>), or <var>Failed</var> (<var>4</var>) status can be downloaded. Draft and expired plans can't.
+Plans in <var>Ready</var> (<var>6</var>), <var>Processing</var> (<var>5</var>), <var>IO Created</var> (<var>7</var>), or <var>Failed</var> (<var>4</var>) status can be downloaded. Draft plans can't.
 
 | Request schema |  |
 | ---- | --- |
@@ -2521,12 +2564,12 @@ Plans in <var>Ready</var> (<var>6</var>), <var>Processing</var> (<var>5</var>), 
 }
 ```
 
-```json title="Response 422 (Draft or Expired plan)"
+```json title="Response 422 (Draft plan)"
 {
   "success": false,
   "errorObjects": [
     {
-      "error": "Proposal with proposal id 4512 does not exist"
+      "error": "Plan with ID 4512 is in status 'Draft' and cannot be downloaded."
     }
   ]
 }

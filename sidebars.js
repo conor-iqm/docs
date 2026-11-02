@@ -805,6 +805,48 @@ const sidebars = {
             },
           ]
         },
+        {
+          type: 'category',
+          label: 'Secure files',
+          className: 'sidebarItem',
+          items: [
+            {
+              type: 'link',
+              label: 'Initiate secure file upload',
+              href: '/guidelines/asset-api#initiate-secure-file-upload',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Complete secure file upload',
+              href: '/guidelines/asset-api#complete-secure-file-upload',
+              customProps: { method: 'POST' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Get secure file details',
+              href: '/guidelines/asset-api#get-secure-file-details',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Get secure file download URL',
+              href: '/guidelines/asset-api#get-secure-file-download-url',
+              customProps: { method: 'GET' },
+              className: 'sidebarItem'
+            },
+            {
+              type: 'link',
+              label: 'Delete secure file',
+              href: '/guidelines/asset-api#delete-secure-file',
+              customProps: { method: 'DEL' },
+              className: 'sidebarItem'
+            },
+          ]
+        },
       ],
     },
     {
