@@ -27,17 +27,20 @@ The Planner MCP supports a limited set of features of the Planner API. For a com
 To create and publish an HCP plan, the following are required:
 
 1. An account on the IQM platform
-   * See [Before you begin](/getting-started/before-you-begin) to create an account and request a Client ID and Client Secret
+   * See [Before you begin](/getting-started/before-you-begin) to create an account and request a Client ID and Client Secret.
 1. IQM MCP connected to your AI assistant
-   * See [MCP getting started](/mcp/mcp-getting-started)
+   * See [MCP getting started](/mcp/mcp-getting-started).
 1. Access to a Healthcare Advertiser Organization
-   * HCP Planner requests only work in the Healthcare vertical, and only Advertiser Organizations can publish plans
+   * HCP Planner requests only work in the Healthcare vertical, and only Advertiser Organizations can publish plans.
 
 ## About the HCP Planner
 
 The HCP Planner builds a media plan that targets healthcare professionals by National Provider Identifier (NPI) type, specialty, location, and data partner. A plan goes through these steps:
 
-**Generate campaigns → Save plan → Edit (optional) → Publish IO and campaigns**
+1. Generate campaigns
+1. Save the plan
+1. Edit the plan (optional)
+1. Publish the IO and campaigns
 
 ### More resources
   * [Healthcare Professional (HCP) Planner](/healthcare-vertical/tutorials/create-an-hcp-proposal) tutorial
@@ -53,7 +56,7 @@ Select the Organization to build the plan in before you start.
 <th>Response example</th>
 <th>Notes</th>
 <tr>
-  <td>I want to build a Healthcare Professional (HCP) plan with IQM's Planner. List the organizations and workspaces I can access and select my Healthcare workspace.</td>
+  <td>I want to build a Healthcare Professional (HCP) plan with IQM's Planner. List the Organizations and Workspaces I can access and select my Healthcare Workspace.</td>
   <td><ImageLightbox
       thumb={Hcp1}
       full={Hcp1}
@@ -74,7 +77,7 @@ Generate the plan's proposed campaigns, save them as a ready plan, and check the
 <th>Response example</th>
 <th>Notes</th>
 <tr>
-  <td>Generate the proposed campaigns for this plan. Show me the plan totals (min/max budget, impressions, and reach) and a table of the proposed campaigns with name, creative type, NPI type, media CPM, data CPM, budget, reach, and impressions. Keep the full response; we'll save it as the plan next.<ul><li>Name: MCP HCP 02</li><li>Flight: November 1, 2026 to November 30, 2026, US/Eastern (timezoneId 29), converted to epoch milliseconds</li><li>Budget type: Budget</li><li>Frequency cap: 3 per day</li><li>NPI types: HCP and NPI nurse</li><li>One filter-based audience block: all specialties, United States with no state, city, or ZIP filters, data partners 7 (priority 1) and 8 (priority 2), both selected</li><li>Plan-level targeting: creative types image and video, device types 20300001 and 20300004, TV auto buying off</li><li>Split strategy: by creative type and by NPI type</li></ul></td>
+  <td>Generate the proposed campaigns for this plan. Show me the plan totals (min/max budget, impressions, and reach) and a table of the proposed campaigns with name, creative type, NPI type, media CPM, data CPM, budget, reach, and impressions. Keep the full response; we'll save it as the plan next.<ul><li>Name: MCP HCP 02</li><li>Flight: November 1, 2026 to November 30, 2026, US/Eastern (timezoneId 29), converted to epoch milliseconds</li><li>Budget type: Budget</li><li>Frequency cap: 3 per day</li><li>NPI types: HCP and NPI nurse</li><li>One filter-based audience block: all specialties, United States with no state, city, or ZIP code filters, data partners 7 (priority 1) and 8 (priority 2), both selected</li><li>Plan-level targeting: creative types image and video, device types 20300001 and 20300004, TV auto buying off</li><li>Split strategy: by creative type and by NPI type</li></ul></td>
   <td><ImageLightbox
       thumb={Hcp2}
       full={Hcp2}
@@ -136,7 +139,7 @@ Update the saved plan, then publish it to create an IO and draft campaigns.
       size={200}
       radius={8}
     /></td>
-  <td>Publishing runs in the background and can take a few minutes. When it finishes, the plan is <var>IO Created</var> (<var>7</var>), and its <var>ioId</var> and each campaign's <var>campaignId</var> are set. The campaigns are created as drafts. Each save gives the plan's campaign records new IDs, so use the DSP campaign IDs in the rest of IQM.</td>
+  <td>Publishing runs in the background and can take a few minutes. When it finishes, the plan is <var>IO Created</var> (<var>7</var>), and its <var>ioId</var> and each campaign's <var>campaignId</var> are set. The campaigns are created as drafts. Each save gives the plan's campaign records new IDs, so use each campaign's <var>campaignId</var> elsewhere in IQM.</td>
 </tr>
 </table>
 

@@ -32,23 +32,30 @@ The Planner MCP supports a limited set of features of the Planner API. For a com
 To create a Political proposal and generate an IO, the following are required:
 
 1. An account on the IQM platform
-   * See [Before you begin](/getting-started/before-you-begin) to create an account and request a Client ID and Client Secret
+   * See [Before you begin](/getting-started/before-you-begin) to create an account and request a Client ID and Client Secret.
 1. IQM MCP connected to your AI assistant
-   * See [MCP getting started](/mcp/mcp-getting-started)
+   * See [MCP getting started](/mcp/mcp-getting-started).
 1. Access to a Political Workspace
-   * Political Planner requests from a Workspace outside the Political vertical are rejected
+   * Political Planner requests from a Workspace outside the Political vertical are rejected.
 1. A Political Advertiser profile
-   * Required to generate an IO. See [Get list of Advertiser profile and details](/guidelines/workspace-api#get-list-of-advertiser-profile-and-details)
+   * Required to generate an IO. See [Get list of Advertiser profiles and details](/guidelines/workspace-api#get-list-of-advertiser-profiles-and-details).
 
 ## About the Political Planner
 
 The Political Planner builds a forecast-backed media plan for a political campaign. A proposal goes through these steps:
 
-**Create plan → Compare strategies → Activate proposal → Generate IO and campaigns**
+1. Create a plan
+1. Compare strategies
+1. Activate a proposal
+1. Generate the IO and campaigns
 
 Voter TV+ plans start from a reach saturation graph instead, and are activated without a strategy:
 
-**Get reach graph → Create plan → Activate proposal → Split (optional) → Generate IO and campaigns**
+1. Get a reach saturation graph
+1. Create a plan
+1. Activate a proposal
+1. Split the CTV campaigns (optional)
+1. Generate the IO and campaigns
 
 ### More resources
   * [Political Planner](/political-vertical/tutorials/create-a-political-proposal) tutorial
@@ -64,7 +71,7 @@ Select the Organization to build the proposal in before you start.
 <th>Response example</th>
 <th>Notes</th>
 <tr>
-  <td>I want to build a Political proposal with IQM's Planner. First, list the organizations and workspaces I can access and select my Political workspace.</td>
+  <td>I want to build a Political proposal with IQM's Planner. First, list the Organizations and Workspaces I can access and select my Political Workspace.</td>
   <td><ImageLightbox
       thumb={Pp1}
       full={Pp1}
@@ -72,7 +79,7 @@ Select the Organization to build the proposal in before you start.
       size={200}
       radius={8}
     /></td>
-  <td>MCP lists the Organizations you can access. Organization names don't show the vertical, so if none is named "Political", tell MCP which Organization to use, as in the next prompt.</td>
+  <td>MCP lists the Organizations you can access. Organization names don't show the vertical, so if none is named "Political," tell MCP which Organization to use, as in the next prompt.</td>
 </tr>
 </table>
 
@@ -85,7 +92,7 @@ Create a ready plan, compare the strategies IQM generates for it, and activate o
 <th>Response example</th>
 <th>Notes</th>
 <tr>
-  <td>We'll use SDK Test Customer.<br />Create a ready political plan with these settings:<ul><li>Name: MCP Political Planner 01</li><li>Objective: Reach forecasting</li><li>Total budget: $50,000</li><li>Flight: November 3, 2026 to November 30, 2026</li><li>Frequency cap: 3</li><li>Targeting: device types 20300001 and 20300004, creative types image (11) and video (14), TV auto buying off</li></ul></td>
+  <td>We'll use SDK Test Customer.<br />Create a ready Political plan with these settings:<ul><li>Name: MCP Political Planner 01</li><li>Objective: Reach forecasting</li><li>Total budget: $50,000</li><li>Flight: November 3, 2026 to November 30, 2026</li><li>Frequency cap: 3</li><li>Targeting: device types 20300001 and 20300004, creative types image (11) and video (14), TV auto buying off</li></ul></td>
   <td><ImageLightbox
       thumb={Pp2}
       full={Pp2}
@@ -93,7 +100,7 @@ Create a ready plan, compare the strategies IQM generates for it, and activate o
       size={200}
       radius={8}
     /></td>
-  <td>MCP looks up the objective ID, uses US/Eastern when no time zone is given, and converts the flight to epoch milliseconds. The start date can't be in the past. A plan without location targeting targets the whole United States. If the targeting is too narrow, the plan is rejected with <var>No strategies meet your criteria</var> and nothing is created.</td>
+  <td>MCP looks up the objective ID, uses US/Eastern when no timezone is given, and converts the flight to epoch milliseconds. The start date can't be in the past. A plan without location targeting targets the whole United States. If the targeting is too narrow, the plan is rejected with <var>No strategies meet your criteria</var> and nothing is created.</td>
 </tr>
 <tr>
   <td>List the strategies generated for that plan. Put them in a table comparing name, strategy type, campaign count, budget, reach, impressions, and CPM, and recommend which one to activate for maximum reach.</td>
@@ -139,7 +146,7 @@ Turn the proposal into an IO and draft campaigns.
 <th>Response example</th>
 <th>Notes</th>
 <tr>
-  <td>Generate an IO and campaigns from that proposal. Use the Political Advertiser profile in this workspace and the proposal's current start time. Leave out the end time so the duration is kept.</td>
+  <td>Generate an IO and campaigns from that proposal. Use the Political Advertiser profile in this Workspace and the proposal's current start time. Leave out the end time so the duration is kept.</td>
   <td><ImageLightbox
       thumb={Pp6}
       full={Pp6}
@@ -164,7 +171,7 @@ Forecast reach for the plan's budget and targeting before you create it.
 <th>Response example</th>
 <th>Notes</th>
 <tr>
-  <td>I want to build a Voter TV+ (cross-screen) political plan. Get a reach saturation graph with these settings:<ul><li>Name: Voter TV+ Plan</li><li>Objective: Voter TV+ (objectiveId 3)</li><li>Total budget: $100,000</li><li>Flight: November 3, 2026 to November 16, 2026, US/Eastern (timezone 29), converted to epoch milliseconds</li><li>Frequency cap: 3</li><li>Targeting: state of California (30200005)</li></ul>Use the default overview values. Show me the graphId, the overview values, and the audience overlap numbers: population, total reach, linear TV reach, CTV reach, overlap, and CTV incremental reach.</td>
+  <td>I want to build a Voter TV+ (cross-screen) Political plan. Get a reach saturation graph with these settings:<ul><li>Name: Voter TV+ Plan</li><li>Objective: Voter TV+ (objectiveId 3)</li><li>Total budget: $100,000</li><li>Flight: November 3, 2026 to November 16, 2026, US/Eastern (timezone 29), converted to epoch milliseconds</li><li>Frequency cap: 3</li><li>Targeting: state of California (30200005)</li></ul>Use the default overview values. Show me the graphId, the overview values, and the audience overlap numbers: population, total reach, linear TV reach, CTV reach, overlap, and CTV incremental reach.</td>
   <td><ImageLightbox
       thumb={Pp7}
       full={Pp7}
@@ -249,7 +256,7 @@ Turn the split proposal into an IO and draft campaigns.
 <th>Response example</th>
 <th>Notes</th>
 <tr>
-  <td>Generate an IO and campaigns from this proposal. Use the Political Advertiser profile we picked earlier and the proposal's current start time, and leave out the end time. Then check the proposal again. Has it moved to Converted (1), and what is the ioId? Only the CTV proposed campaigns should have become campaigns, so confirm that no linear TV campaigns were created.</td>
+  <td>Generate an IO and campaigns from this proposal. Use the same Political Advertiser profile as before and the proposal's current start time, and leave out the end time. Then check the proposal again. Has it moved to Converted (1), and what is the ioId? Only the CTV proposed campaigns should have become campaigns, so confirm that no linear TV campaigns were created.</td>
   <td><ImageLightbox
       thumb={Pp12}
       full={Pp12}
@@ -302,7 +309,7 @@ The table below lists the tools that MCP uses in this tutorial, with links to th
 <tr>
   <td><code>getAdvertiserProfiles</code></td>
   <td>Get the list of Advertiser profiles in a Workspace</td>
-  <td>[Get list of Advertiser profile and details](/guidelines/workspace-api#get-list-of-advertiser-profile-and-details)</td>
+  <td>[Get list of Advertiser profiles and details](/guidelines/workspace-api#get-list-of-advertiser-profiles-and-details)</td>
 </tr>
 <tr>
   <td><code>generateIOCampaigns_1</code></td>

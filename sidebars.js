@@ -5538,8 +5538,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Get list of Advertiser profile and details',
-              href: '/guidelines/workspace-api#get-list-of-advertiser-profile-and-details',
+              label: 'Get list of Advertiser profiles and details',
+              href: '/guidelines/workspace-api#get-list-of-advertiser-profiles-and-details',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },

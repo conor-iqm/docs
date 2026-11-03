@@ -49,7 +49,7 @@ To create a Political proposal and convert it into an IO, the following are requ
     * See the [Getting started](/getting-started/before-you-begin) section to create an account and request a Client ID and Client Secret.
     * Planner API requests from a Workspace outside the Political vertical are rejected.
   * A Political Advertiser profile
-    * See [Get list of Advertiser profile and details](/guidelines/workspace-api#get-list-of-advertiser-profile-and-details) to find an existing profile ID, or [Add Advertiser profile](/guidelines/workspace-api#add-advertiser-profile) to create one.
+    * See [Get list of Advertiser profiles and details](/guidelines/workspace-api#get-list-of-advertiser-profiles-and-details) to find an existing profile ID, or [Add Advertiser profile](/guidelines/workspace-api#add-advertiser-profile) to create one.
     * Required in [Step 5](#step-5-generate-an-io-and-campaigns) to generate an IO. Use a real profile ID; it is validated when the IO is created.
 
 ### Log in
@@ -1201,7 +1201,7 @@ Generating an IO is a one-way step. A converted proposal can't be returned to <v
 
 | Request schema |  |
 | ---- | --- |
-| `politicalAdvertiserId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | [Political Advertiser profile ID](/guidelines/workspace-api#get-list-of-advertiser-profile-and-details). |
+| `politicalAdvertiserId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | [Political Advertiser profile ID](/guidelines/workspace-api#get-list-of-advertiser-profiles-and-details). |
 | `startTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | Unix epoch start time for the campaigns, in milliseconds; can't be in the past. Always required. |
 | `endTime` <br /><span class="type-text">integer</span> | Unix epoch end time in milliseconds. If omitted, the proposal's current duration is kept from the new <var>startTime</var>. If provided, it must keep the same duration in days. |
 
