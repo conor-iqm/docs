@@ -12,7 +12,6 @@ import MCPUpdate1 from '@site/static/img/MCP/Tutorials/mcp-asset-update-1.png';
 import MCPUpdate2 from '@site/static/img/MCP/Tutorials/mcp-asset-update-2.png';
 import MCPUpdate3 from '@site/static/img/MCP/Tutorials/mcp-asset-update-3.png';
 import MCPAssetDelete from '@site/static/img/MCP/Tutorials/mcp-asset-delete.png';
-import AssetToolsIndex from '@site/docs/_partials/mcp/asset-index.mdx';
 
 # MCP assets tutorial
 
@@ -124,13 +123,38 @@ set disposable to false</td>
 
 ## Tools index
 
-In the tables below you can find the complete set of asset tools available in the MCP, categorized by entity type.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Asset API tool available in MCP, see the [Asset API](/mcp/mcp-tutorials/mcp-tools-index#asset-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various asset management capabilities of the MCP and how they relate to the Asset API endpoints.
-
-<AssetToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>getAllAssets</code></td>
+  <td>Get a list of all assets in the workspace</td>
+  <td>[Get a list of all assets](/guidelines/asset-api/#get-a-list-of-all-assets)</td>
+</tr>
+<tr>
+  <td><code>getAssetDetails</code></td>
+  <td>Get the details of an asset by ID</td>
+  <td>[Get asset details](/guidelines/asset-api/#get-asset-details)</td>
+</tr>
+<tr>
+  <td><code>addAssets</code></td>
+  <td>Upload one or more new assets</td>
+  <td>[Add multiple assets](/guidelines/asset-api/#add-multiple-assets)</td>
+</tr>
+<tr>
+  <td><code>updateAssetDetails</code></td>
+  <td>Update the details of an existing asset</td>
+  <td>[Update asset details](/guidelines/asset-api/#update-asset-details)</td>
+</tr>
+<tr>
+  <td><code>deleteAsset</code></td>
+  <td>Soft-delete an asset by ID</td>
+  <td>[Delete asset](/guidelines/asset-api/#delete-asset)</td>
+</tr>
+</table>
 
 ## Video demo
 

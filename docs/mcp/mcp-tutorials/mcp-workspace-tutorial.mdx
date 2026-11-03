@@ -4,7 +4,6 @@ title: MCP Workspace Tutorial
 
 import ExternalLink from '@site/static/img/external-link2.svg';
 import ImageLightbox from '@site/src/components/ImageLightBox';
-import WorkspaceToolsIndex from '@site/docs/_partials/mcp/workspace-index.mdx';
 import Org1 from '@site/static/img/MCP/Tutorials/mcp-org-1.png';
 import Org2 from '@site/static/img/MCP/Tutorials/mcp-org-2.png';
 import Org3 from '@site/static/img/MCP/Tutorials/mcp-org-3.png';
@@ -191,10 +190,70 @@ To access Workspace API tools using IQM MCP, the following are required:
 
 ## Tools index
 
-In the tables below you can find the complete set of Workspace management tools available in the MCP, categorized by function.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Workspace API tool available in MCP, see the [Workspace API](/mcp/mcp-tutorials/mcp-tools-index#workspace-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various Workspace management capabilities of the MCP and how they relate to the Workspace API endpoints.
-
-<WorkspaceToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>getAllowedOrganizations</code></td>
+  <td>Get a list of allowed organizations</td>
+  <td>[Get list of allowed Organizations](/guidelines/workspace-api/#get-list-of-allowed-organizations)</td>
+</tr>
+<tr>
+  <td><code>getOrganizationProfile</code></td>
+  <td>Get the organization's profile details</td>
+  <td>[Get Organization details](/guidelines/workspace-api/#get-organization-details)</td>
+</tr>
+<tr>
+  <td><code>updateOrganizationProfile</code></td>
+  <td>Update the organization's profile</td>
+  <td>[Update Organization profile](/guidelines/workspace-api/#update-organization-profile)</td>
+</tr>
+<tr>
+  <td><code>getInvitePreRequisite</code></td>
+  <td>Get pre-requisite details required before sending a customer invitation</td>
+  <td>[Invitation pre-requisite details](/guidelines/workspace-api/#invitation-pre-requisite-details)</td>
+</tr>
+<tr>
+  <td><code>sendInvitations</code></td>
+  <td>Invite a customer to the platform</td>
+  <td>[Invite Customer to platform](/guidelines/workspace-api/#invite-customer-to-platform)</td>
+</tr>
+<tr>
+  <td><code>getCustomersList</code></td>
+  <td>Get a detailed list of customers</td>
+  <td>[Get Customer details](/guidelines/workspace-api/#get-customer-details)</td>
+</tr>
+<tr>
+  <td><code>putCustomerOnHold</code></td>
+  <td>Suspend a customer account</td>
+  <td>[Put Customer on-hold](/guidelines/workspace-api/#put-customer-on-hold)</td>
+</tr>
+<tr>
+  <td><code>assignCustomersToUser</code></td>
+  <td>Assign customers to a user</td>
+  <td>[Assign Customer to user](/guidelines/workspace-api/#assign-customer-to-user)</td>
+</tr>
+<tr>
+  <td><code>getCustomerOperationDetailsById</code></td>
+  <td>Get customer operations details by customer ID</td>
+  <td>[Get Customer operations details](/guidelines/workspace-api/#get-customer-operations-details)</td>
+</tr>
+<tr>
+  <td><code>addAdvertiserProfile</code></td>
+  <td>Add a new advertiser profile</td>
+  <td>[Add Advertiser profile](/guidelines/workspace-api/#add-advertiser-profile)</td>
+</tr>
+<tr>
+  <td><code>updateAdvertiserProfile</code></td>
+  <td>Edit an existing advertiser profile</td>
+  <td>[Edit Advertiser profile](/guidelines/workspace-api/#edit-advertiser-profile)</td>
+</tr>
+<tr>
+  <td><code>getAdvertisers</code></td>
+  <td>Get advertisers associated with a customer</td>
+  <td>[Get list of Advertisers for Customer](/guidelines/workspace-api/#get-list-of-advertisers-for-customer)</td>
+</tr>
+</table>

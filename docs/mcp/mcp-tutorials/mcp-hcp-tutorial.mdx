@@ -1,0 +1,210 @@
+---
+title: MCP HCP Planner Tutorial
+---
+
+import ExternalLink from '@site/static/img/external-link2.svg';
+import ImageLightbox from '@site/src/components/ImageLightBox';
+import Hcp1 from '@site/static/img/MCP/Tutorials/mcp-hcp-1.png';
+import Hcp2 from '@site/static/img/MCP/Tutorials/mcp-hcp-2.png';
+import Hcp3 from '@site/static/img/MCP/Tutorials/mcp-hcp-3.png';
+import Hcp4 from '@site/static/img/MCP/Tutorials/mcp-hcp-4.png';
+import Hcp5 from '@site/static/img/MCP/Tutorials/mcp-hcp-5.png';
+import Hcp6 from '@site/static/img/MCP/Tutorials/mcp-hcp-6.png';
+import Hcp7 from '@site/static/img/MCP/Tutorials/mcp-hcp-7.png';
+
+# MCP Healthcare Professional (HCP) Planner tutorial
+
+Use IQM Model Context Protocol (MCP) to interact with the HCP Planner in the Planner API.
+
+## Overview
+
+This tutorial guides you through using IQM MCP to generate, save, edit, publish, and download an HCP plan with the Planner API. Publishing a plan creates an insertion order (IO) and draft campaigns.
+
+The Planner MCP supports a limited set of features of the Planner API. For a comprehensive list of supported features and best practices for using the HCP Planner, refer to the [Healthcare Professional (HCP) Planner](/healthcare-vertical/tutorials/create-an-hcp-proposal) tutorial and the [Planner API](/healthcare-vertical/planner) guidelines.
+
+## Before you begin
+
+To create and publish an HCP plan, the following are required:
+
+1. An account on the IQM platform
+   * See [Before you begin](/getting-started/before-you-begin) to create an account and request a Client ID and Client Secret.
+1. IQM MCP connected to your AI assistant
+   * See [MCP getting started](/mcp/mcp-getting-started).
+1. Access to a Healthcare Advertiser Organization
+   * HCP Planner requests only work in the Healthcare vertical, and only Advertiser Organizations can publish plans.
+
+## About the HCP Planner
+
+The HCP Planner builds a media plan that targets healthcare professionals by National Provider Identifier (NPI) type, specialty, location, and data partner. A plan goes through these steps:
+
+1. Generate campaigns
+1. Save the plan
+1. Edit the plan (optional)
+1. Publish the IO and campaigns
+
+### More resources
+  * [Healthcare Professional (HCP) Planner](/healthcare-vertical/tutorials/create-an-hcp-proposal) tutorial
+  * [Planner API](/healthcare-vertical/planner) guidelines
+  * [HCP Planner overview<ExternalLink />](https://help.iqm.com/en/articles/12238826-healthcare-professional-hcp-planner-overview) Help Center article
+
+## Select a Healthcare Workspace
+
+Select the Organization to build the plan in before you start.
+
+<table className='mcpTable' style={{maxWidth: "fit-content"}}>
+<th style={{ minWidth: "300px"}}>Prompt</th>
+<th>Response example</th>
+<th>Notes</th>
+<tr>
+  <td>I want to build a Healthcare Professional (HCP) plan with IQM's Planner. List the Organizations and Workspaces I can access and select my Healthcare Workspace.</td>
+  <td><ImageLightbox
+      thumb={Hcp1}
+      full={Hcp1}
+      alt="MCP Select Healthcare Workspace"
+      size={200}
+      radius={8}
+    /></td>
+  <td>MCP lists the Organizations you can access and selects the Healthcare Advertiser. HCP Planner requests only work in the Healthcare vertical, and publishing requires an Advertiser Organization.</td>
+</tr>
+</table>
+
+## Generate and save a plan
+
+Generate the plan's proposed campaigns, save them as a ready plan, and check the saved plan.
+
+<table className='mcpTable' style={{maxWidth: "fit-content"}}>
+<th style={{ minWidth: "300px"}}>Prompt</th>
+<th>Response example</th>
+<th>Notes</th>
+<tr>
+  <td>Generate the proposed campaigns for this plan. Show me the plan totals (min/max budget, impressions, and reach) and a table of the proposed campaigns with name, creative type, NPI type, media CPM, data CPM, budget, reach, and impressions. Keep the full response; we'll save it as the plan next.<ul><li>Name: MCP HCP 02</li><li>Flight: November 1, 2026 to November 30, 2026, US/Eastern (timezoneId 29), converted to epoch milliseconds</li><li>Budget type: Budget</li><li>Frequency cap: 3 per day</li><li>NPI types: HCP and NPI nurse</li><li>One filter-based audience block: all specialties, United States with no state, city, or ZIP code filters, data partners 7 (priority 1) and 8 (priority 2), both selected</li><li>Plan-level targeting: creative types image and video, device types 20300001 and 20300004, TV auto buying off</li><li>Split strategy: by creative type and by NPI type</li></ul></td>
+  <td><ImageLightbox
+      thumb={Hcp2}
+      full={Hcp2}
+      alt="MCP Generate HCP Campaigns"
+      size={200}
+      radius={8}
+    /></td>
+  <td>Nothing is saved in this step. MCP converts the flight to epoch milliseconds and returns one proposed campaign per creative type and NPI type. IQM names the campaigns from the split, for example <var>Campaign_Video_HCP_Matched_Audience</var>. The HCP Planner also needs channel and inventory targeting; when the prompt doesn't include them, MCP sends them as all selected.</td>
+</tr>
+<tr>
+  <td>Save this as a ready HCP plan, sending the full response from the generate step as the request body without changing the campaigns. Show me the plan ID that comes back.</td>
+  <td><ImageLightbox
+      thumb={Hcp3}
+      full={Hcp3}
+      alt="MCP Save HCP Plan"
+      size={200}
+      radius={8}
+    /></td>
+  <td>Ask MCP to send the generate response unchanged. Saving doesn't check that the plan totals match the campaigns, so a modified body is saved as sent. The returned ID is the plan ID for every later step.</td>
+</tr>
+<tr>
+  <td>Get the details of that plan. Show me its statusId (it should be Ready, 6), its ioId, and a summary of the saved campaigns.</td>
+  <td><ImageLightbox
+      thumb={Hcp4}
+      full={Hcp4}
+      alt="MCP HCP Plan Details"
+      size={200}
+      radius={8}
+    /></td>
+  <td>A saved plan is <var>Ready</var> (<var>6</var>), and its <var>ioId</var> is <var>0</var> until it's published. The details return <var>minBudget</var> and <var>minImpressions</var> as <var>null</var> and the inventory group as an empty object; MCP corrects these when it edits or publishes the plan.</td>
+</tr>
+</table>
+
+## Edit and publish the plan
+
+Update the saved plan, then publish it to create an IO and draft campaigns.
+
+<table className='mcpTable' style={{maxWidth: "fit-content"}}>
+<th style={{ minWidth: "300px"}}>Prompt</th>
+<th>Response example</th>
+<th>Notes</th>
+<tr>
+  <td>Edit the plan to change the frequency cap to 5 per week.</td>
+  <td><ImageLightbox
+      thumb={Hcp5}
+      full={Hcp5}
+      alt="MCP Edit HCP Plan"
+      size={200}
+      radius={8}
+    /></td>
+  <td>MCP sends the full plan back with its current <var>statusId</var>, adds back <var>minBudget</var> and <var>minImpressions</var>, and sets the inventory group to <var>null</var>. Every campaign uses the plan's frequency cap, so only the plan-level value needs to change.</td>
+</tr>
+<tr>
+  <td>Publish this plan to create an IO and campaigns.</td>
+  <td><ImageLightbox
+      thumb={Hcp6}
+      full={Hcp6}
+      alt="MCP Publish HCP Plan"
+      size={200}
+      radius={8}
+    /></td>
+  <td>Publishing runs in the background and can take a few minutes. When it finishes, the plan is <var>IO Created</var> (<var>7</var>), and its <var>ioId</var> and each campaign's <var>campaignId</var> are set. The campaigns are created as drafts. Each save gives the plan's campaign records new IDs, so use each campaign's <var>campaignId</var> elsewhere in IQM.</td>
+</tr>
+</table>
+
+## Download the plan
+
+Download the plan as a spreadsheet or PDF to share.
+
+<table className='mcpTable' style={{maxWidth: "fit-content"}}>
+<th style={{ minWidth: "300px"}}>Prompt</th>
+<th>Response example</th>
+<th>Notes</th>
+<tr>
+  <td>Download the plan as an Excel file (fileTypeId 1).</td>
+  <td><ImageLightbox
+      thumb={Hcp7}
+      full={Hcp7}
+      alt="MCP Download HCP Plan"
+      size={200}
+      radius={8}
+    /></td>
+  <td>HCP plans can be downloaded as Excel (<var>1</var>) or PDF (<var>3</var>) files. Use the <b>Download</b> button to save the file. If the Workspace selection has lapsed, MCP selects the Workspace again and retries.</td>
+</tr>
+</table>
+
+## Tools index
+
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Planner API tool available in MCP, see the [Planner API](/mcp/mcp-tutorials/mcp-tools-index#planner-api) section of the Tools index.
+
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>generateHCPProposedCampaigns</code></td>
+  <td>Generate the proposed campaigns and totals for an HCP plan, without saving it</td>
+  <td>[Generate campaigns plan](/healthcare-vertical/planner#generate-campaigns-plan)</td>
+</tr>
+<tr>
+  <td><code>createProposal_1</code></td>
+  <td>Save an HCP plan in ready status</td>
+  <td>[Create HCP Planner](/healthcare-vertical/planner#create-hcp-planner)</td>
+</tr>
+<tr>
+  <td><code>addDraftProposal_1</code></td>
+  <td>Save an HCP plan in draft status</td>
+  <td>[Create HCP Planner](/healthcare-vertical/planner#create-hcp-planner)</td>
+</tr>
+<tr>
+  <td><code>getHcpPlanById</code></td>
+  <td>Get the details of an HCP plan by ID</td>
+  <td>[HCP Planner details by ID](/healthcare-vertical/planner#hcp-planner-details-by-id)</td>
+</tr>
+<tr>
+  <td><code>editProposal_1</code></td>
+  <td>Update an HCP plan</td>
+  <td>[Update HCP Planner](/healthcare-vertical/planner#update-hcp-planner)</td>
+</tr>
+<tr>
+  <td><code>generateIOCampaigns_2</code></td>
+  <td>Publish an HCP plan to create an IO and draft campaigns</td>
+  <td>[Publish campaigns plan](/healthcare-vertical/planner#publish-campaigns-plan)</td>
+</tr>
+<tr>
+  <td><code>downloadPlan</code></td>
+  <td>Download an HCP plan as an Excel or PDF file</td>
+  <td>[Download HCP Planner](/healthcare-vertical/planner#download-hcp-planner)</td>
+</tr>
+</table>
