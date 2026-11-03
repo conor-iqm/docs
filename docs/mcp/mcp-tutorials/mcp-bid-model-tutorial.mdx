@@ -17,7 +17,6 @@ import BidModelBundle from '@site/static/img/MCP/Tutorials/MCP-bm-bundle.png';
 import BidModelBundle2 from '@site/static/img/MCP/Tutorials/MCP-bm-bundle-update.png';
 import BidModelBundle3 from '@site/static/img/MCP/Tutorials/MCP-bm-bundle-del.png';
 import BidModelExclude from '@site/static/img/MCP/Tutorials/MCP-bm-exclude.png';
-import BidModelToolsIndex from '@site/docs/_partials/mcp/bid-model-index.mdx';
 
 # MCP Bid Model tutorial
 
@@ -260,13 +259,68 @@ Use Include/Exclude modeling to specify where your ads appear based on location 
 
 ## Tools index
 
-In the tables below you can find the complete set of Bid Model tools available in the MCP, categorized by function.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Bid Model API tool available in MCP, see the [Bid Model API](/mcp/mcp-tutorials/mcp-tools-index#bid-model-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various Bid Model capabilities of the MCP and how they relate to the Bid Model API endpoints.
-
-<BidModelToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>getCampaignBasicDetailList</code></td>
+  <td>Paginated list with rich filters (type, status, IO, creative type)</td>
+  <td>[Get basic details of campaigns](/guidelines/campaign-api/#get-basic-details-of-campaigns)</td>
+</tr>
+<tr>
+  <td><code>getCampaign</code></td>
+  <td>Fetch full details of one campaign</td>
+  <td>[Get campaign details by ID](/guidelines/campaign-api/#get-campaign-details-by-id)</td>
+</tr>
+<tr>
+  <td><code>getDimensions</code></td>
+  <td>Get the list of bid model dimensions</td>
+  <td>[Get list of Bid Model dimensions](/guidelines/bid-model-api/#get-list-of-bid-model-dimensions)</td>
+</tr>
+<tr>
+  <td><code>getDimensionStatistics</code></td>
+  <td>Get dimension-wise counts of modeled items for a campaign</td>
+  <td>[Get campaign dimension statistics](/guidelines/bid-model-api/#get-campaign-dimension-statistics)</td>
+</tr>
+<tr>
+  <td><code>manageBidModelling</code></td>
+  <td>Manage bid modeling attributes for a campaign and dimension</td>
+  <td>[Manage Bid Model settings](/guidelines/bid-model-api/#manage-bid-model-settings)</td>
+</tr>
+<tr>
+  <td><code>getModelledItemsForCampaignAndDimensionId</code></td>
+  <td>Get modeled entities and modeling data for a campaign and dimension</td>
+  <td>[Get list of modeled entities for a campaign](/guidelines/bid-model-api/#get-list-of-modeled-entities-for-a-campaign)</td>
+</tr>
+<tr>
+  <td><code>createBundle_1</code></td>
+  <td>Create a bundle for a campaign and dimension</td>
+  <td>[Create Bid Model Bundle](/guidelines/bid-model-api/#create-bid-model-bundle)</td>
+</tr>
+<tr>
+  <td><code>updateBundleDetails_1</code></td>
+  <td>Update a bundle for a campaign and dimension</td>
+  <td>[Update Bid Model Bundle](/guidelines/bid-model-api/#update-bid-model-bundle)</td>
+</tr>
+<tr>
+  <td><code>deleteBundle_1</code></td>
+  <td>Delete a bundle for a campaign and dimension</td>
+  <td>[Delete Bid Model Bundle](/guidelines/bid-model-api/#delete-bid-model-bundle)</td>
+</tr>
+<tr>
+  <td><code>getBundleDetailsList_1</code></td>
+  <td>Get a list of bundles for a campaign and dimension, with entity and modeling status details</td>
+  <td>[Get list of Bid Model Bundles](/guidelines/bid-model-api/#get-list-of-bid-model-bundles)</td>
+</tr>
+<tr>
+  <td><code>toggleCampaignDimensionStatus</code></td>
+  <td>Include or exclude entities from a campaign</td>
+  <td>[Include/exclude entities from a campaign](/guidelines/bid-model-api/#includeexclude-entities-from-a-campaign)</td>
+</tr>
+</table>
 
 ## Video demo
 

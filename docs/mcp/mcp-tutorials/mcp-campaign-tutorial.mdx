@@ -21,7 +21,6 @@ import Target1 from '@site/static/img/MCP/Tutorials/mcp-cmp-target-1.png';
 import Target2 from '@site/static/img/MCP/Tutorials/mcp-cmp-target-2.png';
 import Target3 from '@site/static/img/MCP/Tutorials/mcp-cmp-target-3.png';
 import Target4 from '@site/static/img/MCP/Tutorials/mcp-cmp-target-4.png';
-import CampaignToolsIndex from '@site/docs/_partials/mcp/campaign-index.mdx';
 
 # MCP campaign tutorial
 
@@ -269,6 +268,75 @@ You can manage campaign targeting by providing the required details and settings
 
 ## Tools index
 
-The table below summarizes the tools that the MCP uses to perform the actions in this tutorial. Here you can also find links to the API documentation for each of those tools to learn more about their functionality and capabilities.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Campaign API tool available in MCP, see the [Campaign API](/mcp/mcp-tutorials/mcp-tools-index#campaign-api) section of the Tools index.
 
-<CampaignToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>createCampaignIO</code></td>
+  <td>Create a new insertion order</td>
+  <td>[Create an insertion order](/guidelines/campaign-api/#create-an-insertion-order)</td>
+</tr>
+<tr>
+  <td><code>editIODetails</code></td>
+  <td>Update an existing insertion order</td>
+  <td>[Update insertion order details](/guidelines/campaign-api/#update-insertion-order-details)</td>
+</tr>
+<tr>
+  <td><code>getIOBasicDetailsList</code></td>
+  <td>List IOs with filters (status, budget type, owner)</td>
+  <td>[Get insertion order details](/guidelines/campaign-api/#get-insertion-order-details)</td>
+</tr>
+<tr>
+  <td><code>saveCampaign</code></td>
+  <td>Create an advanced campaign in pending status</td>
+  <td>[Create new campaign](/guidelines/campaign-api/#create-new-campaign)</td>
+</tr>
+<tr>
+  <td><code>editCampaignPatch</code></td>
+  <td>Update a campaign (auto-promotes draft to pending)</td>
+  <td>[Update campaign](/guidelines/campaign-api/#update-campaign)</td>
+</tr>
+<tr>
+  <td><code>getCampaign</code></td>
+  <td>Fetch full details of one campaign</td>
+  <td>[Get campaign details by ID](/guidelines/campaign-api/#get-campaign-details-by-id)</td>
+</tr>
+<tr>
+  <td><code>addPGCampaign</code></td>
+  <td>Create a PG campaign</td>
+  <td>[Create new PG campaign](/guidelines/campaign-api/#create-new-pg-campaign)</td>
+</tr>
+<tr>
+  <td><code>editPGCampaign</code></td>
+  <td>Update a PG campaign</td>
+  <td>[Update PG campaign](/guidelines/campaign-api/#update-pg-campaign)</td>
+</tr>
+<tr>
+  <td><code>getCreatives_1</code></td>
+  <td>Get a list of creatives and their details</td>
+  <td>[Get list of creatives and details](/guidelines/creative-api/#get-list-of-creatives-and-details)</td>
+</tr>
+<tr>
+  <td><code>getCampaignBasicDetailList</code></td>
+  <td>Paginated list with rich filters (type, status, IO, creative type)</td>
+  <td>[Get basic details of campaigns](/guidelines/campaign-api/#get-basic-details-of-campaigns)</td>
+</tr>
+<tr>
+  <td><code>CampaignAudienceTargetingList</code></td>
+  <td>Bulk include/exclude/remove audiences across many campaigns (map-keyed by campaign ID)</td>
+  <td>[Update audience targeting in campaigns](/guidelines/campaign-api/#update-audience-targeting-in-campaigns)</td>
+</tr>
+<tr>
+  <td><code>managePMPDealCampaignMappings</code></td>
+  <td>Bulk assign/de-assign PMP deals to campaigns</td>
+  <td>[Assign PMP deals](/guidelines/campaign-api/#assign-pmp-deals)</td>
+</tr>
+<tr>
+  <td><code>createCampaignCreativeTargeting</code></td>
+  <td>Bulk assign/unassign creatives to campaigns</td>
+  <td>[Update creative targeting in campaigns](/guidelines/campaign-api/#update-creative-targeting-in-campaigns)</td>
+</tr>
+</table>
