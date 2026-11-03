@@ -826,6 +826,11 @@ td:first-child {
   text-align: left;
 }
 
+/* Let long unbroken values (e.g. generated campaign names) wrap in the Notes column */
+.mcpTable td:last-child {
+  overflow-wrap: anywhere;
+}
+
 td:nth-child(2) {
   font-size: 90%;
 }
