@@ -25,7 +25,6 @@ import MatchedAudienceStatic from '@site/docs/_partials/audience-api/matched-aud
 import PrebidAudiences from '@site/docs/_partials/audience-api/audience-prebid.mdx';
 import StaticAudiences from '@site/docs/_partials/audience-api/static-audience.mdx';
 import CampaignAudience from '@site/docs/_partials/audience-api/campaign-audience.mdx';
-import { verticals } from '@site/src/data/enums/verticals';
 import { dataPartners } from '@site/src/data/enums/dataPartners';
 import { audienceStatuses } from '@site/src/data/enums/audienceStatuses';
 import ApiHeaders from '@site/docs/_partials/common/api-headers.mdx';
@@ -124,7 +123,16 @@ Update the name of an existing audience.
 <div class="endpoint-container">
   <div class="child1">
 
-Regenerate a failed audience. 
+Regenerate a Geofarmed or Contextual audience whose data fetching or processing failed. Other audience types, such as Matched, Segmented, and ABM audiences, can't be regenerated.
+
+An audience can be regenerated when all of the following are true:
+
+* The audience type is Geofarmed (<var>4</var>) or Contextual (<var>5</var>).
+* The audience status is <var>Failed</var> (<var>6</var>).
+* The audience failed during data fetching or data processing.
+* The audience hasn't reached the maximum number of regeneration attempts.
+
+Only Advertiser users can regenerate an audience, and the audience must belong to their Organization.
 
 | Path parameters | |
 | --- | --- | 
@@ -136,10 +144,70 @@ Regenerate a failed audience.
 {
   "success": true,
   "data": {
-    "message": "Audience regeneration initiated successfully"
+    "message": "Audience regenerated successfully."
   }
 }
 ```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 403"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "User is not allowed to access this API. Only Advertiser users can access this API."
+    }
+  ]
+}
+```
+
+```json title="Response 422"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "Only Geo-farmed and Contextual audiences support this operation."
+    }
+  ]
+}
+```
+
+```json title="Response 422"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "Invalid audience status. Audience status must be 'Failed'."
+    }
+  ]
+}
+```
+
+```json title="Response 422"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "Invalid audience failure reason ID of the given audience."
+    }
+  ]
+}
+```
+
+```json title="Response 422"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "You have reached the maximum limit for audience regeneration attempts."
+    }
+  ]
+}
+```
+
+</details>
 
 </div></div>
 
@@ -152,16 +220,37 @@ Regenerate a failed audience.
 <div class="endpoint-container">
   <div class="child1">
 
-Get a demographic and geographic profile of an audience, returned as a set of chart-ready widgets (for example, age, gender, and state distribution). Each row in a widget includes both the raw count and the percent of the audience in that segment.
+Get a demographic and geographic profile of an audience, returned as a set of chart-ready widgets. Each row in a widget includes both the raw count and the percent of the audience in that segment. The response depends on the audience type:
 
-This endpoint only returns insight content for audiences that resolve to an actual set of individual matched user profiles.
+* Matched audiences return their Audience Insights report. [Create the Audience Insights report](#create-audience-insights-report) first, then wait until the audience's <var>insightStatusId</var> in the [audience details list](#audience-details-list) is <var>2</var> (Ready). Other values are <var>1</var> (Processing) and <var>3</var> (Failed). The report includes an audience summary and distributions such as gender, age, income, and ethnicity, each compared with the national average.
+* Segmented and Account Based Marketing (ABM) audiences return Insights computed on request, with no report to create first. Widgets include distributions such as age, gender, state, and device type. The first request can return no data while the Insights are computed.
+
+Other audience types don't have Insights. When no Insights are available, the response contains <var>success</var> with no <var>data</var> object.
 
 | Path parameters | |
 | --- | --- |
 | `audienceId` <br /><span class="type-text">integer</span> | [Audience ID](/guidelines/audience-api#audience-details-list) to get Insights for. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
- <summary style={{ fontSize: "16px" }}>Response properties</summary>
+ <summary style={{ fontSize: "16px" }}>Response properties: Matched audiences</summary>
+ <table className="objectProperties">
+<tr>
+  <td>`reportType` <br /><span class="type-text">string</span></td>
+  <td>Report type, <var>INSIGHTS_AUDIENCE_REPORT</var>.</td>
+</tr>
+<tr>
+  <td>`fileName` <br /><span class="type-text">string</span></td>
+  <td>File name of the report.</td>
+</tr>
+<tr>
+  <td>`data` <br /><span class="type-text">object</span></td>
+  <td>Report content: <var>audience_id</var>, <var>audience_name</var>, <var>audience_date</var>, <var>vertical_id</var>, <var>vertical</var>, and <var>widgets</var>. Widgets use the same <var>title</var>, <var>type</var>, and <var>data</var> structure as Segmented audiences, with row keys such as <var>Sr no.</var>, <var>Audience Value (Absolute)</var>, <var>Audience Value (%)</var>, <var>National Avg (%)</var>, and <var>Delta</var>. The first widget is an audience summary table with <var>Key</var> and <var>Audience Value</var> rows.</td>
+</tr>
+</table>
+</details>
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+ <summary style={{ fontSize: "16px" }}>Response properties: Segmented and ABM audiences</summary>
  <table className="objectProperties">
 <tr>
   <td>`audienceId` <br /><span class="type-text">string</span></td>
@@ -177,11 +266,11 @@ This endpoint only returns insight content for audiences that resolve to an actu
 </tr>
 <tr>
   <td>`verticalId` <br /><span class="type-text">string</span></td>
-  <td>[Vertical ID](/guidelines/workspace-api/#verticals). <br /><EnumWidget values={verticals} /></td>
+  <td>Currently always <var>dummy</var> — not yet populated.</td>
 </tr>
 <tr>
   <td>`vertical` <br /><span class="type-text">string</span></td>
-  <td>Vertical name.</td>
+  <td>Currently always <var>dummy</var> — not yet populated.</td>
 </tr>
 <tr>
   <td>`widgets` <br /><span class="type-text">array of objects</span></td>
@@ -247,15 +336,51 @@ This endpoint only returns insight content for audiences that resolve to an actu
 </div>
 <div class="child2">
 
-```json title="Response 200"
+```json title="Response 200: Matched audience"
+{
+  "success": true,
+  "data": {
+    "reportType": "INSIGHTS_AUDIENCE_REPORT",
+    "fileName": "default_insight.pdf",
+    "data": {
+      "audience_id": "1161677",
+      "audience_name": "L2+PII for VLD",
+      "audience_date": "2026-04-28",
+      "vertical_id": "1",
+      "vertical": "Political",
+      "widgets": [
+        {
+          "title": "Audience Summary",
+          "type": "table",
+          "data": [
+            {"Sr no.": 1, "Key": "Total Household", "Audience Value": "1,999"},
+            {"Sr no.": 2, "Key": "Total People", "Audience Value": "2,000"}
+          ]
+        },
+        {
+          "title": "Gender",
+          "type": "pie",
+          "data": [
+            {"Sr no.": 1, "Gender": "Female", "Audience Value (Absolute)": "1,082", "Audience Value (%)": 54.1, "National Avg (%)": 52.14, "Delta": 1.96},
+            {"Sr no.": 2, "Gender": "Male", "Audience Value (Absolute)": "918", "Audience Value (%)": 45.9, "National Avg (%)": 46.93, "Delta": -1.03}
+          ]
+        }
+        ...
+      ]
+    }
+  }
+}
+```
+
+```json title="Response 200: Segmented audience"
 {
   "success": true,
   "data": {
     "audienceId": "48703",
     "audienceName": "Segmented1",
     "audienceDate": "2026-04-10",
-    "verticalId": "2",
-    "vertical": "Healthcare",
+    "verticalId": "dummy",
+    "vertical": "dummy",
     "widgets": [
       {
         "title": "age",
@@ -287,6 +412,17 @@ This endpoint only returns insight content for audiences that resolve to an actu
   }
 }
 ```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 200: no Insights available"
+{
+  "success": true
+}
+```
+
+</details>
 
 </div></div>
 
