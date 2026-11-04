@@ -6,7 +6,6 @@ import ExternalLink from '@site/static/img/external-link2.svg';
 import { dataFormats } from '@site/src/data/enums/dataFormats';
 import { audienceSubtypes } from '@site/src/data/enums/audienceSubtypes';
 import { dataPartners } from '@site/src/data/enums/dataPartners';
-import { audienceStatuses } from '@site/src/data/enums/audienceStatuses';
 
 ### Create Matched audience
 
@@ -185,26 +184,22 @@ curl -X POST https://api.iqm.com/api/v3/audience/matched \
 <div class="endpoint-container">
   <div class="child1">
 
-Update a Matched audience. 
+Update the data cost of a Matched audience. Only Matched audiences can be updated, and users without full access must have access to the audience's Organization.
+
+To approve or reject a Matched audience, use [Approve or reject Matched audience](#approve-or-reject-matched-audience).
 
 | Path parameter | |
 | --- | --- |
-| `audienceId` <br /><span class="type-text">integer</span> | [Matched audience ID](/guidelines/audience-api/#audience-details-list).
+| `audienceId` <br /><span class="type-text">integer</span> | [Matched audience ID](/guidelines/audience-api/#audience-details-list). |
 
 | Request schema | |
 | --- | --- |
-| `dataCost` <br /><span class="type-text">number</span> | Data cost.
-| `audienceStatusId` <br /><span class="type-text">integer</span> | [Audience status ID](/guidelines/audience-api/#audience-status-list). <br /><EnumWidget values={audienceStatuses} />
-| `rejectionReason` <br /><span class="type-text">string</span> | Reason for rejection if updating status to <var>Rejected</var>.
+| `dataCost` <br /><span class="type-text">number</span> | Data cost, returned as <var>cpm</var> in audience details. If omitted, the current data cost is kept. |
 
 
   <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem"}}>
     <summary style={{fontSize: "16px"}}>Response properties</summary>
     <table className="objectProperties">
-    <tr>
-    <td>`id` <br /><span class="type-text">integer</span></td>
-    <td>[Audience ID](/guidelines/audience-api#audience-details-list).</td>
-    </tr>
     <tr>
     <td>`message` <br /><span class="type-text">string</span></td>
     <td>Success message.</td>
@@ -220,21 +215,34 @@ Update a Matched audience.
 
 ```json title="Request sample"
 {
-  "dataCost": 10,
-  "audienceStatusId": 4,
-  "rejectionReason": "Insufficient data quality."
+  "dataCost": 10
 }
 ```
 
 ```json title="Response 200"
 {
-  "statusCode": 200,
-  "responseObject": {
-    "id": 1,
-    "message": "Your changes have been saved successfully"
+  "success": true,
+  "data": {
+    "message": "Changes saved successfully"
   }
 }
 ```
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
+<summary style={{fontSize: "16px"}}>More responses</summary>
+
+```json title="Response 422"
+{
+  "success": false,
+  "errorObjects": [
+    {
+      "error": "Only matched audiences can be edited."
+    }
+  ]
+}
+```
+
+</details>
 
 </TabItem>
 </Tabs>
