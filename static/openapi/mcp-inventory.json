@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "OpenAPI definition",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "description": "MCP Inventory API Specification",
     "contact": {
       "name": "IQM Support",
@@ -7925,7 +7925,7 @@
           "MCP"
         ],
         "summary": "List CTV apps",
-        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nList (browse, search, discover) the catalog of CTV apps available to the workspace, for CTV \t\tinventory discovery, with impressions, reach, publisher, and streaming devices for each app. To add an app to a CTV inventory group (groupTypeId 4), pass its bunchId in bunchIds.\n\nReturns one row per CTV app (bunch), sorted by impressions, highest first. Paginate with pageNo (starts at 1) and noOfEntries (default 10). All filters are optional and combined with AND. filteredRecords is the number of matching apps; totalRecords is the size of the whole CTV catalog. For totals only, see getCtvInventoriesCountDetails.",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nList (browse, search, discover) the catalog of CTV apps available to the workspace, for CTV inventory discovery, with impressions, reach, publisher, and streaming devices for each app. To add an app to a CTV inventory group (groupTypeId 4), pass its bunchId in bunchIds.\n\nReturns one row per CTV app (bunch), sorted by impressions, highest first. Paginate with pageNo (starts at 1) and noOfEntries (default 10). All filters are optional and combined with AND. filteredRecords is the number of matching apps; totalRecords is the size of the whole CTV catalog. For totals only, see getCtvInventoriesCountDetails.",
         "operationId": "getCtvInventoriesDetails",
         "parameters": [
           {
