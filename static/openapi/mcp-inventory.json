@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "OpenAPI definition",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "description": "MCP Inventory API Specification",
     "contact": {
       "name": "IQM Support",
@@ -1291,8 +1291,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "Adds a new inventory group based on the provided request body.",
-        "description": "Creates a new inventory group with the specified details such as group name, type, and associated inventories or deals.",
+        "summary": "Create an inventory group (Open Exchange, CTV, PMP, or Contextual)",
+        "description": "Create (add) a new inventory group of one type, set by groupTypeId: 1 = Open Exchange, 4 = CTV (Connected TV), 2 = PMP deals, 3 = Contextual. The group can be created empty (isEmptyGroup true) or populated in the same request.\n\nHow to populate each type:\n- Open Exchange (1): inventoryIds, search filters (countries, categories, creativeTypes, and so on), or isAllInventories.\n- CTV (4): bunchIds (CTV app IDs from getCtvInventoriesDetails), optionally narrowed to streamingDevice IDs; or search filters (countries, categories, creativeTypes, creativeDurations, exchanges, videoPlayerSizes); or isAllInventories. inventoryIds alone is rejected for CTV, and keywords is ignored for CTV.\n- PMP (2): dealIds.\n- Contextual (3): contextualKeywords and/or contextualUrls.\n\nReturns 422 if no inventory matches the IDs or filters.",
         "operationId": "addInventoryGroup",
         "parameters": [
           {
@@ -1471,6 +1471,42 @@
                   "value": {
                     "groupName": "Inventory Group - Contextual keywords and URLs",
                     "groupTypeId": 3
+                  }
+                },
+                "Create a CTV inventory group with search filters": {
+                  "description": "Create a CTV inventory group with search filters",
+                  "value": {
+                    "groupName": "Inventory Group - CTV - audio",
+                    "groupTypeId": 4,
+                    "creativeTypes": [
+                      2
+                    ]
+                  }
+                },
+                "Create a CTV group with bunch IDs": {
+                  "description": "Create a CTV group with bunch IDs",
+                  "value": {
+                    "groupName": "test-ctv-grp-5",
+                    "bunchIds": [
+                      101,
+                      201
+                    ],
+                    "groupTypeId": 4
+                  }
+                },
+                "Create a CTV group with streaming device filter": {
+                  "description": "Create a CTV group with streaming device filter",
+                  "value": {
+                    "groupName": "test-ctv-grp-5",
+                    "bunchIds": [
+                      101,
+                      201
+                    ],
+                    "streamingDevice": [
+                      6,
+                      7
+                    ],
+                    "groupTypeId": 4
                   }
                 }
               }
@@ -1743,6 +1779,9 @@
                       "error": "server encountered an error !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -1758,6 +1797,9 @@
                       "error": "Forbidden !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -1771,7 +1813,7 @@
           "MCP"
         ],
         "summary": "Downloads the list of open exchange inventories for an inventory group based on various filters and parameters.",
-        "description": "Generates and uploads a downloadable file (CSV/Excel) of open exchange inventory details for the specified group, returning an S3 URL.",
+        "description": "Generates and uploads a downloadable file (CSV/Excel) of open exchange inventory details for the specified group, returning an S3 URL. Only works on Open Exchange groups (groupTypeId 1); for a CTV group, see downloadCtvInventoryDetailsByGroupId.",
         "operationId": "downloadOpenExchangeInventoryDetailsByGroupId",
         "parameters": [
           {
@@ -1852,6 +1894,9 @@
                       "error": "server encountered an error !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -1867,6 +1912,9 @@
                       "error": "Forbidden !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -1935,8 +1983,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "It will remove inventories (Open Exchange, Private Deals, Contextual) to group",
-        "description": "Removes inventories (open exchange, PMP deals, or contextual) from an inventory group and triggers data sync.",
+        "summary": "Remove inventories, CTV apps, deals, or contextual targets from an inventory group",
+        "description": "Remove (delete) items from one inventory group; the group itself is kept. Set groupTypeId to the group's type: 1 = Open Exchange, 4 = CTV (Connected TV), 2 = PMP deals, 3 = Contextual.\n\nWhat to send for each type:\n- Open Exchange (1): inventoryIds, or searchField to remove every matching inventory.\n- CTV (4): bunchIds (CTV app IDs), or searchField to remove every matching inventory.\n- PMP (2): dealIds.\n- Contextual (3): inventoryIds holding the contextual inventory IDs.\n\nReturns the updated group with refreshed statistics.",
         "operationId": "removeMappingsOfInventoryGroup",
         "parameters": [
           {
@@ -1974,7 +2022,8 @@
                   "value": {
                     "groupId": 100462,
                     "searchField": "foxnews",
-                    "isAllInventories": true
+                    "isAllInventories": true,
+                    "groupTypeId": 1
                   }
                 },
                 "Remove pmp deals from group": {
@@ -1983,7 +2032,8 @@
                     "groupId": 100462,
                     "dealIds": [
                       10
-                    ]
+                    ],
+                    "groupTypeId": 2
                   }
                 },
                 "Remove Contextual Inventories from group": {
@@ -1997,7 +2047,8 @@
                     "contextualUrls": [
                       "http://google.com",
                       "http://google1.com"
-                    ]
+                    ],
+                    "groupTypeId": 3
                   }
                 },
                 "Remove specific inventories to group": {
@@ -2006,6 +2057,17 @@
                     "groupId": 100462,
                     "inventoryIds": [
                       52983
+                    ],
+                    "groupTypeId": 1
+                  }
+                },
+                "Remove ctv inventories from group": {
+                  "description": "Remove ctv inventories from group",
+                  "value": {
+                    "groupId": 100462,
+                    "groupTypeId": 4,
+                    "bunchIds": [
+                      101
                     ]
                   }
                 }
@@ -2020,35 +2082,104 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InventoryGroupResponse"
+                  "$ref": "#/components/schemas/InventoryGroupSingleResponse"
                 },
                 "examples": {
                   "Return the inventory group details": {
                     "description": "Return the inventory group details",
                     "value": {
                       "success": true,
-                      "data": [
-                        {
-                          "groupTypeId": 1,
-                          "created": 1719983099,
-                          "modifiedDate": "2024-07-03T07:35:45.800+0000",
-                          "owId": 202017,
-                          "impressions": 7927783118,
-                          "isAccountLevelExcluded": false,
-                          "whiteListedCampaignIds": null,
-                          "blackListedCampaignIds": null,
-                          "sharedCount": 1,
-                          "uniques": 0,
-                          "reach": 558137549,
-                          "inventories": 0,
-                          "deals": 0,
-                          "contextualInventories": 0,
-                          "count": 2,
-                          "id": 176130,
-                          "name": "Open Exchange Inventories Group",
-                          "isShared": true
-                        }
-                      ]
+                      "data": {
+                        "groupTypeId": 1,
+                        "created": 1719983099,
+                        "modifiedDate": "2024-07-03T07:35:45.800+0000",
+                        "owId": 202017,
+                        "impressions": 7927783118,
+                        "isAccountLevelExcluded": false,
+                        "whiteListedCampaignIds": null,
+                        "blackListedCampaignIds": null,
+                        "sharedCount": 1,
+                        "uniques": 0,
+                        "reach": 558137549,
+                        "inventories": 0,
+                        "deals": 0,
+                        "contextualInventories": 0,
+                        "count": 2,
+                        "id": 176130,
+                        "name": "Open Exchange Inventories Group",
+                        "isShared": true
+                      }
+                    }
+                  },
+                  "Return the ctv inventory group details": {
+                    "description": "Return the ctv inventory group details",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "groupTypeId": 4,
+                        "created": 1783938142,
+                        "modifiedDate": "2026-07-13T10:22:30.809+00:00",
+                        "owId": 203615,
+                        "impressions": 344567518,
+                        "isAccountLevelExcluded": false,
+                        "distribution": {
+                          "countries": [
+                            {
+                              "label": "United States",
+                              "value": 99.11
+                            },
+                            {
+                              "label": "Canada",
+                              "value": 0.39
+                            },
+                            {
+                              "label": "Brazil",
+                              "value": 0.11
+                            },
+                            {
+                              "label": "Mexico",
+                              "value": 0.09
+                            },
+                            {
+                              "label": "United Kingdom",
+                              "value": 0.05
+                            }
+                          ],
+                          "creativeTypes": [
+                            {
+                              "label": "Video",
+                              "value": 99.6
+                            },
+                            {
+                              "label": "Audio",
+                              "value": 0.4
+                            }
+                          ],
+                          "streamingDevices": [
+                            {
+                              "label": "Roku",
+                              "value": 99.92
+                            },
+                            {
+                              "label": "Samsung TV",
+                              "value": 0.08
+                            }
+                          ]
+                        },
+                        "campaignWhitelistCount": 0,
+                        "campaignBlacklistCount": 0,
+                        "publishers": 0,
+                        "sharedCount": 0,
+                        "uniques": 0,
+                        "reach": 2253113,
+                        "inventories": 0,
+                        "deals": 0,
+                        "contextualInventories": 0,
+                        "count": 2,
+                        "id": 191713,
+                        "name": "test-ctv-grp-1",
+                        "isShared": false
+                      }
                     }
                   }
                 }
@@ -2089,6 +2220,9 @@
                       "error": "server encountered an error !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -2101,8 +2235,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "It will add inventories (Open Exchange, Private Deals, Contextual) to group",
-        "description": "Adds inventories (open exchange, PMP deals, or contextual) to one or more inventory groups and triggers data sync.",
+        "summary": "Add inventories, CTV apps, deals, or contextual targets to inventory groups",
+        "description": "Add (assign) inventories, CTV apps, PMP deals, or contextual targets to one or more existing inventory groups of the same type, set by groupTypeId: 1 = Open Exchange, 4 = CTV (Connected TV), 2 = PMP deals, 3 = Contextual.\n\nWhat to send for each type:\n- Open Exchange (1): inventoryIds, search filters, or isAllInventories.\n- CTV (4): bunchIds (CTV app IDs from getCtvInventoriesDetails), optionally narrowed to streamingDevice IDs; or search filters (countries, categories, creativeTypes, creativeDurations, exchanges, videoPlayerSizes); or isAllInventories. inventoryIds alone is rejected for CTV, and keywords is ignored for CTV.\n- PMP (2): dealIds.\n- Contextual (3): contextualKeywords and/or contextualUrls.\n\nItems already in a group are skipped. Returns the updated groups with refreshed statistics.",
         "operationId": "addMappingsToInventoryGroups",
         "parameters": [
           {
@@ -2190,7 +2324,8 @@
                       4,
                       -1
                     ],
-                    "isAllInventories": true
+                    "isAllInventories": true,
+                    "groupTypeId": 1
                   }
                 },
                 "Add private deals to group": {
@@ -2202,7 +2337,8 @@
                     ],
                     "dealIds": [
                       10
-                    ]
+                    ],
+                    "groupTypeId": 2
                   }
                 },
                 "Add Contextual Inventories to group": {
@@ -2219,7 +2355,8 @@
                     "contextualUrls": [
                       "http://google.com",
                       "http://google1.com"
-                    ]
+                    ],
+                    "groupTypeId": 3
                   }
                 },
                 "Add inventories to group": {
@@ -2231,7 +2368,37 @@
                     ],
                     "inventoryIds": [
                       52983
-                    ]
+                    ],
+                    "groupTypeId": 1
+                  }
+                },
+                "Add ctv inventories to group": {
+                  "description": "Add ctv inventories to group",
+                  "value": {
+                    "groupIds": [
+                      100462,
+                      100463
+                    ],
+                    "bunchIds": [
+                      101
+                    ],
+                    "groupTypeId": 4
+                  }
+                },
+                "Add ctv inventories to group with streaming device filter": {
+                  "description": "Add ctv inventories to group with streaming device filter",
+                  "value": {
+                    "groupIds": [
+                      100462,
+                      100463
+                    ],
+                    "bunchIds": [
+                      101
+                    ],
+                    "streamingDevice": [
+                      7
+                    ],
+                    "groupTypeId": 4
                   }
                 }
               }
@@ -2272,6 +2439,79 @@
                           "id": 176130,
                           "name": "Open Exchange Inventories Group",
                           "isShared": true
+                        }
+                      ]
+                    }
+                  },
+                  "Add ctv inventories to group using filters": {
+                    "description": "Add ctv inventories to group using filters",
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "groupTypeId": 4,
+                          "created": 1783938142,
+                          "modifiedDate": "2026-07-13T10:22:30.809+00:00",
+                          "owId": 203615,
+                          "impressions": 344567520,
+                          "isAccountLevelExcluded": false,
+                          "distribution": {
+                            "countries": [
+                              {
+                                "label": "United States",
+                                "value": 99.11
+                              },
+                              {
+                                "label": "Canada",
+                                "value": 0.39
+                              },
+                              {
+                                "label": "Brazil",
+                                "value": 0.11
+                              },
+                              {
+                                "label": "Mexico",
+                                "value": 0.09
+                              },
+                              {
+                                "label": "United Kingdom",
+                                "value": 0.05
+                              }
+                            ],
+                            "creativeTypes": [
+                              {
+                                "label": "Video",
+                                "value": 99.6
+                              },
+                              {
+                                "label": "Audio",
+                                "value": 0.4
+                              }
+                            ],
+                            "streamingDevices": [
+                              {
+                                "label": "Roku",
+                                "value": 99.92
+                              },
+                              {
+                                "label": "Samsung TV",
+                                "value": 0.08
+                              }
+                            ]
+                          },
+                          "campaignWhitelistCount": 0,
+                          "campaignBlacklistCount": 0,
+                          "publishers": 0,
+                          "sharedCount": 0,
+                          "uniques": 0,
+                          "reach": 2253113,
+                          "inventories": 0,
+                          "deals": 0,
+                          "contextualInventories": 0,
+                          "count": 3,
+                          "id": 191713,
+                          "name": "test-ctv-grp-1",
+                          "isShared": false
                         }
                       ]
                     }
@@ -5336,11 +5576,11 @@
           {
             "name": "groupTypeIds",
             "in": "query",
-            "description": "This parameter can be used to filter groups list. Below are the valid values for this filter parameter: 1 - Open Exchange 2 - PMP 3 - Contextual",
+            "description": "This parameter can be used to filter groups list. Below are the valid values for this filter parameter: 1 - Open Exchange 2 - PMP 3 - Contextual 4 - CTV",
             "required": false,
             "schema": {
               "type": "string",
-              "default": "1,2,3"
+              "default": "1,2,3,4"
             }
           },
           {
@@ -5457,7 +5697,67 @@
           }
         ],
         "responses": {
-          "201": {
+          "422": {
+            "description": "Erroneous retrieval of inventory group list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Invalid sortBy data": {
+                    "description": "Invalid sortBy data",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid sortBy value.",
+                          "field": "sortBy"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "200": {
             "description": "Successful retrieval of inventory group list",
             "content": {
               "application/json": {
@@ -5654,60 +5954,6 @@
                       }
                     }
                   }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Erroneous retrieval of inventory group list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CommonResponse"
-                },
-                "examples": {
-                  "Invalid sortBy data": {
-                    "description": "Invalid sortBy data",
-                    "value": {
-                      "success": false,
-                      "errorObjects": [
-                        {
-                          "error": "Invalid sortBy value.",
-                          "field": "sortBy"
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "errorObjects": [
-                    {
-                      "error": "server encountered an error !"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "errorObjects": [
-                    {
-                      "error": "Forbidden !"
-                    }
-                  ]
                 }
               }
             }
@@ -6090,7 +6336,7 @@
           "MCP"
         ],
         "summary": "Retrieves a list of open exchange inventories for an inventory group based on various filters and parameters.",
-        "description": "Returns a paginated list of open exchange inventory details (name, publisher, impressions, reach) for the specified inventory group.",
+        "description": "Returns a paginated list of open exchange inventory details (name, publisher, impressions, reach) for the specified inventory group. Only works on Open Exchange groups (groupTypeId 1); for a CTV group, see getCtvGroupInventories.",
         "operationId": "getGroupInventories",
         "parameters": [
           {
@@ -6228,6 +6474,9 @@
                       "error": "server encountered an error !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -6243,6 +6492,9 @@
                       "error": "Forbidden !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -6256,7 +6508,7 @@
           "MCP"
         ],
         "summary": "Retrieves a distribution of open exchange inventories in an inventory group based on various filters and parameters.",
-        "description": "Returns the distribution breakdown (by country, device type, traffic type, and creative type) of open exchange inventories within the specified group.",
+        "description": "Returns the distribution breakdown (by country, device type, traffic type, and creative type) of open exchange inventories within the specified group. Only works on Open Exchange groups (groupTypeId 1); for a CTV group, see getCtvGroupInventoriesDistributions.",
         "operationId": "getGroupInventoriesDistributions",
         "parameters": [
           {
@@ -6390,6 +6642,9 @@
                       "error": "server encountered an error !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -6405,6 +6660,9 @@
                       "error": "Forbidden !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -6418,7 +6676,7 @@
           "MCP"
         ],
         "summary": "Retrieves a statistics/count of open exchange inventories in an inventory group based on various filters and parameters.",
-        "description": "Returns aggregate statistics (inventory count, reach, impressions) for open exchange inventories within the specified group.",
+        "description": "Returns aggregate statistics (inventory count, reach, impressions) for open exchange inventories within the specified group. Only works on Open Exchange groups (groupTypeId 1); for a CTV group, see getCtvGroupInventoriesStatistics.",
         "operationId": "getGroupInventoriesStatistics",
         "parameters": [
           {
@@ -6499,6 +6757,9 @@
                       "error": "server encountered an error !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -6514,6 +6775,9 @@
                       "error": "Forbidden !"
                     }
                   ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -7654,6 +7918,1526 @@
           }
         }
       }
+    },
+    "/api/v3/inv/inventories/ctv/list": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "List CTV apps",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nList (browse, search, discover) the catalog of CTV apps available to the workspace, for CTV \t\tinventory discovery, with impressions, reach, publisher, and streaming devices for each app. To add an app to a CTV inventory group (groupTypeId 4), pass its bunchId in bunchIds.\n\nReturns one row per CTV app (bunch), sorted by impressions, highest first. Paginate with pageNo (starts at 1) and noOfEntries (default 10). All filters are optional and combined with AND. filteredRecords is the number of matching apps; totalRecords is the size of the whole CTV catalog. For totals only, see getCtvInventoriesCountDetails.",
+        "operationId": "getCtvInventoriesDetails",
+        "parameters": [
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search text matching the CTV app or publisher name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "countries",
+            "in": "query",
+            "description": "Comma-separated country IDs, for example 30100001 (United States)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "Comma-separated IAB category codes, for example IAB1",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeTypes",
+            "in": "query",
+            "description": "Comma-separated creative type IDs: 1 = banner, 2 = audio, 3 = video, 4 = native",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeDurations",
+            "in": "query",
+            "description": "Comma-separated video or audio creative duration IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "exchanges",
+            "in": "query",
+            "description": "Comma-separated exchange IDs, for example 47",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "videoPlayerSizes",
+            "in": "query",
+            "description": "Comma-separated video player size IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "streamingDevices",
+            "in": "query",
+            "description": "Comma-separated streaming device IDs from getListOfStreamingDevice, for example 6 (Roku) or 7 (Samsung TV)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noOfEntries",
+            "in": "query",
+            "description": "Page size. Default 10; must be at least 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "Page number, starting at 1. Default 1",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page of CTV apps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CtvAppListResponse"
+                },
+                "examples": {
+                  "List CTV apps": {
+                    "description": "List CTV apps",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "totalRecords": 641,
+                        "filteredRecords": 2,
+                        "inventoryDataList": [
+                          {
+                            "bunchId": 494,
+                            "appName": "Tubi",
+                            "publisherName": "Fox Corporation",
+                            "impressions": 2369906733,
+                            "reach": 16244656,
+                            "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/5913502",
+                            "streamingDevices": [
+                              {
+                                "deviceName": "Roku",
+                                "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
+                              },
+                              {
+                                "deviceName": "Others"
+                              }
+                            ]
+                          },
+                          {
+                            "bunchId": 495,
+                            "appName": "Tubi: Movies & Live Tv",
+                            "publisherName": "Fox Corporation",
+                            "impressions": 144393,
+                            "reach": 954,
+                            "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/5913503",
+                            "streamingDevices": [
+                              {
+                                "deviceName": "Samsung TV",
+                                "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/SamsungTVPlus.png"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid page number or page size",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Please provide valid page number."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/inventories/ctv/count": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Count CTV apps, impressions, and reach",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nCount (total) the CTV apps that match the filters, with their total impressions (avails) and unique reach. Read-only.\n\nTakes the same filters as getCtvInventoriesDetails; all filters are optional and combined with AND. With no filters, returns totals for the whole CTV catalog available to the workspace.",
+        "operationId": "getCtvInventoriesCountDetails",
+        "parameters": [
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search text matching the CTV app or publisher name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "countries",
+            "in": "query",
+            "description": "Comma-separated country IDs, for example 30100001 (United States)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "Comma-separated IAB category codes, for example IAB1",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeTypes",
+            "in": "query",
+            "description": "Comma-separated creative type IDs: 1 = banner, 2 = audio, 3 = video, 4 = native",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeDurations",
+            "in": "query",
+            "description": "Comma-separated video or audio creative duration IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "exchanges",
+            "in": "query",
+            "description": "Comma-separated exchange IDs, for example 47",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "videoPlayerSizes",
+            "in": "query",
+            "description": "Comma-separated video player size IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "streamingDevices",
+            "in": "query",
+            "description": "Comma-separated streaming device IDs from getListOfStreamingDevice, for example 6 (Roku) or 7 (Samsung TV)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CTV app totals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CtvCountResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "apps": 190,
+                    "impressions": 11930390589,
+                    "reach": 88910763
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/inventories/ctv/distributions": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Get CTV impression distribution by country, creative type, and streaming device",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nGet the distribution (breakdown, share) of CTV impressions by country, creative type, and streaming device for the CTV apps that match the filters. Read-only.\n\nEach value is a percentage of the matching impressions; each list is sorted by share, highest first, and countries lists only the top countries. Takes the same filters as getCtvInventoriesDetails, except that searchField here matches underlying inventory names.",
+        "operationId": "getCtvInventoriesDistributionDetails",
+        "parameters": [
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Text to match against the underlying inventory name, inventory ID, or publisher name (partial, case-insensitive). Inventory names usually include the app name, for example Tubi (Roku)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "countries",
+            "in": "query",
+            "description": "Comma-separated country IDs, for example 30100001 (United States)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "Comma-separated IAB category codes, for example IAB1",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeTypes",
+            "in": "query",
+            "description": "Comma-separated creative type IDs: 1 = banner, 2 = audio, 3 = video, 4 = native",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeDurations",
+            "in": "query",
+            "description": "Comma-separated video or audio creative duration IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "exchanges",
+            "in": "query",
+            "description": "Comma-separated exchange IDs, for example 47",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "videoPlayerSizes",
+            "in": "query",
+            "description": "Comma-separated video player size IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "streamingDevices",
+            "in": "query",
+            "description": "Comma-separated streaming device IDs from getListOfStreamingDevice, for example 6 (Roku) or 7 (Samsung TV)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CTV impression distribution",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CtvDistributionResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "countries": [
+                      {
+                        "label": "United States",
+                        "value": 99.35
+                      },
+                      {
+                        "label": "Dominican Republic",
+                        "value": 0.12
+                      },
+                      {
+                        "label": "Canada",
+                        "value": 0.08
+                      }
+                    ],
+                    "creativeTypes": [
+                      {
+                        "label": "Video",
+                        "value": 99.7
+                      },
+                      {
+                        "label": "Audio",
+                        "value": 0.3
+                      },
+                      {
+                        "label": "Banner",
+                        "value": 0
+                      }
+                    ],
+                    "streamingDevices": [
+                      {
+                        "label": "Roku",
+                        "value": 50.56
+                      },
+                      {
+                        "label": "Android TV",
+                        "value": 18.16
+                      },
+                      {
+                        "label": "Samsung TV",
+                        "value": 11.21
+                      },
+                      {
+                        "label": "Others",
+                        "value": 11.15
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/inventories/ctv/download": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Download CTV app list as a CSV or XLSX file",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nDownload (export) the CTV apps that match the filters as a CSV or XLSX file.\n\nReturns a temporary download URL in `data`. The URL expires about 60 seconds after it is issued, so fetch the file right away. File columns: App Name, Publisher, Avails, Reach, Streaming Devices. Rows are sorted by impressions. Takes the same filters as getCtvInventoriesDetails; all filters are optional and combined with AND.",
+        "operationId": "downloadCtvInventoryDetails",
+        "parameters": [
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search text matching the CTV app or publisher name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "countries",
+            "in": "query",
+            "description": "Comma-separated country IDs, for example 30100001 (United States)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "Comma-separated IAB category codes, for example IAB1",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeTypes",
+            "in": "query",
+            "description": "Comma-separated creative type IDs: 1 = banner, 2 = audio, 3 = video, 4 = native",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "creativeDurations",
+            "in": "query",
+            "description": "Comma-separated video or audio creative duration IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "exchanges",
+            "in": "query",
+            "description": "Comma-separated exchange IDs, for example 47",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "videoPlayerSizes",
+            "in": "query",
+            "description": "Comma-separated video player size IDs",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "streamingDevices",
+            "in": "query",
+            "description": "Comma-separated streaming device IDs from getListOfStreamingDevice, for example 6 (Roku) or 7 (Samsung TV)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "fileType",
+            "in": "query",
+            "description": "File format: csv or xlsx (lowercase)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Download URL for the generated file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponseString"
+                },
+                "example": {
+                  "success": true,
+                  "data": "https://iqm-ephemeral-stage.s3.amazonaws.com/inventory/download/csv/CTVInventories_Example_1793902988767.csv?X-Amz-Expires=59"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "fileType is missing or not csv or xlsx",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Invalid file type provided"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/group/{groupId}/ctv-inventories": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "List CTV apps in a CTV inventory group",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nList the CTV apps in a CTV inventory group (groupTypeId 4), with impressions, reach, publisher, and streaming devices for each app. Only works on CTV groups; for an Open Exchange group, see getGroupInventories.\n\nReturns one row per CTV app (bunch), sorted by impressions, highest first. Paginate with pageNo (starts at 1; 0 also returns the first page) and noOfEntries (default 50). filteredRecords is the number of matching apps in the group; totalRecords is the size of the whole CTV catalog, not the group.",
+        "operationId": "getCtvGroupInventories",
+        "parameters": [
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search text matching the CTV app or publisher name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "noOfEntries",
+            "in": "query",
+            "description": "Page size. Default 50",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "Page number, starting at 1. Default 0, which also returns the first page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID of a CTV inventory group (groupTypeId 4)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page of CTV apps in the group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CtvAppListResponse"
+                },
+                "examples": {
+                  "List CTV apps in a CTV inventory group": {
+                    "description": "List CTV apps in a CTV inventory group",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "totalRecords": 641,
+                        "filteredRecords": 2,
+                        "inventoryDataList": [
+                          {
+                            "bunchId": 470,
+                            "appName": "The Roku Channel",
+                            "publisherName": "roku",
+                            "impressions": 5805784647,
+                            "reach": 42878959,
+                            "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/11795185",
+                            "streamingDevices": [
+                              {
+                                "deviceName": "Roku",
+                                "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
+                              }
+                            ]
+                          },
+                          {
+                            "bunchId": 494,
+                            "appName": "Tubi",
+                            "publisherName": "Fox Corporation",
+                            "impressions": 2369906733,
+                            "reach": 16244656,
+                            "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/5913502",
+                            "streamingDevices": [
+                              {
+                                "deviceName": "Roku",
+                                "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
+                              },
+                              {
+                                "deviceName": "Others"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The group is not a CTV group, or is not accessible to the workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Not a CTV group": {
+                    "description": "Not a CTV group",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid inventory type or group ID passed."
+                        }
+                      ]
+                    }
+                  },
+                  "Group not accessible": {
+                    "description": "Group not accessible",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Unauthorized user or invalid inventory group."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/group/{groupId}/ctv-inventories/count": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Count CTV apps, inventories, impressions, and reach in a CTV inventory group",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nGet the statistics (count, totals) of a CTV inventory group (groupTypeId 4): number of CTV apps, number of underlying per-platform inventories, total impressions, and unique reach. Read-only. Only works on CTV groups; for an Open Exchange group, see getGroupInventoriesStatistics.",
+        "operationId": "getCtvGroupInventoriesStatistics",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID of a CTV inventory group (groupTypeId 4)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CTV group totals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CtvGroupCountResponse"
+                },
+                "examples": {
+                  "CTV inventory group statistics": {
+                    "description": "CTV inventory group statistics",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "apps": 3,
+                        "inventories": 19,
+                        "impressions": 10462752849,
+                        "reach": 80226516
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The group is not a CTV group, or is not accessible to the workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Not a CTV group": {
+                    "description": "Not a CTV group",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid inventory type or group ID passed."
+                        }
+                      ]
+                    }
+                  },
+                  "Group not accessible": {
+                    "description": "Group not accessible",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Unauthorized user or invalid inventory group."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/group/{groupId}/ctv-inventories/distributions": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Get CTV impression distribution in a CTV inventory group by country, creative type, and streaming device",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nGet the distribution (breakdown, share) of a CTV inventory group's impressions by country, creative type, and streaming device. Read-only. Only works on CTV groups (groupTypeId 4); for an Open Exchange group, see getGroupInventoriesDistributions.\n\nEach value is a percentage of the group's impressions; each list is sorted by share, highest first, and countries lists only the top countries.",
+        "operationId": "getCtvGroupInventoriesDistributions",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID of a CTV inventory group (groupTypeId 4)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CTV group impression distribution",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CtvDistributionResponse"
+                },
+                "examples": {
+                  "CTV inventory group distribution": {
+                    "description": "CTV inventory group distribution",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "countries": [
+                          {
+                            "label": "United States",
+                            "value": 99.99
+                          },
+                          {
+                            "label": "Canada",
+                            "value": 0.01
+                          }
+                        ],
+                        "creativeTypes": [
+                          {
+                            "label": "Video",
+                            "value": 100
+                          },
+                          {
+                            "label": "Audio",
+                            "value": 0
+                          }
+                        ],
+                        "streamingDevices": [
+                          {
+                            "label": "Roku",
+                            "value": 97.28
+                          },
+                          {
+                            "label": "Others",
+                            "value": 1.71
+                          },
+                          {
+                            "label": "LG TV",
+                            "value": 1
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The group is not a CTV group, or is not accessible to the workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Not a CTV group": {
+                    "description": "Not a CTV group",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid inventory type or group ID passed."
+                        }
+                      ]
+                    }
+                  },
+                  "Group not accessible": {
+                    "description": "Group not accessible",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Unauthorized user or invalid inventory group."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/group/{groupId}/ctv/download": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Download the CTV apps in a CTV inventory group as a CSV or XLSX file",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nDownload (export) the CTV apps in a CTV inventory group (groupTypeId 4) as a CSV or XLSX file. Only works on CTV groups; for an Open Exchange group, see downloadOpenExchangeInventoryDetailsByGroupId.\n\nReturns a temporary download URL in `data`. The URL expires about 60 seconds after it is issued, so fetch the file right away. File columns: App Name, Publisher, Avails, Reach, Streaming Devices; rows are sorted by impressions.",
+        "operationId": "downloadCtvInventoryDetailsByGroupId",
+        "parameters": [
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search text matching the CTV app or publisher name",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "fileType",
+            "in": "query",
+            "description": "File format: csv or xlsx (lowercase)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID of a CTV inventory group (groupTypeId 4)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Download URL for the generated file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponseString"
+                },
+                "example": {
+                  "success": true,
+                  "data": "https://iqm-ephemeral-stage.s3.amazonaws.com/inventory/download/csv/Inventory%20Group%20-%20CTV_1793902838290.csv?X-Amz-Expires=59"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The group is not a CTV group, or is not accessible to the workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Not a CTV group": {
+                    "description": "Not a CTV group",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid inventory type or group ID passed."
+                        }
+                      ]
+                    }
+                  },
+                  "Group not accessible": {
+                    "description": "Group not accessible",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Unauthorized user or invalid inventory group."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/inv/static/streaming-devices": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "List streaming devices for CTV inventory",
+        "description": "CTV inventory routing: Use this IQM Inventory API tool for CTV (Connected TV) streaming apps and channels, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a bunchId.\n\nList (look up) the streaming devices, such as Roku, Samsung TV, Fire TV, or Apple TV, with their IDs. Use the IDs in the streamingDevices filter of the CTV inventory tools and in the streamingDevice field when adding CTV apps to a CTV inventory group. \"Others\" groups devices without their own entry.",
+        "operationId": "getListOfStreamingDevice",
+        "parameters": [
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Text to match against the device name (partial, case-insensitive)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id",
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "int64",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingDeviceListResponse"
+                },
+                "examples": {
+                  "Streaming device list": {
+                    "description": "Streaming device list",
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "id": 6,
+                          "deviceName": "Roku",
+                          "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
+                        },
+                        {
+                          "id": 7,
+                          "deviceName": "Samsung TV",
+                          "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/SamsungTVPlus.png"
+                        },
+                        {
+                          "id": 9,
+                          "deviceName": "Others"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -8258,6 +10042,38 @@
           },
           "isExistInGroup": {
             "type": "boolean"
+          },
+          "bunchId": {
+            "type": "integer",
+            "description": "Bunch Id",
+            "format": "int64",
+            "example": 1
+          },
+          "appName": {
+            "type": "string",
+            "description": "Name of the app or bunch",
+            "example": "Netflix"
+          },
+          "streamingDeviceNames": {
+            "type": "string"
+          },
+          "streamingDevices": {
+            "type": "array",
+            "description": "List of streaming device IDs",
+            "example": [
+              1,
+              2,
+              3
+            ],
+            "items": {
+              "$ref": "#/components/schemas/StreamingDeviceVO"
+            }
+          },
+          "invGroupSubType": {
+            "type": "integer",
+            "description": "Inventory group sub-type",
+            "format": "int32",
+            "example": 1
           }
         },
         "description": "Inventory Detail"
@@ -8398,13 +10214,14 @@
           },
           "groupTypeId": {
             "type": "integer",
-            "description": "Group type: 1=Open Exchange, 2=PMP, 3=Contextual",
+            "description": "Group type: 1 = Open Exchange, 2 = PMP, 3 = Contextual, 4 = CTV (Connected TV)",
             "format": "int32",
             "example": 1,
             "enum": [
               1,
               2,
-              3
+              3,
+              4
             ]
           },
           "isEmptyGroup": {
@@ -8419,7 +10236,7 @@
           },
           "inventoryIds": {
             "type": "array",
-            "description": "Explicit inventory IDs",
+            "description": "Open Exchange inventory IDs. Not accepted on its own for CTV; use bunchIds.",
             "items": {
               "type": "integer",
               "format": "int32"
@@ -8515,6 +10332,24 @@
             "description": "Contextual keywords",
             "items": {
               "type": "string"
+            }
+          },
+          "bunchIds": {
+            "type": "array",
+            "description": "CTV only (groupTypeId 4): CTV app IDs (bunch IDs) from getCtvInventoriesDetails. Each app adds all of its per-platform inventories, unless streamingDevice narrows them.",
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "example": 494
+            }
+          },
+          "streamingDevice": {
+            "type": "array",
+            "description": "CTV only, used with bunchIds: streaming device IDs from getListOfStreamingDevice. Limits each app to its inventories on these devices. Not accepted on its own.",
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "example": 7
             }
           }
         },
@@ -8694,7 +10529,7 @@
         "properties": {
           "groupTypeId": {
             "type": "integer",
-            "description": "Type of inventory group (1=Open Exchange, 2=PMP, 3=Contextual)",
+            "description": "Type of the target inventory groups: 1 = Open Exchange, 2 = PMP, 3 = Contextual, 4 = CTV (Connected TV). All groupIds must be of this type.",
             "format": "int32",
             "example": 1
           },
@@ -8710,7 +10545,7 @@
           },
           "keywords": {
             "type": "array",
-            "description": "Keywords for filtering",
+            "description": "Open Exchange only: keywords for filtering. Ignored for CTV.",
             "items": {
               "type": "string",
               "example": "foxnews"
@@ -8836,15 +10671,36 @@
           },
           "inventoryIds": {
             "type": "array",
-            "description": "Explicit inventory IDs",
+            "description": "Open Exchange inventory IDs. Not accepted on its own for CTV; use bunchIds.",
             "items": {
               "type": "integer",
               "format": "int32",
               "example": 52983
             }
+          },
+          "bunchIds": {
+            "type": "array",
+            "description": "CTV only (groupTypeId 4): CTV app IDs (bunch IDs) from getCtvInventoriesDetails. Each app adds all of its per-platform inventories, unless streamingDevice narrows them.",
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "example": 494
+            }
+          },
+          "streamingDevice": {
+            "type": "array",
+            "description": "CTV only, used with bunchIds: streaming device IDs from getListOfStreamingDevice. Limits each app to its inventories on these devices. Not accepted on its own.",
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "example": 7
+            }
           }
         },
-        "description": "Docs-only superset for adding inventories/deals/contextual items to one or more groups"
+        "description": "Docs-only superset for adding inventories/deals/contextual items to one or more groups",
+        "required": [
+          "groupTypeId"
+        ]
       },
       "InventoryGroupResponse": {
         "type": "object",
@@ -8871,7 +10727,7 @@
         "properties": {
           "groupTypeId": {
             "type": "integer",
-            "description": "Inventory Group type ID: 1=Open Exchange, 2=PMP, 3=Contextual",
+            "description": "Inventory group type ID: 1 = Open Exchange, 2 = PMP, 3 = Contextual, 4 = CTV (Connected TV)",
             "format": "int32",
             "example": 1
           },
@@ -8904,10 +10760,7 @@
             "example": false
           },
           "distribution": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object"
-            }
+            "$ref": "#/components/schemas/InventoryGroupDistribution"
           },
           "campaignWhitelistCount": {
             "type": "integer",
@@ -9012,6 +10865,15 @@
             "example": "Inventory Group - Open exchange"
           },
           "isShared": {
+            "type": "boolean"
+          },
+          "apps": {
+            "type": "integer",
+            "description": "CTV groups only: number of CTV apps (bunches) in the group",
+            "format": "int64",
+            "example": 3
+          },
+          "dealIdModelled": {
             "type": "boolean"
           }
         },
@@ -10467,10 +12329,10 @@
         "type": "object",
         "properties": {
           "groupTypeId": {
-            "maximum": 3,
+            "maximum": 4,
             "minimum": 1,
             "type": "integer",
-            "description": "Type of inventory group: 1 = Open Exchange, 2 = PMP, 3 = Contextual. For contextual inventory removal from a group, set groupTypeId to 3 and provide inventoryIds.",
+            "description": "Type of the inventory group: 1 = Open Exchange, 2 = PMP, 3 = Contextual, 4 = CTV (Connected TV). For contextual inventory removal from a group, set groupTypeId to 3 and provide inventoryIds.",
             "format": "int32",
             "example": 3
           },
@@ -10500,7 +12362,7 @@
           },
           "searchField": {
             "type": "string",
-            "description": "Search keyword to match inventories for removal",
+            "description": "Search text (partial, case-insensitive). When no IDs are sent, removes every inventory in the group that matches it.",
             "example": "foxnews"
           },
           "excludedInventoryIds": {
@@ -10531,6 +12393,15 @@
               "type": "string",
               "example": "http://google.com"
             }
+          },
+          "bunchIds": {
+            "type": "array",
+            "description": "CTV only (groupTypeId 4): CTV app IDs (bunch IDs) to remove",
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "example": 494
+            }
           }
         },
         "description": "Docs-only schema for removing inventories/deals/contextual items from an inventory group. For group-scoped contextual inventory removal, use groupTypeId: 3 with inventoryIds containing the contextual inventory IDs to remove from the group."
@@ -10553,6 +12424,359 @@
             }
           }
         }
+      },
+      "CtvAppListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
+          },
+          "data": {
+            "$ref": "#/components/schemas/CtvAppListData"
+          }
+        }
+      },
+      "CtvAppListData": {
+        "type": "object",
+        "properties": {
+          "totalRecords": {
+            "type": "integer",
+            "description": "Total number of CTV apps in the catalog, ignoring filters",
+            "format": "int32",
+            "example": 641
+          },
+          "filteredRecords": {
+            "type": "integer",
+            "description": "Number of CTV apps matching the request. Use this for pagination.",
+            "format": "int32",
+            "example": 347
+          },
+          "inventoryDataList": {
+            "type": "array",
+            "description": "CTV apps on the requested page, sorted by impressions",
+            "items": {
+              "$ref": "#/components/schemas/CtvApp"
+            }
+          }
+        },
+        "description": "Paginated list of CTV apps"
+      },
+      "CtvApp": {
+        "type": "object",
+        "properties": {
+          "bunchId": {
+            "type": "integer",
+            "description": "CTV app ID (bunch ID). Pass it in bunchIds when adding the app to a CTV inventory group.",
+            "format": "int32",
+            "example": 494
+          },
+          "appName": {
+            "type": "string",
+            "description": "CTV app name",
+            "example": "Tubi"
+          },
+          "publisherName": {
+            "type": "string",
+            "description": "Publisher name",
+            "example": "Fox Corporation"
+          },
+          "impressions": {
+            "type": "integer",
+            "description": "Available impressions (avails) for the app",
+            "format": "int64",
+            "example": 2369906733
+          },
+          "reach": {
+            "type": "integer",
+            "description": "Estimated unique reach for the app",
+            "format": "int64",
+            "example": 16244656
+          },
+          "inventoryLogoUrl": {
+            "type": "string",
+            "description": "App logo URL",
+            "example": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/5913502"
+          },
+          "streamingDevices": {
+            "type": "array",
+            "description": "Streaming devices the app is available on",
+            "items": {
+              "$ref": "#/components/schemas/CtvStreamingDeviceBadge"
+            }
+          }
+        },
+        "description": "One CTV app (bunch). A bunch groups the per-platform inventories of the same app, for example Tubi on Roku and Tubi on Android TV."
+      },
+      "CtvStreamingDeviceBadge": {
+        "type": "object",
+        "properties": {
+          "deviceName": {
+            "type": "string",
+            "description": "Streaming device name. \"Others\" groups devices without their own entry.",
+            "example": "Roku"
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "Device logo URL. Absent for \"Others\".",
+            "example": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
+          }
+        },
+        "description": "Streaming device a CTV app is available on"
+      },
+      "CtvCountResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
+          },
+          "data": {
+            "$ref": "#/components/schemas/CtvCountData"
+          }
+        }
+      },
+      "CtvCountData": {
+        "type": "object",
+        "properties": {
+          "apps": {
+            "type": "integer",
+            "description": "Number of CTV apps (bunches)",
+            "format": "int64",
+            "example": 347
+          },
+          "impressions": {
+            "type": "integer",
+            "description": "Total available impressions",
+            "format": "int64",
+            "example": 23595640570
+          },
+          "reach": {
+            "type": "integer",
+            "description": "Total estimated unique reach",
+            "format": "int64",
+            "example": 170419063
+          }
+        },
+        "description": "Totals for the CTV apps that match the filters"
+      },
+      "CtvDistributionResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
+          },
+          "data": {
+            "$ref": "#/components/schemas/CtvDistributionData"
+          }
+        }
+      },
+      "CtvDistributionData": {
+        "type": "object",
+        "properties": {
+          "countries": {
+            "type": "array",
+            "description": "Impression share by country (top countries)",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          },
+          "creativeTypes": {
+            "type": "array",
+            "description": "Impression share by creative type",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          },
+          "streamingDevices": {
+            "type": "array",
+            "description": "Impression share by streaming device",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          }
+        },
+        "description": "Percentage share of impressions by country, creative type, and streaming device. Each list is sorted by share, descending."
+      },
+      "CtvGroupCountResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
+          },
+          "data": {
+            "$ref": "#/components/schemas/CtvGroupCountData"
+          }
+        }
+      },
+      "CtvGroupCountData": {
+        "type": "object",
+        "properties": {
+          "apps": {
+            "type": "integer",
+            "description": "Number of CTV apps (bunches) in the group",
+            "format": "int64",
+            "example": 3
+          },
+          "inventories": {
+            "type": "integer",
+            "description": "Number of underlying per-platform inventories in the group",
+            "format": "int64",
+            "example": 19
+          },
+          "impressions": {
+            "type": "integer",
+            "description": "Total available impressions",
+            "format": "int64",
+            "example": 10462752849
+          },
+          "reach": {
+            "type": "integer",
+            "description": "Total estimated unique reach",
+            "format": "int64",
+            "example": 80226516
+          }
+        },
+        "description": "Totals for the CTV apps in an inventory group"
+      },
+      "StreamingDeviceListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StreamingDevice"
+            }
+          }
+        }
+      },
+      "StreamingDevice": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Streaming device ID. Use it in the streamingDevices filter.",
+            "format": "int32",
+            "example": 6
+          },
+          "deviceName": {
+            "type": "string",
+            "description": "Streaming device name",
+            "example": "Roku"
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "Device logo URL. Absent for \"Others\".",
+            "example": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
+          }
+        },
+        "description": "Streaming device that CTV inventory can be filtered by"
+      },
+      "InventoryGroupSingleResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
+          },
+          "data": {
+            "$ref": "#/components/schemas/InventoryGroupResponseVO"
+          }
+        }
+      },
+      "StreamingDeviceVO": {
+        "type": "object",
+        "properties": {
+          "deviceName": {
+            "type": "string"
+          },
+          "logoUrl": {
+            "type": "string"
+          }
+        },
+        "description": "List of streaming device IDs",
+        "example": [
+          1,
+          2,
+          3
+        ]
+      },
+      "InventoryGroupDistribution": {
+        "type": "object",
+        "properties": {
+          "countries": {
+            "type": "array",
+            "description": "Impression share by country (top countries)",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          },
+          "creativeTypes": {
+            "type": "array",
+            "description": "Impression share by creative type",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          },
+          "deviceTypes": {
+            "type": "array",
+            "description": "Open Exchange groups: impression share by device type",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          },
+          "trafficTypes": {
+            "type": "array",
+            "description": "Open Exchange groups: impression share by traffic type",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          },
+          "streamingDevices": {
+            "type": "array",
+            "description": "CTV groups: impression share by streaming device",
+            "items": {
+              "$ref": "#/components/schemas/DistributionEntry"
+            }
+          }
+        },
+        "description": "Percentage share of the group's impressions by dimension. Open Exchange groups return countries, creativeTypes, deviceTypes, and trafficTypes; CTV groups return countries, creativeTypes, and streamingDevices. Empty for empty groups and for PMP and Contextual groups."
       }
     }
   }
