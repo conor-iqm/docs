@@ -375,7 +375,7 @@ Assign a Customer to an existing user. <var>uowIds</var> must contain exactly on
 | Request schema  |  |
 | ---- | --- |
 | `owIds` <br /><span class="type-text">string</span> | Comma-separated Customer Organization Workspace IDs to assign to the user. |
-| `uowIds` <br /><span class="type-text">string</span>| ID of the user to assign the Customers to. Only one user per request. |
+| `uowIds` <br /><span class="type-text">string</span>| User Organization Workspace ID of the user to assign the Customers to. Only one user per request. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -400,19 +400,19 @@ Assign a Customer to an existing user. <var>uowIds</var> must contain exactly on
   </tr>
   <tr>
   <td>`successfulCustomerIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs assigned to the user.</td>
+  <td>Customer Organization Workspace IDs assigned to the user.</td>
   </tr>
   <tr>
   <td>`successfulLogInAccessOwIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs the user was given login access to.</td>
+  <td>Customer Organization Workspace IDs the user was given login access to.</td>
   </tr>
   <tr>
   <td>`successfulRemoveOwIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs removed from the user.</td>
+  <td>Customer Organization Workspace IDs removed from the user.</td>
   </tr>
   <tr>
   <td>`successfulRemoveLogInAccessOwIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs the user's login access was removed from.</td>
+  <td>Customer Organization Workspace IDs the user's login access was removed from.</td>
   </tr>
   </table></details>
   </td>

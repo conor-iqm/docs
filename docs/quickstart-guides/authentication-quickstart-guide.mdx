@@ -18,7 +18,7 @@ To gain access to IQM's API and its services, you must first sign up and log in 
 The IQM platform uses [bearer authentication<ExternalLink />](https://swagger.io/docs/specification/v3_0/authentication/bearer-authentication/) tokens to authenticate along with an **Organization Workspace ID**. 
 
    * Sign up and log in both return an access token and a <var>refresh token</var>. The access token remains valid for 24 hours. After that, use the refresh token to get a new access token.
-   * Every API call also needs your **Organization Workspace ID** (<var>owId</var>) in the <var>X-IAA-OW-ID</var> header. The sign-up response includes it. After logging in, use [Get list of accessible Organizations](/guidelines/workspace-api#get-list-of-accessible-organizations) to find the Organization Workspace IDs that you have access to.
+   * Every API call also needs your **Organization Workspace ID** (<var>owId</var>) in the <var>X-IAA-OW-ID</var> header. The sign-up response includes it. After logging in, use [Get list of accessible Organizations](/guidelines/workspace-api#get-list-of-accessible-organizations) to find the Organization Workspace IDs that you have access to. To learn how the <var>owId</var> differs from the Workspace ID and User Organization Workspace ID, see [Organization and user IDs](/getting-started/platform-overview#organization-and-user-ids).
 
 ## Client ID and Client Secret
 
