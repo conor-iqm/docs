@@ -6306,8 +6306,8 @@ Insertion orders specify the parameters or details of an advertising campaign.
 | `ioId` <br /><span class="type-text">integer</span> | Insertion order ID.|
 | `ioName` <br /><span class="type-text">string</span> | Insertion order name.|
 | `owId` <br /><span class="type-text">integer</span>  | Organization Workspace ID.|
-| `createdByUowId` <br /><span class="type-text">integer</span> | User Organization Workspace ID associated with IO creation.|
-| `modifiedByUowId` <br /><span class="type-text">integer</span> | User Organization Workspace ID associated with IO modification.|
+| `createdByUowId` <br /><span class="type-text">integer</span> | Created by User Organization Workspace ID.|
+| `modifiedByUowId` <br /><span class="type-text">integer</span> | Modified by User Organization Workspace ID.|
 | `ioStartTime` <br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of IO start time.|
 | `ioEndTime` <br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of IO end time.|
 | `ioTotalBudget` <br /><span class="type-text">integer</span> | Budget of IO.|
@@ -6859,11 +6859,11 @@ Get insertion order details by IO ID.
     </tr>
     <tr>
     <td>`createdByUowId` <br /><span class="type-text">integer</span></td>
-    <td>User Organization Workspace ID of the creator.</td>
+    <td>Created by User Organization Workspace ID.</td>
     </tr>
     <tr>
     <td>`modifiedByUowId` <br /><span class="type-text">integer</span></td>
-    <td>User Organization Workspace ID of the last modifier.</td>
+    <td>Modified by User Organization Workspace ID.</td>
     </tr>
     <tr>
     <td>`isIoPrioritise` <br /><span class="type-text">boolean</span></td>
@@ -7778,7 +7778,7 @@ Get a list of campaigns with detailed report by insertion order ID (<var>ioId</v
 | `timeZoneId` <br /><span class="type-text">integer</span> | Filters campaigns for specified [timezone ID](/guidelines/master-api#get-timezones). |
 | `campaignStatusList` <br /><span class="type-text">array of strings</span> | Filters campaigns by specified campaign Status. |
 | `creativeTypeIds` <br /><span class="type-text">string</span> | Filters campaigns by specified [creative type ID](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
-| `owIds` <br /><span class="type-text">string</span> | Filters campaigns by specified Customer Organization Workspace ID. |
+| `owIds` <br /><span class="type-text">string</span> | Filters campaigns by specified Customer Organization Workspace IDs. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Supported <var>sortBy</var> Values</summary>
@@ -8499,7 +8499,7 @@ Update the end date for a list of IOs from either an Advertiser profile or a Wor
 | `ioIdsList` <br /><span class="type-text">array of integers</span> | IO IDs to update. |
 | `ioEndTime` <br /><span class="type-text">integer</span> | Unix epoch timestamp of end time, in milliseconds. |
 | `ioTimezoneId` <br /><span class="type-text">integer</span> | [Timezone ID](/guidelines/master-api#get-timezones). |
-| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Insertion order Workspace ID (if updating as a workspace profile). |
+| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Organization Workspace ID of the Organization that owns the insertion order (if updating as a Workspace). |
 
   <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
     <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -8589,7 +8589,7 @@ Update budget for a given list of IOs for either a dollar-based budget or an imp
 | `budget` <br /><span class="type-text">integer</span> | Dollars-based budget amount. |
 | `ioTotalImpressions` <br /><span class="type-text">integer</span> | Impressions-based budget amount. |
 | `budgetUpdateType` <br /><span class="type-text">string</span> | <var>set</var> or <var>add</var> dollars-based budget type. |
-| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Insertion order Workspace ID (if updating as a workspace profile). |
+| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Organization Workspace ID of the Organization that owns the insertion order (if updating as a Workspace). |
 
   <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
     <summary style={{fontSize: "16px"}}>Response properties</summary>

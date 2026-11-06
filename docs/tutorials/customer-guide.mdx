@@ -514,7 +514,7 @@ Add Customer access to specified apps.
 
 | Request schema (<var>multipart/form-data</var>) |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | Organization Workspace ID of the Customer. |
+| `owId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | Customer Organization Workspace ID. |
 | `paymentAmount` <br /><span class="type-text">number</span> <span class="required-text">required</span> | Payment amount. |
 | `paymentDate` <br /><span class="type-text">string</span> <span class="required-text">required</span> | Payment date in YYYY-MM-DD format. |
 | `paymentMode` <br /><span class="type-text">integer</span> <span class="required-text">required</span> |  [Payment mode type ID](/guidelines/finance-api#invoice-payment-mode-types). <br /><EnumWidget values={invoicePaymentModeTypes} /> |

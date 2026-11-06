@@ -1555,7 +1555,7 @@ A **Customer** is an **Advertiser** or **Workspace** in a financial agreement wi
 | `workspaceName` <br /><span class="type-text">string</span> | Workspace name. |
 | `workspaceDomain` <br /><span class="type-text">string</span> | Workspace domain. |
 | `owStatus` <br /><span class="type-text">string</span> | [Organization Workspace status type](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
-| `owStatusId` <br /><span class="type-text">integer</span>| [OW status type ID](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
+| `owStatusId` <br /><span class="type-text">integer</span>| [Organization Workspace status type ID](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `createdAt` <br /><span class="type-text">string</span> | Creation timestamp. |
 | `modifiedAt` <br /><span class="type-text">string</span> | Modification timestamp. |
 | `parentOrganizationName` <br /><span class="type-text">string</span>| Parent Organization name. |
@@ -1697,7 +1697,7 @@ Get a list of Customers and their details.
 
 | Query parameters |  |
 | ---- | --- |
-| `owIds` <br /><span class="type-text">string</span>| Comma separated Organization Workspace IDs whose Customers need to be retrieved. <br />If `owId` of Advertiser is passed, endpoint will return Advertiser details. <br />If <var>owId</var> of Workspace is passed, endpoint will return Workspace and its Advertisers details. |
+| `owIds` <br /><span class="type-text">string</span>| Comma separated Organization Workspace IDs whose Customers need to be retrieved. <br />If <var>owId</var> of Advertiser is passed, endpoint will return Advertiser details. <br />If <var>owId</var> of Workspace is passed, endpoint will return Workspace and its Advertisers details. |
 | `childOwIds` <br /><span class="type-text">string</span> | Comma separated Organization Workspace IDs of Organizations which will only be provided in response (to filter second level Customers only). |
 | `status` <br /><span class="type-text">string</span> | Comma separated <var>owId</var> [status IDs](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `customerType` <br /><span class="type-text">string</span> | Comma separated [Customer type IDs](#customer-type). <br /><EnumWidget values={customerType} /> |
@@ -2275,7 +2275,7 @@ Get a list of users for the given Customer (Organization).
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span> | Organization Workspace ID of Customer for which user list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for which user list will be retrieved. |
 | `limit` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>10</var>. |
 | `pageNo` <br /><span class="type-text">integer</span>| Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>), default: <var>-displayName</var>. |
@@ -2512,7 +2512,7 @@ Get a list of a Customer's allowed applications along with the allowed user's li
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span>| Organization Workspace ID of Customer for which application list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span>| Customer Organization Workspace ID for which application list will be retrieved. |
 | `limit` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>10</var>. |
 | `pageNo` <br /><span class="type-text">integer</span>| Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>), default: <var>-appName</var>. |
@@ -2702,7 +2702,7 @@ Retrieve the list of Organization Workspace IDs that the logged-in user has acce
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span> | Organization Workspace ID of Customer for which application list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for which application list will be retrieved. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -2891,7 +2891,7 @@ Get a list of Advertisers for a given Customer.
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span> | Organization Workspace ID of Customer for which Advertiser list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for which Advertiser list will be retrieved. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -3414,7 +3414,7 @@ Resend Customer invite.
 
 | Query parameters  |  |
 | ----  | --- |
-| `owId` <br /><span class="type-text">string</span> | Organization Workspace ID of Customer for whom to cancel an invite. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for whom to cancel an invite. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
