@@ -1616,7 +1616,7 @@ Create custom reports or generate tailored Insights reports from the dashboard.
 </tr>
 <tr>
   <td>`uowId` <br /><span class="type-text">integer</span></td>
-  <td>User Organization Workspce ID.</td>
+  <td>User Organization Workspace ID.</td>
 </tr>
 <tr>
   <td>`audioVideoViewed` <br /><span class="type-text">integer</span></td>
@@ -3090,7 +3090,7 @@ Get Customer (Advertiser) level aggregated performance report data including cor
   <table className="objectProperties">
   <tr>
     <td>`owIds`<br /><span class="type-text">array of integers</span></td>
-    <td>Organization Workspace IDs.</td>
+    <td>Customer Organization Workspace IDs to report on. If omitted, reports on all of your Customers.</td>
   </tr>
   <tr>
     <td>`startTimeEpochMillis`<br /><span class="type-text">integer</span> <span class="required-text">required</span></td>
@@ -3409,7 +3409,7 @@ Get a report on a campaign's performance by Customer (Advertiser) and supported 
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field.
 | `sortBy` <br /><span class="type-text">string</span> | Sort results by field, default: <var>impressions</var>.
 | `order` <br /><span class="type-text">string</span> | Sorts by ascending (<var>ASC</var>) or descending (<var>DESC</var>).
-| `owIds` <br /><span class="type-text">string</span> | Comma separated Organization Workspace IDs. 
+| `owIds` <br /><span class="type-text">string</span> | Comma-separated Customer Organization Workspace IDs to report on. If omitted, reports on all of your Customers. 
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>.
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>50</var>.
 | `resultType` <br /><span class="type-text">string</span> | Only total data in response (<var>total</var>) or only list of reports in response (<var>data</var>), both if not provided.
@@ -4910,7 +4910,6 @@ Get daily performance metrics for a campaign within a time range. Days are bucke
 | `campaignId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | [Campaign ID](/guidelines/campaign-api#get-list-of-campaigns). |
 | `startTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | Start time, Unix epoch in milliseconds. |
 | `endTime` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | End time, Unix epoch in milliseconds. Can't be earlier than <var>startTime</var>. |
-| `owIds` <br /><span class="type-text">array of integers</span> | Organization Workspace IDs to scope the results to. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>

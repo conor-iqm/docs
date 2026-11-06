@@ -604,7 +604,6 @@ A campaign <var>id</var> can be used to [Get campaign details by ID](#get-campai
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>), default: <var>-created</var>. | 
 | `conversionId` <br /><span class="type-text">integer</span> | Targeted campaign will be returned at top of list. |
 | `status` <br /><span class="type-text">string</span> | Filter by multiple statuses. |
-| `owIds` <br /><span class="type-text">integer</span> | Filter by Organization Workspace IDs. | 
 
 <a href="#campaign-resource-properties"><button className="responsePropertiesButton"><Caret />Resource properties</button></a>
 
@@ -752,7 +751,7 @@ Returns a paginated list of campaigns with their basic details.
 | `creative_type_ids` <br /><span class="type-text">integer</span> | Filter by [creative type ID](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
 | `created_time_of_creative` <br /><span class="type-text">string</span> | Filter by creative creation time. |
 | `status` <br /><span class="type-text">string</span> | Filter by multiple statuses. <br />Supported values: <var>running</var>, <var>pending</var>, <var>paused</var>, <var>draft</var>, <var>rejected</var>, <var>expired</var>. |
-| `ow_ids` <br /><span class="type-text">integer</span> | Filter by Organization Workspace IDs. | 
+| `ow_ids` <br /><span class="type-text">integer</span> | Filter by Customer Organization Workspace IDs, or <var>all</var> for all Customers. If omitted, results are for your own Organization Workspace ID. | 
 
 <a href="#campaign-resource-properties"><button className="responsePropertiesButton"><Caret />Resource properties</button></a>
 
@@ -812,12 +811,12 @@ Returns a paginated list of campaigns with their basic details.
 | `order` <br /><span class="type-text">string</span> | Sorts by ascending (<var>asc</var>) or descending (<var>desc</var>). |
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field. |
 | `campaignIds` <br /><span class="type-text">array of integers</span> | Filters results by provided [campaign IDs](#get-list-of-campaigns). |
-| `owIds` <br /><span class="type-text">array of integers</span> | Filters results by provided OW IDs. |
+| `owIds` <br /><span class="type-text">array of integers</span> | Filters results by provided Organization Workspace IDs. |
 | `status` <br /><span class="type-text">array of strings</span> | Filters results by provided campaign statuses. |
 | `responseFields` <br /><span class="type-text">array of strings</span> | Choose which values to return in response, supported: <var>id</var>, <var>campaignId</var>, <var>name</var>,<var>creativeTypeId</var>, <var>status</var>, <var>startTime</var>, <var>endTime</var>, <var>createdAt</var>, <var>modifiedAt</var>, <var>owId</var>, <var>organizationName</var>, <var>organizationLogo</var>. |
 | `creativeTypeIds` <br /><span class="type-text">array of integers</span> | Filters results by provided [creative type IDs](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
 | `campaignTypeIds` <br /><span class="type-text">array of integers</span> | Filter results by [campaign type IDs](#get-campaign-count-with-campaign-type). <br /><EnumWidget values={campaignTypes} /> |
-| `isAllOwIds` <br /><span class="type-text">boolean</span> | Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>. |
+| `isAllOwIds` <br /><span class="type-text">boolean</span> | Filters records with all allowed Organization Workspace IDs if <var>true</var>, prioritizes records over <var>owIds</var>. |
 | `ids` <br /><span class="type-text">array of integers</span> | Prioritizes results of provided campaign group IDs over other records.
 | `ioIdsList` <br /><span class="type-text">array of integers</span> | Filters results by provided [insertion order IDs](#get-insertion-order-details). |
 
@@ -1339,8 +1338,8 @@ Filter campaign list by the following parameters:
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by specified field. |
 | `order`  <br /><span class="type-text">string</span> | Sorting order, ascending (<var>asc</var>) or descending (<var>desc</var>). |
 | `campaignGroupIds` <br /><span class="type-text">array of integers</span> | Filter results by campaign group IDs. |
-| `owIds` <br /><span class="type-text">array of integers</span> | Filter results by Organization Workspace IDs. |
-| `isAllOwIds` <br /><span class="type-text">boolean</span> | Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>. |
+| `owIds` <br /><span class="type-text">array of integers</span> | Filter results by Customer Organization Workspace IDs. If omitted, results are for your own Organization Workspace ID. |
+| `isAllOwIds` <br /><span class="type-text">boolean</span> | If <var>true</var>, includes all of your Customers but not your own Organization Workspace ID. Takes priority over <var>owIds</var>. |
 | `ids` <br /><span class="type-text">array of integers</span> | Prioritizes results of provided campaign group IDs over other records. |
 
 </div><div class="child2">
@@ -2029,11 +2028,11 @@ Get a basic list of conversion details. See the [Conversions API](/guidelines/co
     </tr>
     <tr>
     <td>`createdByUowId` <br /><span class="type-text">integer</span></td>
-    <td>Creator's Organization Workspace ID.</td>
+    <td>Created by User Organization Workspace ID.</td>
     </tr>
     <tr>
     <td>`modifiedByUowId` <br /><span class="type-text">integer</span></td>
-    <td>Modifier's Organization Workspace ID.</td>
+    <td>Modified by User Organization Workspace ID.</td>
     </tr>
     <tr>
     <td>`statusId` <br /><span class="type-text">integer</span></td>
@@ -2140,8 +2139,8 @@ Get a paginated list of campaign's start dates with supported filters.
 | `startDate` <br /><span class="type-text">string</span> | Filter results by campaign start date, only returns results that have a start date greater than the specified date. |
 | `endDate` <br /><span class="type-text">string</span> | Filter results by campaign end date, only returns results that have an end date less than the specified date. |
 | `ids` <br /><span class="type-text">array of integers</span> | Prioritizes selected campaigns over other dates in response. |
-| `isAllOwIds` <br /><span class="type-text">boolean</span> | Filter results with all allowed OW IDs, if <var>true</var> prioritizes over <var>owIds</var>. |
-| `owIds` <br /><span class="type-text">array of integers</span> | Filters for specified Customer OW IDs. |
+| `isAllOwIds` <br /><span class="type-text">boolean</span> | If <var>true</var>, includes all of your Customers but not your own Organization Workspace ID. Takes priority over <var>owIds</var>. |
+| `owIds` <br /><span class="type-text">array of integers</span> | Filters for specified Customer Organization Workspace IDs. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem"}}>
     <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -6306,8 +6305,8 @@ Insertion orders specify the parameters or details of an advertising campaign.
 | `ioId` <br /><span class="type-text">integer</span> | Insertion order ID.|
 | `ioName` <br /><span class="type-text">string</span> | Insertion order name.|
 | `owId` <br /><span class="type-text">integer</span>  | Organization Workspace ID.|
-| `createdByUowId` <br /><span class="type-text">integer</span> | User Organization Workspace ID associated with IO creation.|
-| `modifiedByUowId` <br /><span class="type-text">integer</span> | User Organization Workspace ID associated with IO modification.|
+| `createdByUowId` <br /><span class="type-text">integer</span> | Created by User Organization Workspace ID.|
+| `modifiedByUowId` <br /><span class="type-text">integer</span> | Modified by User Organization Workspace ID.|
 | `ioStartTime` <br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of IO start time.|
 | `ioEndTime` <br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of IO end time.|
 | `ioTotalBudget` <br /><span class="type-text">integer</span> | Budget of IO.|
@@ -6609,7 +6608,7 @@ Insertion orders specify the parameters or details of an advertising campaign.
 </tr>
 <tr>
   <td>`uowId` <br /><span class="type-text">integer</span></td>
-  <td>User Organization Workspce ID.</td>
+  <td>User Organization Workspace ID.</td>
 </tr>
 <tr>
   <td>`audioVideoViewed` <br /><span class="type-text">integer</span></td>
@@ -6859,11 +6858,11 @@ Get insertion order details by IO ID.
     </tr>
     <tr>
     <td>`createdByUowId` <br /><span class="type-text">integer</span></td>
-    <td>User Organization Workspace ID of the creator.</td>
+    <td>Created by User Organization Workspace ID.</td>
     </tr>
     <tr>
     <td>`modifiedByUowId` <br /><span class="type-text">integer</span></td>
-    <td>User Organization Workspace ID of the last modifier.</td>
+    <td>Modified by User Organization Workspace ID.</td>
     </tr>
     <tr>
     <td>`isIoPrioritise` <br /><span class="type-text">boolean</span></td>
@@ -6951,7 +6950,7 @@ An insertion order <var>ioId</var> can be used to query insertion order details 
 | `ioBudgetTypeIdsList` <br /><span class="type-text">array of integers</span> | List of [budget type IDs](#get-list-of-campaign-budget-types) for which IO details are required. <br /><EnumWidget values={budgetTypes} /> |
 | `ioStatusIdsList` <br /><span class="type-text">array of integers</span> | List of insertion order [status IDs](#get-io-status-list) for which IO details are required. <br /><EnumWidget values={ioStatus} /> |
 | `ids` <br /><span class="type-text">array of integers</span> | Prioritizes specified IO IDs before others in returned data. |
-| `isAllOWIds` <br /><span class="type-text">boolean</span> | Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>. |
+| `isAllOwIds` <br /><span class="type-text">boolean</span> | Filters records with all allowed Organization Workspace IDs if <var>true</var>, prioritizes records over <var>owIdList</var>. |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data.|
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page. |
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field (supported values: <var>name</var> and <var>id</var>). |
@@ -7250,7 +7249,7 @@ Download advanced IO details as CSV or XLSX file.
 | `endDate` <br /><span class="type-text">integer</span> | Unix epoch timestamp of end date for returned data, in milliseconds. | 
 | `fileType` <br /><span class="type-text">string</span> | File type to download: <var>csv</var> or <var>xlsx</var>.
 | `fileName` <br /><span class="type-text">string</span> | File name.
-| `owIds` <br /><span class="type-text">string</span> | Download file will only contain data for comma separated Customer OW IDs.
+| `owIds` <br /><span class="type-text">string</span> | Download file will only contain data for comma separated Customer Organization Workspace IDs.
 
   <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
     <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -7649,7 +7648,7 @@ Get a list of insertion order details along with campaigns details attached to t
 | `status` <br /><span class="type-text">array of strings</span> | Filters for types of campaign Status. |
 | `creativeTypeIds` <br /><span class="type-text">array of integers</span> | Filters for [creative type IDs](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
 | `owIds` <br /><span class="type-text">array of integers</span> | Filters for Customer Organization Workspace IDs. |
-| `isAllOwIds` <br /><span class="type-text">object</span> | Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>. |
+| `isAllOwIds` <br /><span class="type-text">object</span> | Filters records with all allowed Organization Workspace IDs if <var>true</var>, prioritizes records over <var>owIds</var>. |
 | `startDate` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | Returns IOs with start date greater than date provided (should not be older than a year). |
 | `endDate` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | Returns IOs with start date less than date provided (should not be older than a year).|
 
@@ -7778,7 +7777,7 @@ Get a list of campaigns with detailed report by insertion order ID (<var>ioId</v
 | `timeZoneId` <br /><span class="type-text">integer</span> | Filters campaigns for specified [timezone ID](/guidelines/master-api#get-timezones). |
 | `campaignStatusList` <br /><span class="type-text">array of strings</span> | Filters campaigns by specified campaign Status. |
 | `creativeTypeIds` <br /><span class="type-text">string</span> | Filters campaigns by specified [creative type ID](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
-| `owIds` <br /><span class="type-text">string</span> | Filters campaigns by specified Customer Organization Workspace ID. |
+| `owIds` <br /><span class="type-text">string</span> | Filters campaigns by specified Customer Organization Workspace IDs. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Supported <var>sortBy</var> Values</summary>
@@ -8268,8 +8267,8 @@ Create a downloadable report of campaign details based on insertion order.
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>300</var>.|
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>), default: <var>-ioDate</var>. |
-| `owIds` <br /><span class="type-text">array of integers</span> | Filter results by Organization Workspace IDs. |
-| `isAllOwIds` <br /><span class="type-text">boolean</span> | Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>. |
+| `owIdList` <br /><span class="type-text">array of integers</span> | Filter results by Customer Organization Workspace IDs. If omitted, results are for your own Organization Workspace ID. |
+| `isAllOwIds` <br /><span class="type-text">boolean</span> | If <var>true</var>, includes all of your Customers but not your own Organization Workspace ID. Takes priority over <var>owIdList</var>. |
 | `ids` <br /><span class="type-text">array of integers</span> | Prioritizes results of provided IDs over other records. |
 | `startDate` <br /><span class="type-text">string</span> | Filters for IOs with start date greater than the one specified. |
 | `endDate`  <br /><span class="type-text">string</span> | Filters for IOs with a date less than the one specified. |
@@ -8499,7 +8498,7 @@ Update the end date for a list of IOs from either an Advertiser profile or a Wor
 | `ioIdsList` <br /><span class="type-text">array of integers</span> | IO IDs to update. |
 | `ioEndTime` <br /><span class="type-text">integer</span> | Unix epoch timestamp of end time, in milliseconds. |
 | `ioTimezoneId` <br /><span class="type-text">integer</span> | [Timezone ID](/guidelines/master-api#get-timezones). |
-| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Insertion order Workspace ID (if updating as a workspace profile). |
+| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Organization Workspace ID of the Organization that owns the insertion order (if updating as a Workspace). |
 
   <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
     <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -8589,7 +8588,7 @@ Update budget for a given list of IOs for either a dollar-based budget or an imp
 | `budget` <br /><span class="type-text">integer</span> | Dollars-based budget amount. |
 | `ioTotalImpressions` <br /><span class="type-text">integer</span> | Impressions-based budget amount. |
 | `budgetUpdateType` <br /><span class="type-text">string</span> | <var>set</var> or <var>add</var> dollars-based budget type. |
-| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Insertion order Workspace ID (if updating as a workspace profile). |
+| `ioOwId` <br /><span class="type-text">integer</span> <span class="required-text">optional</span> | Organization Workspace ID of the Organization that owns the insertion order (if updating as a Workspace). |
 
   <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
     <summary style={{fontSize: "16px"}}>Response properties</summary>

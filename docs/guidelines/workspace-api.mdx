@@ -1555,7 +1555,7 @@ A **Customer** is an **Advertiser** or **Workspace** in a financial agreement wi
 | `workspaceName` <br /><span class="type-text">string</span> | Workspace name. |
 | `workspaceDomain` <br /><span class="type-text">string</span> | Workspace domain. |
 | `owStatus` <br /><span class="type-text">string</span> | [Organization Workspace status type](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
-| `owStatusId` <br /><span class="type-text">integer</span>| [OW status type ID](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
+| `owStatusId` <br /><span class="type-text">integer</span>| [Organization Workspace status type ID](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `createdAt` <br /><span class="type-text">string</span> | Creation timestamp. |
 | `modifiedAt` <br /><span class="type-text">string</span> | Modification timestamp. |
 | `parentOrganizationName` <br /><span class="type-text">string</span>| Parent Organization name. |
@@ -1697,8 +1697,8 @@ Get a list of Customers and their details.
 
 | Query parameters |  |
 | ---- | --- |
-| `owIds` <br /><span class="type-text">string</span>| Comma separated Organization Workspace IDs whose Customers need to be retrieved. <br />If `owId` of Advertiser is passed, endpoint will return Advertiser details. <br />If <var>owId</var> of Workspace is passed, endpoint will return Workspace and its Advertisers details. |
-| `childOwIds` <br /><span class="type-text">string</span> | Comma separated OW IDs of Organizations which will only be provided in response (to filter second level Customers only). |
+| `owIds` <br /><span class="type-text">string</span>| Comma separated Organization Workspace IDs whose Customers need to be retrieved. <br />If <var>owId</var> of Advertiser is passed, endpoint will return Advertiser details. <br />If <var>owId</var> of Workspace is passed, endpoint will return Workspace and its Advertisers details. |
+| `childOwIds` <br /><span class="type-text">string</span> | Comma separated Organization Workspace IDs of Organizations which will only be provided in response (to filter second level Customers only). |
 | `status` <br /><span class="type-text">string</span> | Comma separated <var>owId</var> [status IDs](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `customerType` <br /><span class="type-text">string</span> | Comma separated [Customer type IDs](#customer-type). <br /><EnumWidget values={customerType} /> |
 | `searchField` <br /><span class="type-text">string</span>| Filter results by search field. |
@@ -1813,7 +1813,7 @@ Get a list of Customers and their details.
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field. |
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>20</var>. |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>. |
-| `owIds` <br /><span class="type-text">array of integers</span> | Organization Workspace IDs. |
+| `owIds` <br /><span class="type-text">array of integers</span> | Customer Organization Workspace IDs. |
 | `owStatusIds` <br /><span class="type-text">array of integers</span> | Organization Workspace [status type ID](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `provideRunningCampaigns` <br /><span class="type-text">boolean</span> | Get running campaign count (<var>true</var>), default: <var>false</var>. |
 
@@ -1881,7 +1881,7 @@ Get a list of Customers and their details.
 
 | Query parameters  |  |
 | ---- | --- |
-| `owIds` <br /><span class="type-text">string</span> | Comma separated OW IDs of Organizations whose Customers need to be retrieved. |
+| `owIds` <br /><span class="type-text">string</span> | Comma separated Organization Workspace IDs of Organizations whose Customers need to be retrieved. |
 | `status` <br /><span class="type-text">string</span> | Organization Workspace [status ID](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field. |
 | `limit` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>10</var>. |
@@ -1999,12 +1999,12 @@ Get a list of Customers and their details.
 <div class="endpoint-container">
   <div class="child1">
 
-Get only immediate Customers of provided OW IDs (if <var>owId</var> is not provided then the OW ID in the header will be passed).
+Get only immediate Customers of provided Organization Workspace IDs (if <var>owId</var> is not provided then the Organization Workspace ID in the header will be passed).
 
 | Query parameters |  |
 | ---- | --- |
 | `owIds` <br /><span class="type-text">string</span> | Comma separated Organization Workspace IDs whose immediate Customers need to be retrieved. |
-| `childOwIds` <br /><span class="type-text">string</span> | Comma separated OW IDs of Organizations which will only be provided in response (to filter second level Customers only). |
+| `childOwIds` <br /><span class="type-text">string</span> | Comma separated Organization Workspace IDs of Organizations which will only be provided in response (to filter second level Customers only). |
 | `status` <br /><span class="type-text">string</span> | Comma separated Organization Workspace [status IDs](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `customerType` <br /><span class="type-text">string</span> | Comma separated [Customer type IDs](#customer-type). <br /><EnumWidget values={customerType} /> |
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field. |
@@ -2175,11 +2175,11 @@ Get a list of labels for Customer operations.
 <div class="endpoint-container">
   <div class="child1">
 
-Get a count of Customers by status and OW ID.
+Get a count of Customers by status and Organization Workspace ID.
 
 | Query parameters|  |
 | ---- | --- |
-| `owIds` <br /><span class="type-text">string</span> | Filter results by comma separated OW IDs. |
+| `owIds` <br /><span class="type-text">string</span> | Comma-separated Organization Workspace IDs whose Customers are counted. IDs you don't have access to are ignored. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -2275,7 +2275,7 @@ Get a list of users for the given Customer (Organization).
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span> | OW ID of Customer for which user list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for which user list will be retrieved. |
 | `limit` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>10</var>. |
 | `pageNo` <br /><span class="type-text">integer</span>| Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>), default: <var>-displayName</var>. |
@@ -2395,7 +2395,7 @@ Get a list of users for the given Customer (Organization).
 
 | Query parameters|  |
 | ----  | --- |
-| `uowId` <br /><span class="type-text">string</span> | Customers assigned to user Organization Workspace ID. |
+| `uowId` <br /><span class="type-text">string</span> | User Organization Workspace ID of the user whose assigned Customers are returned. |
 | `limit`<br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>2</var>. |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>).<br />Supported values: <var>createdAt</var>, <var>organizationName</var>.<br /> |
@@ -2449,8 +2449,8 @@ Get a list of users for the given Customer (Organization).
 
 | Query parameters |  |
 | ---- | --- |
-| `uowId` <br /><span class="type-text">string</span> | Customers assigned to user Organization Workspace ID. |
-| `owIds` <br /><span class="type-text">string</span> | Organization Workspace IDs. |
+| `uowId` <br /><span class="type-text">string</span> | User Organization Workspace ID of the user whose Customer access is being managed. Flags in the response describe this user's access to each Customer. |
+| `owIds` <br /><span class="type-text">string</span> | Comma-separated Organization Workspace IDs to list Customers for. Each ID includes that Organization and its Customers. |
 | `limit` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>2</var>. |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span>| Sorts by ascending (<var>+</var>) or descending (<var>-</var>).<br />Supported values: <var>contactPersonName</var>, <var>organizationName</var>.<br /> |
@@ -2512,7 +2512,7 @@ Get a list of a Customer's allowed applications along with the allowed user's li
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span>| OW ID of Customer for which application list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span>| Customer Organization Workspace ID for which application list will be retrieved. |
 | `limit` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>10</var>. |
 | `pageNo` <br /><span class="type-text">integer</span>| Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span> | Sorts by ascending (<var>+</var>) or descending (<var>-</var>), default: <var>-appName</var>. |
@@ -2702,7 +2702,7 @@ Retrieve the list of Organization Workspace IDs that the logged-in user has acce
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span> | OW ID of Customer for which application list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for which application list will be retrieved. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -2891,7 +2891,7 @@ Get a list of Advertisers for a given Customer.
 
 | Query parameters |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">string</span> | OW ID of Customer for which Advertiser list will be retrieved. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for which Advertiser list will be retrieved. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -3414,7 +3414,7 @@ Resend Customer invite.
 
 | Query parameters  |  |
 | ----  | --- |
-| `owId` <br /><span class="type-text">string</span> | OW ID of Customer for whom to cancel an invite. |
+| `owId` <br /><span class="type-text">string</span> | Customer Organization Workspace ID for whom to cancel an invite. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -3564,7 +3564,7 @@ Assign a Customer to an existing user. <var>uowIds</var> must contain exactly on
 | Request schema  |  |
 | ---- | --- |
 | `owIds` <br /><span class="type-text">string</span> | Comma-separated Customer Organization Workspace IDs to assign to the user. |
-| `uowIds` <br /><span class="type-text">string</span> | ID of the user to assign the Customers to. Only one user per request. |
+| `uowIds` <br /><span class="type-text">string</span> | User Organization Workspace ID of the user to assign the Customers to. Only one user per request. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -3589,19 +3589,19 @@ Assign a Customer to an existing user. <var>uowIds</var> must contain exactly on
   </tr>
   <tr>
   <td>`successfulCustomerIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs assigned to the user.</td>
+  <td>Customer Organization Workspace IDs assigned to the user.</td>
   </tr>
   <tr>
   <td>`successfulLogInAccessOwIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs the user was given login access to.</td>
+  <td>Customer Organization Workspace IDs the user was given login access to.</td>
   </tr>
   <tr>
   <td>`successfulRemoveOwIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs removed from the user.</td>
+  <td>Customer Organization Workspace IDs removed from the user.</td>
   </tr>
   <tr>
   <td>`successfulRemoveLogInAccessOwIds` <br /><span class="type-text">array of integers</span></td>
-  <td>Customer OW IDs the user's login access was removed from.</td>
+  <td>Customer Organization Workspace IDs the user's login access was removed from.</td>
   </tr>
   </table></details>
   </td>
@@ -3704,8 +3704,8 @@ Unassign a Customer from an existing user.
 
 | Request schema  |  |
 | ---- | --- |
-| `owIds` <br /><span class="type-text">string</span> | Comma separated OW IDs. |
-| `uowIds` <br /><span class="type-text">string</span>| Comma separated user IDs. |
+| `owIds` <br /><span class="type-text">string</span> | Comma-separated Customer Organization Workspace IDs to unassign. |
+| `uowIds` <br /><span class="type-text">string</span>| Comma-separated User Organization Workspace IDs of the users to unassign the Customers from. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -4023,7 +4023,7 @@ Change Customer status to 'active.'
 
 | Request schema | |
 | --- | --- |
-| `owId` <br /><span class="type-text">integer</span> | Customer OW ID to change status of. |
+| `owId` <br /><span class="type-text">integer</span> | Customer Organization Workspace ID to change status of. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -4122,7 +4122,7 @@ Add a label for Customer operations, which will be displayed in the labels list.
 <div class="endpoint-container">
   <div class="child1">
 
-Enable bid shading for given Customer OW ID.
+Enable bid shading for given Customer Organization Workspace ID.
 
 | Path parameters |  |
 | ----| --- |

@@ -286,7 +286,7 @@ A creative <var>id</var> can be used to [get creative details by ID](#creative-d
 | `startTime`<br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of start time.
 | `endTime`<br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of end time.
 | `owIds`<br /><span class="type-text">integer</span> | (Super/Workspace only) Organization Workspace IDs. 
-| `allOwIds`<br /><span class="type-text">boolean</span> | (Super/Workspace only) Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>.
+| `allOwIds`<br /><span class="type-text">boolean</span> | (Super/Workspace only) Filters records with all allowed Organization Workspace IDs if <var>true</var>, prioritizes records over <var>owIds</var>.
 | `includeCreativeSourceDetails`<br /><span class="type-text">boolean</span> | (Advertiser only) Flag indicating whether to include creative source details (<var>true</var>) or not (<var>false</var>).
 | `includeOrgnizationDetails`<br /><span class="type-text">boolean</span> | Flag indicating whether to include Organization details (<var>true</var>) or not (<var>false</var>).
 | `includeUserDetails`<br /><span class="type-text">boolean</span> | Flag indicating whether to include user details (<var>true</var>) or not (<var>false</var>).
@@ -876,7 +876,7 @@ A creative group <var>id</var> can be used to filter the results of [get creativ
 | `creativeGroupIds`<br /><span class="type-text">array of integers</span> | [Creative group IDs](#get-list-of-creative-groups). 
 | `startTime`<br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of start time.
 | `endTime`<br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of end time.
-| `allOwIds` <br /><span class="type-text">boolean</span> | (Super/Workspace only) Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>.
+| `allOwIds` <br /><span class="type-text">boolean</span> | (Super/Workspace only) Filters records with all allowed Organization Workspace IDs if <var>true</var>, prioritizes records over <var>owIds</var>.
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -1098,7 +1098,7 @@ Get count of creatives by creative status.
 | `endTime`<br /><span class="type-text">integer</span> | Unix epoch timestamp (in milliseconds) of end time.
 | `campaignIds` <br /><span class="type-text">array of integers</span> | Filter results by [campaign IDs](/guidelines/campaign-api#get-list-of-campaigns).
 | `owIds` <br /><span class="type-text">array of integers</span> | (Super/Workspace only) Organization Workspace IDs.
-| `allOwIds` <br /><span class="type-text">boolean</span> | (Super/Workspace only) Filters records with all allowed OW IDs if <var>true</var>, prioritizes records over <var>owIds</var>.
+| `allOwIds` <br /><span class="type-text">boolean</span> | (Super/Workspace only) Filters records with all allowed Organization Workspace IDs if <var>true</var>, prioritizes records over <var>owIds</var>.
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>

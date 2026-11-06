@@ -200,6 +200,25 @@ The following diagram and accompanying definitions further describe the relation
 | **Organization/Advertiser** | An Organization is any company that places advertisements and is assigned to a Workspace User. <br />When invited as a Customer, an Organization is created with details including its name, website, and location details. |
 </div></center>
 
+### Organization and user IDs
+
+Each Organization belongs to one Workspace, and that pairing has its own **Organization Workspace ID** (<var>owId</var>). Most endpoints work with the <var>owId</var>: you send it in the <var>X-IAA-OW-ID</var> header on every request, and resources such as campaigns, audiences, and conversions return the <var>owId</var> of the Organization that owns them.
+
+Organization Workspaces form a hierarchy of up to three levels. IQM invites Workspaces as its Customers, and each Workspace invites Advertisers as its Customers. Advertisers can't invite Customers of their own. Each Customer stores the <var>owId</var> of the Organization that invited it as its <var>parentOwId</var>. When an endpoint asks for a <var>customerOwId</var>, it expects the <var>owId</var> of one of your Customers, not a different kind of ID.
+
+A Workspace ID (<var>workspaceId</var>) identifies the Workspace itself, not an Organization in it. Advertisers share their Workspace's <var>workspaceId</var>, so every Advertiser in a Workspace has the same <var>workspaceId</var> and a different <var>owId</var>. Don't send a <var>workspaceId</var> where an endpoint expects an <var>owId</var>.
+
+Users have one more ID. Each time a user joins an Organization Workspace, that membership gets a **User Organization Workspace ID** (<var>uowId</var>) with its own access level. A user who belongs to two Organizations has one <var>userId</var> and two <var>uowId</var> values. Endpoints that assign Customers to a user take a <var>uowId</var>, and audit fields such as <var>createdByUowId</var> and <var>modifiedByUowId</var> record which membership made a change.
+
+| ID | Identifies |
+| --- | --- |
+| `owId` <br /><span class="type-text">integer</span> | One Organization in one Workspace. Sent in the <var>X-IAA-OW-ID</var> header and returned on resources the Organization owns. |
+| `customerOwId` <br /><span class="type-text">integer</span> | The <var>owId</var> of a Customer: a Workspace invited by IQM, or an Advertiser invited by a Workspace. |
+| `parentOwId` <br /><span class="type-text">integer</span> | The <var>owId</var> of the Organization that invited this Customer. |
+| `workspaceId` <br /><span class="type-text">integer</span> | The Workspace. Shared by the Workspace's Organization and all of its Advertisers. |
+| `uowId` <br /><span class="type-text">integer</span> | One user's membership in one Organization Workspace, with its own access level. Not the same as a user ID. |
+| `userId` <br /><span class="type-text">integer</span> | The person, across every Organization Workspace they belong to. |
+
 ## Organization relationships
 
 Organizations, Workspaces, and Users are primarily managed in the [**User Management API**](/guidelines/user-api) and the related [**Workspace API**](/guidelines/workspace-api). The [**Finance API**](/guidelines/finance-api) also manages the various financial relationships that exist between Workspaces and Advertisers. 

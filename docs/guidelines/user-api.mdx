@@ -468,7 +468,7 @@ A user's MFA setttings can be configured with the [Enable MFA](#enable-mfa) and 
 </tr>
 <tr>
 <td>`owId` <br /><span class="type-text">integer</span></td>
-<td>Organizational Workspace ID associated with the user.</td>
+<td>Organization Workspace ID of the user's Organization.</td>
 </tr>
 </table>
 </details>
@@ -1303,7 +1303,7 @@ An invited user or Customer completes their invitation by setting a password. Th
   </tr>
   <tr>
   <td>`owId` <br /><span class="type-text">integer</span></td>
-  <td>Organization Workspace ID of the user's active organization.</td>
+  <td>Organization Workspace ID of the user's active Organization.</td>
   </tr>
   <tr>
   <td>`mfa_required` <br /><span class="type-text">boolean</span></td>
@@ -1494,7 +1494,7 @@ Update a user's status.
 
 | Request schema |  | 
 | ----- | ---- | 
-| `uowId` <br /><span class="type-text">integer</span> | User's Organization Workspace ID. |
+| `uowId` <br /><span class="type-text">integer</span> | User Organization Workspace ID. |
 | `status` <br /><span class="type-text">integer</span> | Updated [status ID](/guidelines/workspace-api/#user-status). <br /><EnumWidget values={userStatus} /> |
 | `statusReason` <br /><span class="type-text">string</span> | Reason for status change. |
 
@@ -1936,7 +1936,7 @@ Revoke a user's access to specified apps.
 
 | Request schema |  |
 | ---- | --- |
-| `owId` <br /><span class="type-text">integer</span> | User's Organization Workspace ID. |
+| `owId` <br /><span class="type-text">integer</span> | Organization Workspace ID of the user's Organization. |
 | `appIds` <br /><span class="type-text">string</span> | [Application ID](/guidelines/workspace-api#application-ids).
 
 </div><div class="child2">
@@ -2172,7 +2172,7 @@ This endpoint is rate limited to 500 requests per minute, per IP. Exceeding it r
 </tr>
 <tr>
 <td>`owId` <br /><span class="type-text">integer</span></td>
-<td>Organization Workspace ID associated with user.</td>
+<td>Organization Workspace ID of the user's Organization.</td>
 </tr>
 <tr>
 <td>`isWorkspaceAllowed` <br /><span class="type-text">boolean</span></td>
