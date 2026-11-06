@@ -55,15 +55,15 @@ Many GET endpoints support queries to filter and sort the data (learn more by re
 
 | Fields | Description |
 | --- | --- |
-| `success` <br /><span class="type-text">boolean</span> | Indicates resource retrieval was successful: <var>true</var>
-| `data` <br /><span class="type-text">object</span> | Object containing retrieved resource data
-| `id` <br /><span class="type-text">integer</span> | Unique ID of entity
-| `owId` <br /><span class="type-text">integer</span> | Organization Workspace ID that owns the resource 
-| `name` <br /><span class="type-text">string</span> | The name of a resource
-| `startTime` / `endTime` <br /><span class="type-text">integer</span> | The start and end times of a resource with a fixed period of activity (e.g., campaigns, insertion orders), usually in unix epoch milliseconds 
-| `createdAt` <br /><span class="type-text">integer</span> | The creation time of a resource, usually in unix epoch milliseconds
-| `modifiedAt` <br /><span class="type-text">integer</span> | The time of last modification of a resource, usually in unix epoch milliseconds
-| `status` <br /><span class="type-text">string</span> | The status of a resource, sometimes given as a type ID
+| `success` <br /><span class="type-text">boolean</span> | Indicates resource retrieval was successful: <var>true</var>. |
+| `data` <br /><span class="type-text">object</span> | Object containing retrieved resource data. |
+| `id` <br /><span class="type-text">integer</span> | Unique ID of entity. |
+| `owId` <br /><span class="type-text">integer</span> | Organization Workspace ID that owns the resource. |
+| `name` <br /><span class="type-text">string</span> | The name of a resource. |
+| `startTime` / `endTime` <br /><span class="type-text">integer</span> | The start and end times of a resource with a fixed period of activity (e.g., campaigns, insertion orders), usually in unix epoch milliseconds. |
+| `createdAt` <br /><span class="type-text">integer</span> | The creation time of a resource, usually in unix epoch milliseconds. |
+| `modifiedAt` <br /><span class="type-text">integer</span> | The time of last modification of a resource, usually in unix epoch milliseconds. |
+| `status` <br /><span class="type-text">string</span> | The status of a resource, sometimes given as a type ID. |
 
 #### GET response sample
 
@@ -114,8 +114,8 @@ In some cases, POST endpoints function like a GET endpoint, where the request sc
 
 | Fields | Descriptions |
 | --- | ---| 
-| `success` <br /><span class="type-text">boolean</span> | Indicates resource creation was successful: <var>true</var>
-| `data` / `message` <br /><span class="type-text">string</span> | Response message describing success or failure
+| `success` <br /><span class="type-text">boolean</span> | Indicates resource creation was successful: <var>true</var>. |
+| `data` / `message` <br /><span class="type-text">string</span> | Response message describing success or failure. |
 
 #### POST resource example
 
@@ -128,13 +128,13 @@ This endpoint creates a new Advertiser profile.
 
 | Request Schema | |
 | ---- | --- |
-| `advertiserName` <br /><span class="type-text">string</span> | Advertiser name |
-| `website` <br /><span class="type-text">string</span> | Advertiser website |
-| `chiefName` <br /><span class="type-text">string</span>| Name of political person, with respect to the Advertiser
-| `contactNumber` <br /><span class="type-text">string</span> | Advertiser phone number |
-| `address` <br /><span class="type-text">string</span> | Advertiser address |
-| `legalInfo` <br /><span class="type-text">string</span>| Legal info for Advertiser |
-| `links` <br /><span class="type-text">string</span> | Associated links for Advertiser |
+| `advertiserName` <br /><span class="type-text">string</span> | Advertiser name. |
+| `website` <br /><span class="type-text">string</span> | Advertiser website. |
+| `chiefName` <br /><span class="type-text">string</span>| Name of political person, with respect to the Advertiser. |
+| `contactNumber` <br /><span class="type-text">string</span> | Advertiser phone number. |
+| `address` <br /><span class="type-text">string</span> | Advertiser address. |
+| `legalInfo` <br /><span class="type-text">string</span>| Legal info for Advertiser. |
+| `links` <br /><span class="type-text">string</span> | Associated links for Advertiser. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response Properties</summary>
@@ -193,11 +193,11 @@ This endpoint updates a creative group name. The path parameter is required to s
 
 | Path Parameters | |
 | --- | --- |
-| `creativeGroupId` <br /><span class="type-text">integer</span> | Creative group ID |
+| `creativeGroupId` <br /><span class="type-text">integer</span> | Creative group ID. |
 
 | Request Schema | |
 | --- | --- |
-| `creativeGroupName` <br /><span class="type-text">string</span> | Creative group name |
+| `creativeGroupName` <br /><span class="type-text">string</span> | Creative group name. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response Properties</summary>
@@ -249,7 +249,7 @@ Delete a report and its scheduling data by ID.
 
 | Path Parameters | |
 | ---- | --- |
-| `reportId` <br /><span class="type-text">integer</span> | Report ID |
+| `reportId` <br /><span class="type-text">integer</span> | Report ID. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response Properties</summary>
