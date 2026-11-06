@@ -2660,8 +2660,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Finance details',
-              href: '/guidelines/finance-api#finance-details',
+              label: 'Get Customer finance details',
+              href: '/guidelines/finance-api#get-customer-finance-details',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -3133,8 +3133,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Insights report details',
-              href: '/guidelines/insights-api#insights-report-details',
+              label: 'Get a list of Insights reports',
+              href: '/guidelines/insights-api#get-a-list-of-insights-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -3820,8 +3820,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Inventory groups',
-              href: '/guidelines/inventory-api#inventory-groups',
+              label: 'Get list of inventory groups',
+              href: '/guidelines/inventory-api#get-list-of-inventory-groups',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -3953,8 +3953,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Inventory group management',
-              href: '/guidelines/inventory-api#inventory-group-management',
+              label: 'Create a new inventory group',
+              href: '/guidelines/inventory-api#create-a-new-inventory-group',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -4676,8 +4676,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Get reports details',
-              href: '/guidelines/reports-api#get-reports-details',
+              label: 'Get a list of reports',
+              href: '/guidelines/reports-api#get-a-list-of-reports',
               customProps: { method: 'GET' },
               className: 'sidebarItem'
             },
@@ -4745,8 +4745,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Scheduling management',
-              href: '/guidelines/reports-api#scheduling-management',
+              label: 'Schedule a report',
+              href: '/guidelines/reports-api#schedule-a-report',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -5165,8 +5165,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Organization management',
-              href: '/guidelines/workspace-api#organization-management',
+              label: 'Update Organization profile',
+              href: '/guidelines/workspace-api#update-organization-profile',
               customProps: { method: 'PATCH' },
               className: 'sidebarItem'
             },
@@ -5235,8 +5235,8 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Workspace management',
-              href: '/guidelines/workspace-api#workspace-management',
+              label: 'Create a Workspace',
+              href: '/guidelines/workspace-api#create-a-workspace',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },
@@ -5450,8 +5450,8 @@ const sidebars = {
             },
             {
               type: 'link',
-              label: 'Customer management',
-              href: '/guidelines/workspace-api#customer-management',
+              label: 'Invite Customer to platform',
+              href: '/guidelines/workspace-api#invite-customer-to-platform',
               customProps: { method: 'POST' },
               className: 'sidebarItem'
             },

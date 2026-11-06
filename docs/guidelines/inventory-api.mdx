@@ -1560,7 +1560,9 @@ example.org,com.another.app
 
 ## CTV inventories
 
-Connected TV (CTV) inventories are app-based inventory sources available on smart TVs and streaming devices.
+Connected TV (CTV) inventories are streaming apps and channels available on smart TVs and streaming devices, such as Roku, Samsung TV, Fire TV, or Apple TV apps. Each CTV app is identified by a <var>bunchId</var>, which groups the app's per-platform inventories. For example, the Tubi app covers separate Tubi inventories for Roku, Samsung TV, and other devices.
+
+Use <var>bunchIds</var> to add CTV apps to a CTV inventory group (<var>groupTypeId</var> <var>4</var>).
 
 ### Get CTV inventory list
 
@@ -1569,20 +1571,20 @@ Connected TV (CTV) inventories are app-based inventory sources available on smar
 <div class="endpoint-container">
   <div class="child1">
 
-Get a paginated list of CTV inventories available to the authenticated user.
+Get a paginated list of CTV apps available to the authenticated user, sorted by impressions.
 
 | Query parameters |  |
 | ---- | --- |
-| `searchField` <br /><span class="type-text">string</span> | Search term matching publisher name or inventory name. |
+| `searchField` <br /><span class="type-text">string</span> | Search term matching the CTV app name or publisher name. |
 | `countries` <br /><span class="type-text">string</span> | Filter by [country ID](/guidelines/master-api/#get-country-segment). |
-| `categories` <br /><span class="type-text">string</span> | Filter by [IAB category](/guidelines/master-api/#get-publisher-ad-categories). |
+| `categories` <br /><span class="type-text">string</span> | Filter by [IAB category code](/guidelines/master-api/#get-publisher-ad-categories). |
 | `creativeTypes` <br /><span class="type-text">string</span> | Filter by [creative type ID](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
 | `creativeDurations` <br /><span class="type-text">string</span> | Filter by [creative duration ID](/guidelines/master-api/#get-creative-sizes) (video/audio). |
 | `exchanges` <br /><span class="type-text">string</span> | Filter by [exchange ID](/guidelines/master-api/#get-exchanges). |
 | `videoPlayerSizes` <br /><span class="type-text">string</span> | Filter by [video player size ID](/guidelines/master-api/#get-video-player-size-parameters). |
 | `streamingDevices` <br /><span class="type-text">string</span> | Filter by [streaming device ID](#get-list-of-streaming-devices). <br /><EnumWidget values={streamingDevices} /> |
-| `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries per page (default: <var>10</var>). |
-| `pageNo` <br /><span class="type-text">integer</span> | Page number (default: <var>1</var>). |
+| `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries per page, at least <var>1</var> (default: <var>10</var>). |
+| `pageNo` <br /><span class="type-text">integer</span> | Page number, starting at <var>1</var> (default: <var>1</var>). |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -1590,7 +1592,7 @@ Get a paginated list of CTV inventories available to the authenticated user.
 <table className="objectProperties">
   <tr>
   <td>`inventoryDataList` <br /><span class="type-text">array</span></td>
-  <td>List of CTV inventory objects.</td>
+  <td>CTV apps on the requested page.</td>
   </tr>
   <tr>
     <td colSpan="2">
@@ -1599,11 +1601,11 @@ Get a paginated list of CTV inventories available to the authenticated user.
       <table className="objectProperties">
       <tr>
         <td>`bunchId` <br /><span class="type-text">integer</span></td>
-        <td>CTV inventory (bunch) ID.</td>
+        <td>CTV app ID (bunch ID). Pass it in <var>bunchIds</var> to add the app to a CTV inventory group.</td>
       </tr>
       <tr>
         <td>`appName` <br /><span class="type-text">string</span></td>
-        <td>App name.</td>
+        <td>CTV app name.</td>
       </tr>
       <tr>
         <td>`publisherName` <br /><span class="type-text">string</span></td>
@@ -1611,27 +1613,19 @@ Get a paginated list of CTV inventories available to the authenticated user.
       </tr>
       <tr>
         <td>`impressions` <br /><span class="type-text">integer</span></td>
-        <td>Impressions count.</td>
+        <td>Available impressions for the app.</td>
       </tr>
       <tr>
         <td>`reach` <br /><span class="type-text">integer</span></td>
-        <td>Unique individuals reached.</td>
-      </tr>
-      <tr>
-        <td>`videoPercentage` <br /><span class="type-text">number</span></td>
-        <td>Percentage of video impressions.</td>
-      </tr>
-      <tr>
-        <td>`displayPercentage` <br /><span class="type-text">number</span></td>
-        <td>Percentage of display impressions.</td>
+        <td>Estimated unique reach for the app.</td>
       </tr>
       <tr>
         <td>`inventoryLogoUrl` <br /><span class="type-text">string</span></td>
-        <td>URL of the inventory logo.</td>
+        <td>App logo URL.</td>
       </tr>
       <tr>
         <td>`streamingDevices` <br /><span class="type-text">array of objects</span></td>
-        <td>Streaming devices this CTV inventory is available on.</td>
+        <td>Streaming devices the app is available on.</td>
       </tr>
       <tr>
         <td colSpan="2">
@@ -1640,11 +1634,11 @@ Get a paginated list of CTV inventories available to the authenticated user.
           <table className="objectProperties">
           <tr>
             <td>`deviceName` <br /><span class="type-text">string</span></td>
-            <td>Streaming device name.</td>
+            <td>Streaming device name. <var>Others</var> covers devices without their own entry.</td>
           </tr>
           <tr>
             <td>`logoUrl` <br /><span class="type-text">string</span></td>
-            <td>URL of the streaming device logo.</td>
+            <td>Device logo URL. Absent for <var>Others</var>.</td>
           </tr>
           </table></details>
         </td>
@@ -1656,11 +1650,11 @@ Get a paginated list of CTV inventories available to the authenticated user.
   </tr>
   <tr>
   <td>`totalRecords` <br /><span class="type-text">integer</span></td>
-  <td>Total number of records.</td>
+  <td>Total number of CTV apps in the catalog, ignoring filters.</td>
   </tr>
   <tr>
   <td>`filteredRecords` <br /><span class="type-text">integer</span></td>
-  <td>Number of records matching the current filter.</td>
+  <td>Number of CTV apps matching the request. Use it for pagination.</td>
   </tr>
 </table>
 
@@ -1675,62 +1669,49 @@ Get a paginated list of CTV inventories available to the authenticated user.
 {
   "success": true,
   "data": {
+    "totalRecords": 641,
     "filteredRecords": 2,
-    "totalRecords": 100,
     "inventoryDataList": [
       {
-        "bunchId": 100129,
-        "appName": "HISTORY Vault",
-        "publisherName": "A&E (A+E Networks)",
-        "impressions": 120,
-        "reach": 180,
-        "videoPercentage": 100.0,
-        "displayPercentage": 0.0,
-        "inventoryLogoUrl": "https://cdn.com/adhoc/ctv-logos/1003514129",
+        "bunchId": 494,
+        "appName": "Tubi",
+        "publisherName": "Fox Corporation",
+        "impressions": 2369906733,
+        "reach": 16244656,
+        "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/5913502",
         "streamingDevices": [
           {
-            "deviceName": "Amazon Fire TV",
-            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/FireTV.png"
+            "deviceName": "Roku",
+            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
           },
           {
-            "deviceName": "Android TV",
-            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/AndoidTV.png"
+            "deviceName": "Samsung TV",
+            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/SamsungTVPlus.png"
+          },
+          {
+            "deviceName": "Others"
           }
         ]
       },
       {
-        "bunchId": 100132,
-        "appName": "FYI",
-        "publisherName": "ATC",
-        "impressions": 1100,
-        "reach": 1079,
-        "videoPercentage": 100.0,
-        "displayPercentage": 0.0,
-        "inventoryLogoUrl": "https://cdn.com/adhoc/ctv-logos/1003514132",
+        "bunchId": 406,
+        "appName": "Samsung Tv Plus",
+        "publisherName": "Samsung",
+        "impressions": 2288210153,
+        "reach": 21112196,
+        "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/2494321",
         "streamingDevices": [
           {
-            "deviceName": "Amazon Fire TV",
-            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/FireTV.png"
+            "deviceName": "Samsung TV",
+            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/SamsungTVPlus.png"
           },
           {
-            "deviceName": "Android TV",
-            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/AndoidTV.png"
+            "deviceName": "Others"
           }
         ]
       }
     ]
   }
-}
-```
-
-```json title="Response 403"
-{
-  "success": false,
-  "errorObjects": [
-    {
-      "error": "User is not allowed to access provided inventory group."
-    }
-  ]
 }
 ```
 
@@ -1748,11 +1729,11 @@ Get a paginated list of CTV inventories available to the authenticated user.
 <div class="endpoint-container">
   <div class="child1">
 
-Get the count of unique CTV inventories, total impressions, and total reach available to the authenticated user.
+Get the number of CTV apps, total impressions, and total reach available to the authenticated user.
 
 | Query parameters |  |
 | ---- | --- |
-| `searchField` <br /><span class="type-text">string</span> | Search term matching publisher name or inventory name. |
+| `searchField` <br /><span class="type-text">string</span> | Search term matching the CTV app name or publisher name. |
 | `countries` <br /><span class="type-text">string</span> | Filter by [country ID](/guidelines/master-api/#get-country-segment). |
 | `categories` <br /><span class="type-text">string</span> | Filter by [IAB category ID](/guidelines/master-api/#get-publisher-ad-categories). |
 | `creativeTypes` <br /><span class="type-text">string</span> | Filter by [creative type ID](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
@@ -1766,16 +1747,16 @@ Get the count of unique CTV inventories, total impressions, and total reach avai
 
 <table className="objectProperties">
   <tr>
-  <td>`reach` <br /><span class="type-text">integer</span></td>
-  <td>Total unique individuals reached.</td>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>Number of CTV apps.</td>
   </tr>
   <tr>
   <td>`impressions` <br /><span class="type-text">integer</span></td>
-  <td>Total impressions count.</td>
+  <td>Total available impressions.</td>
   </tr>
   <tr>
-  <td>`inventories` <br /><span class="type-text">integer</span></td>
-  <td>Count of unique CTV inventories.</td>
+  <td>`reach` <br /><span class="type-text">integer</span></td>
+  <td>Total estimated unique reach.</td>
   </tr>
 </table>
 
@@ -1790,9 +1771,9 @@ Get the count of unique CTV inventories, total impressions, and total reach avai
 {
   "success": true,
   "data": {
-    "reach": 7983253,
-    "impressions": 119256646,
-    "inventories": 13870
+    "apps": 347,
+    "impressions": 23595640570,
+    "reach": 170419063
   }
 }
 ```
@@ -1811,11 +1792,11 @@ Get the count of unique CTV inventories, total impressions, and total reach avai
 <div class="endpoint-container">
   <div class="child1">
 
-Get the distribution of CTV inventories across countries, creative types, and traffic types.
+Get the percentage share of CTV impressions by country, creative type, and streaming device.
 
 | Query parameters |  |
 | ---- | --- |
-| `searchField` <br /><span class="type-text">string</span> | Search term matching publisher name or inventory name. |
+| `searchField` <br /><span class="type-text">string</span> | Search term matching the underlying inventory name, inventory ID, or publisher name. Inventory names usually include the app name, for example <var>Tubi (Roku)</var>. |
 | `countries` <br /><span class="type-text">string</span> | Filter by [country ID](/guidelines/master-api/#get-country-segment). |
 | `categories` <br /><span class="type-text">string</span> | Filter by [IAB category ID](/guidelines/master-api/#get-publisher-ad-categories). |
 | `creativeTypes` <br /><span class="type-text">string</span> | Filter by [creative type ID](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
@@ -1829,29 +1810,29 @@ Get the distribution of CTV inventories across countries, creative types, and tr
 
 <table className="objectProperties">
   <tr>
-  <td>`countries` <br /><span class="type-text">object</span></td>
-  <td>Distribution across countries.</td>
+  <td>`countries` <br /><span class="type-text">array of objects</span></td>
+  <td>Impression share by country (top countries).</td>
   </tr>
   <tr>
-  <td>`creativeTypes` <br /><span class="type-text">object</span></td>
-  <td>Distribution across creative types.</td>
+  <td>`creativeTypes` <br /><span class="type-text">array of objects</span></td>
+  <td>Impression share by creative type.</td>
   </tr>
   <tr>
-  <td>`streamingDevices` <br /><span class="type-text">object</span></td>
-  <td>Distribution across streaming devices.</td>
+  <td>`streamingDevices` <br /><span class="type-text">array of objects</span></td>
+  <td>Impression share by streaming device.</td>
   </tr>
   <tr>
 <td colSpan="2">
   <details className="objectPropertiesDetails">
-  <summary>object properties</summary>
+  <summary>Distribution entry properties</summary>
   <table className="objectProperties">
   <tr>
   <td>`label` <br /><span class="type-text">string</span></td>
-  <td>Label.</td>
+  <td>Country, creative type, or streaming device name.</td>
   </tr>
   <tr>
   <td>`value` <br /><span class="type-text">number</span></td>
-  <td>Percentage value.</td>
+  <td>Percentage of impressions.</td>
   </tr>
   </table></details>
   </td>
@@ -1888,7 +1869,7 @@ Get the distribution of CTV inventories across countries, creative types, and tr
       { "label": "Samsung TV", "value": 27.82 },
       { "label": "Android TV", "value": 16.62 },
       { "label": "Amazon Fire TV", "value": 8.31 },
-      { "label": "Other", "value": 7.85 },
+      { "label": "Others", "value": 7.85 },
       { "label": "Apple TV", "value": 2.49 },
       { "label": "Vizio", "value": 1.6 },
       { "label": "LG TV", "value": 1.44 }
@@ -1911,11 +1892,11 @@ Get the distribution of CTV inventories across countries, creative types, and tr
 <div class="endpoint-container">
   <div class="child1">
 
-Download a CSV or XLSX file of the CTV inventory list based on requested filters.
+Download a CSV or XLSX file of the CTV apps matching the requested filters.
 
 | Query parameters |  |
 | ---- | --- |
-| `searchField` <br /><span class="type-text">string</span> | Search term matching publisher name or inventory name. |
+| `searchField` <br /><span class="type-text">string</span> | Search term matching the CTV app name or publisher name. |
 | `countries` <br /><span class="type-text">string</span> | Filter by [country ID](/guidelines/master-api/#get-country-segment). |
 | `categories` <br /><span class="type-text">string</span> | Filter by [IAB category ID](/guidelines/master-api/#get-publisher-ad-categories). |
 | `creativeTypes` <br /><span class="type-text">string</span> | Filter by [creative type ID](/guidelines/creative-api/#get-creative-types-list). <br /><EnumWidget values={creativeTypes} /> |
@@ -1923,7 +1904,7 @@ Download a CSV or XLSX file of the CTV inventory list based on requested filters
 | `exchanges` <br /><span class="type-text">string</span> | Filter by [exchange ID](/guidelines/master-api/#get-exchanges). |
 | `videoPlayerSizes` <br /><span class="type-text">string</span> | Filter by [video player size ID](/guidelines/master-api/#get-video-player-size-parameters). |
 | `streamingDevices` <br /><span class="type-text">string</span> | Filter by [streaming device ID](#get-list-of-streaming-devices). <br /><EnumWidget values={streamingDevices} /> |
-| `fileType` <br /><span class="type-text">string</span> <span class="required-text">required</span> | Output file format: <var>csv</var> or <var>xlsx</var>. |
+| `fileType` <br /><span class="type-text">string</span> <span class="required-text">required</span> | Output file format, in lowercase: <var>csv</var> or <var>xlsx</var>. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -1931,7 +1912,7 @@ Download a CSV or XLSX file of the CTV inventory list based on requested filters
 <table className="objectProperties">
   <tr>
   <td>`data` <br /><span class="type-text">string</span></td>
-  <td>Download URL for the generated file.</td>
+  <td>Download URL for the generated file. The URL expires about 60 seconds after it's generated, so download the file right away.</td>
   </tr>
 </table>
 
@@ -1963,11 +1944,11 @@ Download a CSV or XLSX file of the CTV inventory list based on requested filters
 <div class="endpoint-container">
   <div class="child1">
 
-Get the static list of streaming devices available for CTV inventories, sorted in ascending order by display order.
+Get the streaming devices and their IDs. Use the IDs in the <var>streamingDevices</var> filter of the CTV inventory endpoints and in the <var>streamingDevice</var> field when adding CTV apps to a CTV inventory group.
 
 | Query parameters |  |
 | ---- | --- |
-| `searchField` <br /><span class="type-text">string</span> | Search term matching streaming device name. |
+| `searchField` <br /><span class="type-text">string</span> | Search term matching the device name (partial, case-insensitive). |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -1978,12 +1959,12 @@ Get the static list of streaming devices available for CTV inventories, sorted i
   <td>Streaming device ID.</td>
   </tr>
   <tr>
-  <td>`displayName` <br /><span class="type-text">string</span></td>
-  <td>Streaming device name.</td>
+  <td>`deviceName` <br /><span class="type-text">string</span></td>
+  <td>Streaming device name. <var>Others</var> covers devices without their own entry.</td>
   </tr>
   <tr>
   <td>`logoUrl` <br /><span class="type-text">string</span></td>
-  <td>URL of the streaming device logo.</td>
+  <td>Device logo URL. Absent for <var>Others</var>.</td>
   </tr>
 </table>
 
@@ -1999,14 +1980,18 @@ Get the static list of streaming devices available for CTV inventories, sorted i
   "success": true,
   "data": [
     {
-      "id": 1,
-      "displayName": "Samsung",
-      "logoUrl": "https://samsunglogo.com"
+      "id": 6,
+      "deviceName": "Roku",
+      "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
     },
     {
-      "id": 2,
-      "displayName": "Roku TV",
-      "logoUrl": "https://rokuTV.com"
+      "id": 7,
+      "deviceName": "Samsung TV",
+      "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/SamsungTVPlus.png"
+    },
+    {
+      "id": 9,
+      "deviceName": "Others"
     }
   ]
 }
@@ -2113,7 +2098,11 @@ An inventory group <var>id</var> can be used to perform various actions in [Inve
         </tr>
              <tr>
         <td>`count` <br /><span class="type-text">integer</span></td>
-        <td>Inventories count.</td>
+        <td>Number of inventories in the group: deals for PMP groups, CTV apps for CTV groups.</td>
+        </tr>
+             <tr>
+        <td>`apps` <br /><span class="type-text">integer</span></td>
+        <td>CTV groups only: number of CTV apps in the group.</td>
         </tr>
              <tr>
         <td>`id` <br /><span class="type-text">integer</span></td>
@@ -2504,6 +2493,8 @@ An inventory group <var>id</var> can be used to perform various actions in [Inve
 <div class="endpoint-container">
   <div class="child1">
 
+This endpoint only works on Open Exchange groups. For a CTV group, use [Get CTV inventories for an inventory group](#get-ctv-inventories-for-an-inventory-group).
+
 | Path parameter | |
 | --- | --- |
 | `groupId` | [Group ID](#get-list-of-inventory-groups). |
@@ -2632,6 +2623,8 @@ An inventory group <var>id</var> can be used to perform various actions in [Inve
 
 <div class="endpoint-container">
   <div class="child1">
+
+This endpoint only works on Open Exchange groups. For a CTV group, use [Get CTV inventories distributions for an inventory group](#get-ctv-inventories-distributions-for-an-inventory-group).
 
 | Path parameter | |
 | --- | --- |
@@ -2766,7 +2759,8 @@ An inventory group <var>id</var> can be used to perform various actions in [Inve
 <div class="endpoint-container">
   <div class="child1">
 
-  
+This endpoint only works on Open Exchange groups. For a CTV group, use [Get CTV inventories statistics for an inventory group](#get-ctv-inventories-statistics-for-an-inventory-group).
+
 | Path parameter | |
 | --- | --- |
 | `groupId` | [Group ID](#get-list-of-inventory-groups). |
@@ -3065,7 +3059,7 @@ Get the total count of inventory groups for the authenticated user.
 <div class="endpoint-container">
   <div class="child1">
 
-Download Open Exchange inventory details for a specific group as a file.
+Download Open Exchange inventory details for a specific group as a file. This endpoint only works on Open Exchange groups. For a CTV group, use [Download CTV inventories for an inventory group](#download-ctv-inventories-for-an-inventory-group).
 
 | Path parameters |  |
 | ---- | --- |
@@ -3112,17 +3106,17 @@ Download Open Exchange inventory details for a specific group as a file.
 <div class="endpoint-container">
   <div class="child1">
 
-Get a paginated list of CTV inventories belonging to a specific inventory group.
+Get a paginated list of the CTV apps in a CTV inventory group, sorted by impressions.
 
 | Path parameter | |
 | --- | --- |
-| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | [Group ID](#get-list-of-inventory-groups). |
+| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | ID of a CTV inventory group. |
 
 | Query parameters |  |
 | ---- | --- |
-| `searchField` <br /><span class="type-text">string</span> | Filter inventories by name. |
+| `searchField` <br /><span class="type-text">string</span> | Search term matching the CTV app name or publisher name. |
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries per page (default: <var>50</var>). |
-| `pageNo` <br /><span class="type-text">integer</span> | Page number (default: <var>0</var>). |
+| `pageNo` <br /><span class="type-text">integer</span> | Page number, starting at <var>1</var> (default: <var>0</var>, which also returns the first page). |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -3130,7 +3124,7 @@ Get a paginated list of CTV inventories belonging to a specific inventory group.
 <table className="objectProperties">
   <tr>
   <td>`inventoryDataList` <br /><span class="type-text">array</span></td>
-  <td>List of CTV inventory objects.</td>
+  <td>CTV apps in the group on the requested page.</td>
   </tr>
   <tr>
     <td colSpan="2">
@@ -3138,48 +3132,49 @@ Get a paginated list of CTV inventories belonging to a specific inventory group.
       <summary>`inventoryDataList` object properties</summary>
       <table className="objectProperties">
       <tr>
-        <td>`id` <br /><span class="type-text">integer</span></td>
-        <td>Inventory ID.</td>
+        <td>`bunchId` <br /><span class="type-text">integer</span></td>
+        <td>CTV app ID (bunch ID). Pass it in <var>bunchIds</var> to add the app to a CTV inventory group.</td>
       </tr>
       <tr>
-        <td>`name` <br /><span class="type-text">string</span></td>
-        <td>Inventory name.</td>
+        <td>`appName` <br /><span class="type-text">string</span></td>
+        <td>CTV app name.</td>
       </tr>
       <tr>
         <td>`publisherName` <br /><span class="type-text">string</span></td>
         <td>Publisher name.</td>
       </tr>
       <tr>
-        <td>`appId` <br /><span class="type-text">string</span></td>
-        <td>Bundle ID (app) or domain (web).</td>
-      </tr>
-      <tr>
-        <td>`inventoryType` <br /><span class="type-text">string</span></td>
-        <td>Inventory type.</td>
-      </tr>
-      <tr>
         <td>`impressions` <br /><span class="type-text">integer</span></td>
-        <td>Impressions count.</td>
+        <td>Available impressions for the app.</td>
       </tr>
       <tr>
         <td>`reach` <br /><span class="type-text">integer</span></td>
-        <td>Unique individuals reached.</td>
-      </tr>
-      <tr>
-        <td>`videoPercentage` <br /><span class="type-text">number</span></td>
-        <td>Percentage of video impressions.</td>
-      </tr>
-      <tr>
-        <td>`displayPercentage` <br /><span class="type-text">number</span></td>
-        <td>Percentage of display impressions.</td>
+        <td>Estimated unique reach for the app.</td>
       </tr>
       <tr>
         <td>`inventoryLogoUrl` <br /><span class="type-text">string</span></td>
-        <td>URL of the inventory logo.</td>
+        <td>App logo URL.</td>
       </tr>
       <tr>
-        <td>`ctv` <br /><span class="type-text">boolean</span></td>
-        <td>Indicates CTV inventory: <var>true</var>.</td>
+        <td>`streamingDevices` <br /><span class="type-text">array of objects</span></td>
+        <td>Streaming devices the app is available on.</td>
+      </tr>
+      <tr>
+        <td colSpan="2">
+          <details className="objectPropertiesDetails">
+          <summary>`streamingDevices` object properties</summary>
+          <table className="objectProperties">
+          <tr>
+            <td>`deviceName` <br /><span class="type-text">string</span></td>
+            <td>Streaming device name. <var>Others</var> covers devices without their own entry.</td>
+          </tr>
+          <tr>
+            <td>`logoUrl` <br /><span class="type-text">string</span></td>
+            <td>Device logo URL. Absent for <var>Others</var>.</td>
+          </tr>
+          </table></details>
+        </td>
+        <td></td>
       </tr>
       </table></details>
     </td>
@@ -3187,11 +3182,11 @@ Get a paginated list of CTV inventories belonging to a specific inventory group.
   </tr>
   <tr>
   <td>`totalRecords` <br /><span class="type-text">integer</span></td>
-  <td>Total number of records.</td>
+  <td>Total number of CTV apps in the catalog, not only in the group.</td>
   </tr>
   <tr>
   <td>`filteredRecords` <br /><span class="type-text">integer</span></td>
-  <td>Number of records matching the current filter.</td>
+  <td>Number of CTV apps in the group matching the request. Use it for pagination.</td>
   </tr>
 </table>
 
@@ -3206,34 +3201,46 @@ Get a paginated list of CTV inventories belonging to a specific inventory group.
 {
   "success": true,
   "data": {
-    "totalRecords": 24397208,
+    "totalRecords": 641,
     "filteredRecords": 2,
     "inventoryDataList": [
       {
-        "id": 3408578,
-        "name": "Tubi (Roku)",
-        "publisherName": "Roku",
-        "appId": "41468",
-        "inventoryType": "Other App",
-        "impressions": 3928807709,
-        "reach": 36173425,
-        "videoPercentage": 99.999869,
-        "displayPercentage": 0.0,
-        "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/3408578",
-        "ctv": true
+        "bunchId": 494,
+        "appName": "Tubi",
+        "publisherName": "Fox Corporation",
+        "impressions": 2369906733,
+        "reach": 16244656,
+        "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/5913502",
+        "streamingDevices": [
+          {
+            "deviceName": "Roku",
+            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/RokuTV.png"
+          },
+          {
+            "deviceName": "Samsung TV",
+            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/SamsungTVPlus.png"
+          },
+          {
+            "deviceName": "Others"
+          }
+        ]
       },
       {
-        "id": 68028,
-        "name": "NewsON (Android TV)",
-        "publisherName": "NewsON",
-        "appId": "com.newson.vinson",
-        "inventoryType": "Android App",
-        "impressions": 962565737,
-        "reach": 859260,
-        "videoPercentage": 100.0,
-        "displayPercentage": 0.0,
-        "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/68028",
-        "ctv": true
+        "bunchId": 406,
+        "appName": "Samsung Tv Plus",
+        "publisherName": "Samsung",
+        "impressions": 2288210153,
+        "reach": 21112196,
+        "inventoryLogoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/2494321",
+        "streamingDevices": [
+          {
+            "deviceName": "Samsung TV",
+            "logoUrl": "https://iqm-data-lake-stage.s3.us-east-1.amazonaws.com/adhoc/ctv-logos/streaming-devices-logos/SamsungTVPlus.png"
+          },
+          {
+            "deviceName": "Others"
+          }
+        ]
       }
     ]
   }
@@ -3254,27 +3261,31 @@ Get a paginated list of CTV inventories belonging to a specific inventory group.
 <div class="endpoint-container">
   <div class="child1">
 
-Get inventory count, total reach, and total impressions for CTV inventories in a specific inventory group.
+Get the number of CTV apps and underlying inventories, total impressions, and total reach for a CTV inventory group.
 
 | Path parameter | |
 | --- | --- |
-| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | [Group ID](#get-list-of-inventory-groups). |
+| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | ID of a CTV inventory group. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
 
 <table className="objectProperties">
   <tr>
-  <td>`inventories` <br /><span class="type-text">integer</span></td>
-  <td>Count of CTV inventories in the group.</td>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>Number of CTV apps in the group.</td>
   </tr>
   <tr>
-  <td>`reach` <br /><span class="type-text">integer</span></td>
-  <td>Total unique individuals reached.</td>
+  <td>`inventories` <br /><span class="type-text">integer</span></td>
+  <td>Number of underlying per-platform inventories in the group.</td>
   </tr>
   <tr>
   <td>`impressions` <br /><span class="type-text">integer</span></td>
-  <td>Total impressions count.</td>
+  <td>Total available impressions.</td>
+  </tr>
+  <tr>
+  <td>`reach` <br /><span class="type-text">integer</span></td>
+  <td>Total estimated unique reach.</td>
   </tr>
 </table>
 
@@ -3289,9 +3300,10 @@ Get inventory count, total reach, and total impressions for CTV inventories in a
 {
   "success": true,
   "data": {
-    "inventories": 3,
-    "reach": 37657018,
-    "impressions": 5031212348
+    "apps": 2,
+    "inventories": 16,
+    "impressions": 4658116886,
+    "reach": 37356853
   }
 }
 ```
@@ -3310,40 +3322,40 @@ Get inventory count, total reach, and total impressions for CTV inventories in a
 <div class="endpoint-container">
   <div class="child1">
 
-Get the distribution of CTV inventories in a specific inventory group across countries, creative types, and streaming devices.
+Get the percentage share of a CTV inventory group's impressions by country, creative type, and streaming device.
 
 | Path parameter | |
 | --- | --- |
-| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | [Group ID](#get-list-of-inventory-groups). |
+| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | ID of a CTV inventory group. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
 
 <table className="objectProperties">
   <tr>
-  <td>`countries` <br /><span class="type-text">object</span></td>
-  <td>Distribution across countries.</td>
+  <td>`countries` <br /><span class="type-text">array of objects</span></td>
+  <td>Impression share by country (top countries).</td>
   </tr>
   <tr>
-  <td>`creativeTypes` <br /><span class="type-text">object</span></td>
-  <td>Distribution across creative types.</td>
+  <td>`creativeTypes` <br /><span class="type-text">array of objects</span></td>
+  <td>Impression share by creative type.</td>
   </tr>
   <tr>
-  <td>`streamingDevices` <br /><span class="type-text">object</span></td>
-  <td>Distribution across streaming devices.</td>
+  <td>`streamingDevices` <br /><span class="type-text">array of objects</span></td>
+  <td>Impression share by streaming device.</td>
   </tr>
   <tr>
 <td colSpan="2">
   <details className="objectPropertiesDetails">
-  <summary>object properties</summary>
+  <summary>Distribution entry properties</summary>
   <table className="objectProperties">
   <tr>
   <td>`label` <br /><span class="type-text">string</span></td>
-  <td>Label.</td>
+  <td>Country, creative type, or streaming device name.</td>
   </tr>
   <tr>
   <td>`value` <br /><span class="type-text">number</span></td>
-  <td>Percentage value.</td>
+  <td>Percentage of impressions.</td>
   </tr>
   </table></details>
   </td>
@@ -3395,16 +3407,16 @@ Get the distribution of CTV inventories in a specific inventory group across cou
 <div class="endpoint-container">
   <div class="child1">
 
-Download CTV inventory details for a specific inventory group as a CSV or XLSX file.
+Download the CTV apps in a CTV inventory group as a CSV or XLSX file.
 
 | Path parameter | |
 | --- | --- |
-| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | [Group ID](#get-list-of-inventory-groups). |
+| `groupId` <br /><span class="type-text">integer</span> <span class="required-text">required</span> | ID of a CTV inventory group. |
 
 | Query parameters |  |
 | ---- | --- |
-| `fileType` <br /><span class="type-text">string</span> <span class="required-text">required</span> | File type for download: <var>csv</var> or <var>xlsx</var>. |
-| `searchField` <br /><span class="type-text">string</span> | Filter inventories by name. |
+| `fileType` <br /><span class="type-text">string</span> <span class="required-text">required</span> | Output file format, in lowercase: <var>csv</var> or <var>xlsx</var>. |
+| `searchField` <br /><span class="type-text">string</span> | Search term matching the CTV app name or publisher name. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -3412,7 +3424,7 @@ Download CTV inventory details for a specific inventory group as a CSV or XLSX f
 <table className="objectProperties">
   <tr>
   <td>`data` <br /><span class="type-text">string</span></td>
-  <td>S3 download URL for the generated file.</td>
+  <td>Download URL for the generated file. The URL expires about 60 seconds after it's generated, so download the file right away.</td>
   </tr>
 </table>
 
@@ -3498,7 +3510,11 @@ Update details or delete group inventories.
   </tr>
   <tr>
   <td>`count` <br /><span class="type-text">integer</span></td>
-  <td>Number of inventories (or deals, for PMP groups) in the group.</td>
+  <td>Number of inventories in the group: deals for PMP groups, CTV apps for CTV groups.</td>
+  </tr>
+  <tr>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>CTV groups only: number of CTV apps in the group.</td>
   </tr>
   <tr>
   <td>`inventories` <br /><span class="type-text">integer</span></td>
@@ -3750,7 +3766,11 @@ Update details or delete group inventories.
   </tr>
   <tr>
   <td>`count` <br /><span class="type-text">integer</span></td>
-  <td>Number of inventories (or deals, for PMP groups) in the group.</td>
+  <td>Number of inventories in the group: deals for PMP groups, CTV apps for CTV groups.</td>
+  </tr>
+  <tr>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>CTV groups only: number of CTV apps in the group.</td>
   </tr>
   <tr>
   <td>`inventories` <br /><span class="type-text">integer</span></td>
@@ -3992,7 +4012,11 @@ Update details or delete group inventories.
   </tr>
   <tr>
   <td>`count` <br /><span class="type-text">integer</span></td>
-  <td>Number of inventories (or deals, for PMP groups) in the group.</td>
+  <td>Number of inventories in the group: deals for PMP groups, CTV apps for CTV groups.</td>
+  </tr>
+  <tr>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>CTV groups only: number of CTV apps in the group.</td>
   </tr>
   <tr>
   <td>`inventories` <br /><span class="type-text">integer</span></td>
@@ -4198,7 +4222,11 @@ Update details or delete group inventories.
   </tr>
   <tr>
   <td>`count` <br /><span class="type-text">integer</span></td>
-  <td>Number of inventories (or deals, for PMP groups) in the group.</td>
+  <td>Number of inventories in the group: deals for PMP groups, CTV apps for CTV groups.</td>
+  </tr>
+  <tr>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>CTV groups only: number of CTV apps in the group.</td>
   </tr>
   <tr>
   <td>`inventories` <br /><span class="type-text">integer</span></td>
@@ -4361,12 +4389,14 @@ Update details or delete group inventories.
 <div class="endpoint-container">
   <div class="child1">
 
+Choose apps with <var>bunchIds</var>. Search filters such as <var>keywords</var> don't apply to CTV groups: a request without <var>bunchIds</var> adds every CTV app in the catalog.
+
 | Request schema |  |
 | ---- | --- |
 | `groupName` <br /><span class="type-text">string</span> | Desired name for group. |
 | `groupTypeId` <br /><span class="type-text">integer</span>| Group type. Supported values: <br />Open Exchange: <var>1</var>. <br />PMP: <var>2</var>. <br />Contextual: <var>3</var>. <br />CTV: <var>4</var>. |
-| `bunchIds` <br /><span class="type-text">array of integers</span> | [CTV inventory (bunch) IDs](#get-ctv-inventory-list) to include in group. |
-| `streamingDevice` <br /><span class="type-text">array of integers</span> | [Streaming device IDs](#get-list-of-streaming-devices) to filter the group's CTV inventories by. <br /><EnumWidget values={streamingDevices} /> |
+| `bunchIds` <br /><span class="type-text">array of integers</span> | CTV app IDs (bunch IDs) from [Get CTV inventory list](#get-ctv-inventory-list). Each app adds all of its per-platform inventories, unless <var>streamingDevice</var> narrows them. |
+| `streamingDevice` <br /><span class="type-text">array of integers</span> | Streaming device IDs from [Get list of streaming devices](#get-list-of-streaming-devices), used with <var>bunchIds</var>. Limits each app to its inventories on these devices. Not accepted on its own. <br /><EnumWidget values={streamingDevices} /> |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>
@@ -4410,7 +4440,11 @@ Update details or delete group inventories.
   </tr>
   <tr>
   <td>`count` <br /><span class="type-text">integer</span></td>
-  <td>Number of inventories (or deals, for PMP groups) in the group.</td>
+  <td>Number of inventories in the group: deals for PMP groups, CTV apps for CTV groups.</td>
+  </tr>
+  <tr>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>CTV groups only: number of CTV apps in the group.</td>
   </tr>
   <tr>
   <td>`inventories` <br /><span class="type-text">integer</span></td>
@@ -4522,8 +4556,8 @@ Update details or delete group inventories.
 {
     "groupName": "test-ctv-grp-5",
     "bunchIds": [
-        101,
-        201
+        494,
+        406
     ],
     "groupTypeId": 4
 }
@@ -4534,12 +4568,12 @@ Update details or delete group inventories.
 {
     "groupName": "test-ctv-grp-5",
     "bunchIds": [
-        101,
-        201
+        494,
+        406
     ],
     "streamingDevice": [
-        7001,
-        8001
+        6,
+        7
     ],
     "groupTypeId": 4
 }
@@ -4768,11 +4802,11 @@ Inventories can be added/removed by filtering for results, inputting <var>dealId
     </tr>
     <tr>
     <td>`bunchIds` <br /><span class="type-text">array of integers</span></td>
-    <td>[CTV inventory (bunch) IDs](#get-ctv-inventory-list) to add/remove to/from group.</td>
+    <td>CTV app IDs (bunch IDs) from [Get CTV inventory list](#get-ctv-inventory-list) to add to or remove from the group. CTV groups don't accept <var>inventoryIds</var> on their own.</td>
     </tr>
     <tr>
     <td>`streamingDevice` <br /><span class="type-text">array of integers</span></td>
-    <td>[Streaming device IDs](#get-list-of-streaming-devices) to filter the group's CTV inventories by (add only). <br /><EnumWidget values={streamingDevices} /></td>
+    <td>Streaming device IDs from [Get list of streaming devices](#get-list-of-streaming-devices), used with <var>bunchIds</var> (<var>addMappings</var> only). Limits each app to its inventories on these devices. <br /><EnumWidget values={streamingDevices} /></td>
     </tr>
     <tr>
     <td>`groupTypeId` <br /><span class="type-text">integer</span></td>
@@ -4827,7 +4861,11 @@ Inventories can be added/removed by filtering for results, inputting <var>dealId
   </tr>
   <tr>
   <td>`count` <br /><span class="type-text">integer</span></td>
-  <td>Number of inventories (or deals, for PMP groups) in the group.</td>
+  <td>Number of inventories in the group: deals for PMP groups, CTV apps for CTV groups.</td>
+  </tr>
+  <tr>
+  <td>`apps` <br /><span class="type-text">integer</span></td>
+  <td>CTV groups only: number of CTV apps in the group.</td>
   </tr>
   <tr>
   <td>`inventories` <br /><span class="type-text">integer</span></td>
@@ -5045,7 +5083,7 @@ Inventories can be added/removed by filtering for results, inputting <var>dealId
 }
 ```
 </CodeOption>
-<CodeOption label="Add/remove by CTV bunch IDs" value="Add/remove by CTV bunch IDs">
+<CodeOption label="Add by CTV bunch IDs (addMappings)" value="Add by CTV bunch IDs (addMappings)">
 ```json
 {
   "groupIds": [
@@ -5053,10 +5091,10 @@ Inventories can be added/removed by filtering for results, inputting <var>dealId
     100463
   ],
   "bunchIds": [
-    101
+    406
   ],
   "streamingDevice": [
-    1001
+    7
   ],
   "groupTypeId": 4
 }
