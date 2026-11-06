@@ -6094,7 +6094,7 @@ A PMP deal <var>id</var> can be used in the [Create a new inventory group](#crea
 | `exchanges` <br /><span class="type-text">array of integers</span> | [Exchange IDs](/guidelines/master-api#get-exchanges). |
 | `ids` <br /><span class="type-text">array of integers</span> | [PMP Deal IDs](#get-pmp-deals-list). |
 | `dealStatuses` <br /><span class="type-text">array of strings</span> | Deal statuses, allowed values: <var>inUse</var>, <var>unUsed</var>, and <var>inActive</var>. |
-| `owIds` <br /><span class="type-text">array of integers</span> | Organization Workspace IDs. |
+| `owIds` <br /><span class="type-text">array of integers</span> | Customer Organization Workspace IDs whose deals to include. Not available to Advertisers. |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>. |
 | `noOfEntries` <br /><span class="type-text">integer</span>| Number of deals to retrieve per page, default: <var>50</var>. |
 | `sortBy` <br /><span class="type-text">string</span>| Sort entries by ascending (<var>+dealId</var>) or descending (<var>-dealId</var>). |
@@ -6594,7 +6594,7 @@ Get a URL to download a CSV file of all the inventories mapped to a PMP deal.
 
 | Query parameters |  |
 | ---- | --- |
-| `owIds` <br /><span class="type-text">integer</span>| Organization Workspace IDs. |
+| `owIds` <br /><span class="type-text">integer</span>| Customer Organization Workspace IDs to filter by. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
   <summary style={{ fontSize: "16px" }}>Response properties</summary>

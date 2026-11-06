@@ -1813,7 +1813,7 @@ Get a list of Customers and their details.
 | `searchField` <br /><span class="type-text">string</span> | Filter results by search field. |
 | `noOfEntries` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>20</var>. |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>. |
-| `owIds` <br /><span class="type-text">array of integers</span> | Organization Workspace IDs. |
+| `owIds` <br /><span class="type-text">array of integers</span> | Customer Organization Workspace IDs. |
 | `owStatusIds` <br /><span class="type-text">array of integers</span> | Organization Workspace [status type ID](#organization-workspace-status). <br /><EnumWidget values={organizationWorkspaceStatus} /> |
 | `provideRunningCampaigns` <br /><span class="type-text">boolean</span> | Get running campaign count (<var>true</var>), default: <var>false</var>. |
 
@@ -2179,7 +2179,7 @@ Get a count of Customers by status and Organization Workspace ID.
 
 | Query parameters|  |
 | ---- | --- |
-| `owIds` <br /><span class="type-text">string</span> | Filter results by comma separated Organization Workspace IDs. |
+| `owIds` <br /><span class="type-text">string</span> | Comma-separated Organization Workspace IDs whose Customers are counted. IDs you don't have access to are ignored. |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "100%", padding: "1rem" }}>
 <summary style={{fontSize: "16px"}}>Response properties</summary>
@@ -2449,8 +2449,8 @@ Get a list of users for the given Customer (Organization).
 
 | Query parameters |  |
 | ---- | --- |
-| `uowId` <br /><span class="type-text">string</span> | User Organization Workspace ID of the user. |
-| `owIds` <br /><span class="type-text">string</span> | Organization Workspace IDs. |
+| `uowId` <br /><span class="type-text">string</span> | User Organization Workspace ID of the user whose Customer access is being managed. Flags in the response describe this user's access to each Customer. |
+| `owIds` <br /><span class="type-text">string</span> | Comma-separated Organization Workspace IDs to list Customers for. Each ID includes that Organization and its Customers. |
 | `limit` <br /><span class="type-text">integer</span> | Number of entries returned per page, default: <var>2</var>. |
 | `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved data, default: <var>1</var>. |
 | `sortBy` <br /><span class="type-text">string</span>| Sorts by ascending (<var>+</var>) or descending (<var>-</var>).<br />Supported values: <var>contactPersonName</var>, <var>organizationName</var>.<br /> |
