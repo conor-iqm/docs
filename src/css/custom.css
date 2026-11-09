@@ -189,6 +189,11 @@ html {
 
 /* Div Containers */
 
+/* Homepage content wrapper (docs/intro.mdx) */
+.home-content {
+  margin-left: 4rem;
+}
+
 /* Make h3 headings inline when followed by a minimal CodeDropdown */
 h3:has(+ .code-dropdown--minimal) {
   display: inline;
@@ -1096,4 +1101,143 @@ pre.ai-highlight-code {
   0% { opacity: 0.5; }
   50% { opacity: 1; }
   100% { opacity: 1; }
+}
+/* ==========================================================================
+   Mobile / narrow viewports
+   Matches Docusaurus' own mobile breakpoint (sidebar collapses at 996px).
+   ========================================================================== */
+@media (max-width: 996px) {
+  /* Two-column endpoint layout: stack description above code samples */
+  .theme-doc-markdown .endpoint-container {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+  }
+
+  .endpoint-container,
+  .container {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .child1,
+  .child1a,
+  .child2,
+  .child2a,
+  .child2b,
+  .child3,
+  .child4 {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Endpoint URL line: let long paths wrap instead of widening the page */
+  .copy-url {
+    display: flex;
+    align-items: flex-start;
+    max-width: 100%;
+  }
+  .copy-url .badge {
+    flex: 0 0 auto;
+    margin-top: 0.2rem;
+  }
+  .path-text {
+    min-width: 0;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Screenshot/diagram images: drop side margins so 100% width fits */
+  .diagram {
+    margin: 16px 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Mobile nav drawer: navbar is style "dark", so the drawer inherited the
+     near-black navbar background while menu links stayed black. Keep the
+     brand row dark (matches the top bar) and give the menu the page bg. */
+  .navbar-sidebar {
+    background-color: var(--ifm-background-color);
+  }
+  [data-theme="dark"] .navbar-sidebar {
+    background-color: rgb(34, 37, 41);
+  }
+  .navbar-sidebar__brand {
+    background-color: var(--ifm-navbar-background-color);
+  }
+  .navbar-sidebar .menu__link,
+  .navbar-sidebar .menu__caret {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Homepage */
+  .home-content {
+    margin-left: 0;
+  }
+  .home-content .container.center {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .indexCards {
+    height: auto;
+    min-height: 0;
+    padding-bottom: 1.25rem;
+  }
+
+  /* Headings: desktop sizes (64/40/32px) are too big for phones */
+  h1 { font-size: 40px; }
+  h2 { font-size: 30px; }
+  h3 { font-size: 24px; }
+  h4 { font-size: 21px; }
+  h5 { font-size: 19px; }
+  h6 { font-size: 17px; }
+  h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 34px; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 22px; }
+
+  /* Two-column parameter tables (name/type | description): stack the
+     name above its description instead of a squeezed 175px right-aligned
+     column. Tables with more columns, or with a class, keep their layout. */
+  .theme-doc-markdown table:not([class]) tr:has(> td:nth-child(2):last-child) > td {
+    display: block;
+    width: auto;
+    text-align: left;
+    border: none;
+  }
+  .theme-doc-markdown table:not([class]) tr:has(> td:nth-child(2):last-child) > td:first-child {
+    padding-bottom: 0.15rem;
+  }
+  .theme-doc-markdown table:not([class]) tr:has(> td:nth-child(2):last-child) > td:last-child {
+    padding-top: 0;
+  }
+  .theme-doc-markdown table:not([class]):has(> tbody > tr > td:nth-child(2):last-child) > :is(thead, tbody),
+  .theme-doc-markdown table:not([class]):has(> tbody > tr > td:nth-child(2):last-child) > thead > tr,
+  .theme-doc-markdown table:not([class]):has(> tbody > tr > td:nth-child(2):last-child) > thead th:first-child {
+    display: block;
+  }
+  .theme-doc-markdown table:not([class]):has(> tbody > tr > td:nth-child(2):last-child) > thead th:not(:first-child):empty {
+    display: none;
+  }
+  .theme-doc-markdown table:not([class]) tr:has(> td:nth-child(2):last-child) {
+    display: block;
+    border-top: 1px solid var(--ifm-table-border-color);
+  }
+  .theme-doc-markdown table:not([class]) tbody tr:first-child:has(> td:nth-child(2):last-child) {
+    border-top: none;
+  }
 }
