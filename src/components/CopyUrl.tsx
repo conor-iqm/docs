@@ -1,4 +1,5 @@
 import React from "react";
+import { trackEvent } from "@site/src/utils/analytics";
 
 type Method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
@@ -60,19 +61,11 @@ export default function CopyUrl({
 const { origin, restDisplay } = splitUrlForDisplay(url);
 
   async function onCopy() {
-    // GA4 custom event. gtag only exists on CI (production) builds, and ad
-    // blockers can stop it loading, so guard the call. page_location/page_title
-    // are attached automatically by GA4.
-    try {
-      const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-      if (typeof gtag === "function") {
-        gtag("event", "copy_endpoint_url", {
-          operation_id: operationId ?? "(not set)",
-          http_method: m,
-          endpoint_url: url,
-        });
-      }
-    } catch {}
+    trackEvent("copy_endpoint_url", {
+      operation_id: operationId ?? "(not set)",
+      http_method: m,
+      endpoint_url: url,
+    });
 
     try {
       await navigator.clipboard.writeText(url);

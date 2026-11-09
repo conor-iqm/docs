@@ -6,6 +6,7 @@ import Link from '@docusaurus/Link';
 import isInternalUrl from '@docusaurus/isInternalUrl';
 import IconExternalLink from '@theme/Icon/ExternalLink';
 import type {Props} from '@theme/DocSidebarItem/Link';
+import {trackEvent} from '@site/src/utils/analytics';
 import styles from './styles.module.css';
 
 // --- helpers ---
@@ -72,10 +73,18 @@ export default function DocSidebarItemLink({
         autoAddBaseUrl={autoAddBaseUrl}
         aria-current={isActive ? 'page' : undefined}
         to={href}
-        {...(isInternalLink && {
-          onClick: onItemClick ? () => onItemClick(item) : undefined,
-        })}
         {...props}
+        onClick={() => {
+          trackEvent('sidebar_click', {
+            sidebar_label: label,
+            sidebar_href: href,
+            sidebar_level: level,
+            http_method: method ? method.toUpperCase() : '(not set)',
+            link_type: isInternalLink ? 'internal' : 'external',
+          });
+          // Closes the mobile sidebar after navigating (internal links only, as before)
+          if (isInternalLink && onItemClick) onItemClick(item);
+        }}
       >
         {withMethodBadge(<LinkLabel label={label} />, method)}
         {!isInternalLink && <IconExternalLink />}
