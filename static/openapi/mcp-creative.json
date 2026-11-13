@@ -2144,7 +2144,7 @@
           "MCP"
         ],
         "summary": "Update creative details",
-        "description": " This API endpoint allows authorized users to update the status of an existing creative. \n Updating a creative's status to \"deleted\" is how to remove a creative from the system. \n The creative's attributes can be modified by advertisers, workspaces, or super users. \n Additionally, ownership and edit permissions are validated to ensure the request is authorized.\n",
+        "description": " This API endpoint allows authorized users to update the status of an existing creative. \n Updating a creative's status to \"deleted\" is how to remove a creative from the system. \n The creative's attributes can be modified by advertisers, workspaces, or super users. \n Additionally, ownership and edit permissions are validated to ensure the request is authorized.\n\n Status IDs: 1 pending, 2 running, 3 paused, 4 deleted, 5 rejected. Allowed changes:\n\n - Delete (4): from running, pending, paused or rejected. Creatives used in a bid model cannot be deleted.\n - Restore to pending (1): from deleted.\n - Pause (3): from running.\n - Run (2): from paused, or from pending (approval).\n - Reject (5): from pending or running. creativeRejectionReason is required (400 without it).\n\n Approving (pending to running) and rejecting need approval access: an app-owner organization and a user  with approval permission (otherwise 403). Creatives in different statuses can be updated together only when  deleting or rejecting. Other invalid changes return 422.\n",
         "operationId": "updateCreativeStatus",
         "parameters": [
           {

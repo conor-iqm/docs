@@ -5464,7 +5464,7 @@
           "MCP"
         ],
         "summary": "Run campaign pulse severity check now",
-        "description": "Dashboard routing: Use this IQM Dashboard API tool for ready-made IQM performance views and operational monitoring, including delivery, pacing, spend, impressions, clicks, CTR, trends, comparisons, diagnostics, and exports. Triggers an asynchronous AWS Lambda function to immediately execute campaign pulse severity diagnostics for the specified campaign IDs. The function validates campaign ownership and status, then invokes Lambda to perform the diagnosis.",
+        "description": "Dashboard routing: Use this IQM Dashboard API tool for ready-made IQM performance views and operational monitoring, including delivery, pacing, spend, impressions, clicks, CTR, trends, comparisons, diagnostics, and exports. Starts campaign pulse severity diagnostics for the given campaign IDs in the background (asynchronous AWS Lambda), after validating campaign ownership and status. The response doesn't include the results. When the run finishes, read each campaign's latest results with aiInsightsDetails (campaignId), or severity counts for several campaigns with aiInsightsSeverityDetails (campaignIds). To run one campaign and get its results in the same call, use dashboard-campaign-pulse-run-single.",
         "operationId": "run-campaign-pulse-severity-check",
         "parameters": [
           {
@@ -7727,7 +7727,11 @@
             "format": "double",
             "example": 2
           },
-          "ecpm": {
+          "ctr": {
+            "type": "number",
+            "format": "double"
+          },
+          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -7735,15 +7739,11 @@
             "type": "number",
             "format": "double"
           },
-          "ctr": {
+          "ecpm": {
             "type": "number",
             "format": "double"
           },
           "ecpcv": {
-            "type": "number",
-            "format": "double"
-          },
-          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -8222,6 +8222,11 @@
             "format": "int32",
             "example": 1
           },
+          "ioStatusName": {
+            "type": "string",
+            "description": "IO status display name",
+            "example": "Active"
+          },
           "ioStartTime": {
             "type": "integer",
             "description": "IO start time, epoch milliseconds",
@@ -8382,7 +8387,11 @@
             "format": "double",
             "example": 6.67
           },
-          "ecpm": {
+          "ctr": {
+            "type": "number",
+            "format": "double"
+          },
+          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -8390,15 +8399,11 @@
             "type": "number",
             "format": "double"
           },
-          "ctr": {
+          "ecpm": {
             "type": "number",
             "format": "double"
           },
           "ecpcv": {
-            "type": "number",
-            "format": "double"
-          },
-          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -8767,7 +8772,11 @@
             "description": "Exchange name",
             "example": "Pubmatic"
           },
-          "ecpm": {
+          "ctr": {
+            "type": "number",
+            "format": "double"
+          },
+          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -8775,15 +8784,11 @@
             "type": "number",
             "format": "double"
           },
-          "ctr": {
+          "ecpm": {
             "type": "number",
             "format": "double"
           },
           "ecpcv": {
-            "type": "number",
-            "format": "double"
-          },
-          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -9270,7 +9275,11 @@
             "format": "double",
             "example": 0
           },
-          "ecpm": {
+          "ctr": {
+            "type": "number",
+            "format": "double"
+          },
+          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -9278,15 +9287,11 @@
             "type": "number",
             "format": "double"
           },
-          "ctr": {
+          "ecpm": {
             "type": "number",
             "format": "double"
           },
           "ecpcv": {
-            "type": "number",
-            "format": "double"
-          },
-          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -10124,7 +10129,11 @@
           "signalIQResult": {
             "$ref": "#/components/schemas/SignalIQResultResponse"
           },
-          "ecpm": {
+          "ctr": {
+            "type": "number",
+            "format": "double"
+          },
+          "vcr": {
             "type": "number",
             "format": "double"
           },
@@ -10132,15 +10141,11 @@
             "type": "number",
             "format": "double"
           },
-          "ctr": {
+          "ecpm": {
             "type": "number",
             "format": "double"
           },
           "ecpcv": {
-            "type": "number",
-            "format": "double"
-          },
-          "vcr": {
             "type": "number",
             "format": "double"
           },

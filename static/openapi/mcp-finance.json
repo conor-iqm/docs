@@ -138,8 +138,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "This API is used to get margin settings of the workspace",
-        "description": "This API can be used by workspace organization users to get margin related settings.\nFor example, workspace can view default margin which would be applied on newly onboarded advertiser.",
+        "summary": "Get your workspace's default margin for new advertisers",
+        "description": "Gets the default margin of your own workspace (from the session; there is no owId), which is applied to advertisers onboarded afterwards. It is not an existing advertiser's margin: for that, use getCustomerMargin (advertiser default) and getCampaignMarginList (campaign margins).",
         "operationId": "getMarginSettings",
         "parameters": [
           {
@@ -230,8 +230,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "This API is used to update margin settings of the workspace",
-        "description": "This API can be used by workspace organization users to update margin related settings.\nFor example, workspace can set default margin and it will applied on newly onboarded advertiser.\n",
+        "summary": "Set your workspace's default margin for new advertisers",
+        "description": "Sets the default margin of your own workspace (from the session; there is no owId), which is applied to advertisers onboarded afterwards. It does not change existing advertisers or their campaigns: for one advertiser's margin and its campaign margins, use editCustomerMargin.\n",
         "operationId": "updateMarginSettings",
         "parameters": [
           {
@@ -518,14 +518,14 @@
         "tags": [
           "MCP"
         ],
-        "summary": "This API is used to edit customer or bid shading margin details based on margin type id",
-        "description": "Edits customer or bid shading margin details based on the specified margin type ID. Updates the default margin and applies it to campaign-level margins.",
+        "summary": "Set an advertiser's margin and campaign margins",
+        "description": "Sets one advertiser's (customer organization workspace, `owId`) default gross or bid shading margin (marginTypeId, marginValue). Campaigns that follow the advertiser default get the new value. Optionally sets campaign-level margins: campaignMargins gives specific campaigns their own margin, and resetCampaignIds returns campaigns to the advertiser default. This does not change your workspace's default for newly onboarded advertisers (updateMarginSettings).",
         "operationId": "editCustomerMargin",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateCampaignMarginInternalRequestVO",
+                "$ref": "#/components/schemas/UpdateCustomerMarginRequestVO",
                 "required": [
                   "marginTypeId",
                   "marginValue",
@@ -2561,8 +2561,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "Get Invoice Template Margin Details",
-        "description": "Retrieves invoice template and margin configuration status for the specified organization workspace IDs.",
+        "summary": "Check whether advertisers have an invoice template and margin set",
+        "description": "For the given advertiser organization workspace IDs (`owIds`), returns whether an invoice template and a margin are configured. Status only, not margin values: for an advertiser's margin, use getCustomerMargin.",
         "operationId": "getInvoiceTemplateMarginDetails",
         "parameters": [
           {
@@ -3079,8 +3079,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "This API will provide customer margin details",
-        "description": "Fetches customer margin details including gross margin and bid shading margin for a given customer organization workspace.",
+        "summary": "Get an advertiser's margin",
+        "description": "Gets one advertiser's (customer organization workspace, `owId`) default gross margin and bid shading margin. The advertiser's campaigns use this margin unless a campaign has its own (see getCampaignMarginList). Your workspace's default for newly onboarded advertisers is a separate setting: getMarginSettings.",
         "operationId": "getCustomerMargin",
         "parameters": [
           {
@@ -3314,8 +3314,8 @@
         "tags": [
           "MCP"
         ],
-        "summary": "Get campaign wise margin list",
-        "description": "Provides a paginated list of campaign-wise margin details for a given customer. Supports search filtering and edit/non-edit view modes.",
+        "summary": "List an advertiser's campaign margins",
+        "description": "Lists one advertiser's (customer organization workspace, `owId`) campaigns with their margins; isDefault shows whether a campaign follows the advertiser default or has its own margin. Paginated, with search; isEdit switches between the edit and view modes. To change campaign margins, use editCustomerMargin (campaignMargins, resetCampaignIds).",
         "operationId": "getCampaignMarginList",
         "parameters": [
           {
@@ -3837,6 +3837,49 @@
           "cost"
         ]
       },
+      "UpdateCampaignMarginRequestVO": {
+        "type": "object",
+        "properties": {
+          "campaignId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "campaignMargin": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UpdateCustomerMarginRequestVO": {
+        "type": "object",
+        "properties": {
+          "owId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "marginTypeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "marginValue": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "campaignMargins": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UpdateCampaignMarginRequestVO"
+            }
+          },
+          "resetCampaignIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      },
       "CommonResponseMessage": {
         "type": "object",
         "description": "Common response with data as a message object",
@@ -3897,33 +3940,6 @@
           "imageCreativeCost",
           "videoCreativeCost"
         ]
-      },
-      "UpdateCampaignMarginInternalRequestVO": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "username": {
-            "type": "string"
-          },
-          "campaignId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "workspaceMargin": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "organizationMargin": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "marginTypeId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
       },
       "EditInvoiceDetailVO": {
         "type": "object",

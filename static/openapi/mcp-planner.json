@@ -449,7 +449,7 @@
           "MCP"
         ],
         "summary": "API to edit a political draft plan",
-        "description": "Updates an existing political plan in draft status. Name, details, and targeting are required.",
+        "description": "Updates a Political plan that is still in draft status. Only name and objectiveId are required, plus totalBudget greater than 0 when objectiveId is 1 (reach forecasting); details and targeting are optional but validated if present, as when saving a draft (createDraftPlan).",
         "operationId": "editDraftPlan",
         "parameters": [
           {
@@ -3463,7 +3463,7 @@
           "MCP"
         ],
         "summary": "API to create a political plan (draft)",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional. Save it with createReadyPlan before continuing.\n\nSaves an incomplete Political plan as a draft. Only name is required; other fields are optional but validated if present. Draft plans don't have strategies; save the plan as ready before continuing.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional. Save it with createReadyPlan before continuing.\n\nSaves an incomplete Political plan as a draft. Only name and objectiveId are required (an omitted objectiveId is sent as 0 and rejected), plus totalBudget greater than 0 when objectiveId is 1 (reach forecasting); other fields are optional but validated if present. Draft plans don't have strategies; save the plan as ready before continuing.\n",
         "operationId": "createDraftPlan",
         "parameters": [
           {
@@ -15366,13 +15366,13 @@
       "BidLandscapeRecords": {
         "type": "object",
         "properties": {
-          "video": {
+          "html": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BidLandscapeData"
             }
           },
-          "html": {
+          "video": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BidLandscapeData"
