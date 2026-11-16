@@ -7327,9 +7327,21 @@ const sidebars = {
           items: [
             {
               type: 'link',
-              label: 'Get ICT audience details',
-              href: '/healthcare-vertical/audience-healthcare#get-ict-audience-details',
+              label: 'ICT audience group list',
+              href: '/healthcare-vertical/audience-healthcare#ict-audience-group-list',
+              customProps: { method: 'POST' },
+            },
+            {
+              type: 'link',
+              label: 'Get ICT audience group details',
+              href: '/healthcare-vertical/audience-healthcare#get-ict-audience-group-details',
               customProps: { method: 'GET' },
+            },
+            {
+              type: 'link',
+              label: 'Update ICT audience group name',
+              href: '/healthcare-vertical/audience-healthcare#update-ict-audience-group-name',
+              customProps: { method: 'PATCH' },
             },
             {
               type: 'link',
