@@ -5,63 +5,254 @@ import { dataFormats } from '@site/src/data/enums/dataFormats';
 import { dataPartners } from '@site/src/data/enums/dataPartners';
 import { audienceTypes } from '@site/src/data/enums/audienceTypes';
 import { audienceStatuses } from '@site/src/data/enums/audienceStatuses';
+import { audienceSubtypes } from '@site/src/data/enums/audienceSubtypes';
 
-### Get ICT audience details
+An ICT audience is created as a group: the audience built from the uploaded file (the parent audience) and one extension audience per requested [extension subtype](#ict-audience-subtypes-and-extensions). The group is identified by the parent audience ID (<var>parentId</var>) and named after the audience name given at creation.
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/audience/ict/{audienceId}" operationId="getIctAudienceDetailsByAudienceId" />
+### ICT audience group list
+
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/audience/ict/list" operationId="getICTAudienceGroupList" />
 
 <div class="endpoint-container">
   <div class="child1">
 
-Get ICT audience details by ID.
+Get a list of ICT audience groups, with the audiences of each group nested under it.
 
-| Path parameter | |
+* Pagination and sorting apply to the groups, not to the audiences within a group.
+* Filters apply to the audiences: a group is returned only if at least one of its audiences matches, and only the matching audiences are listed under it.
+
+| Request schema | |
 | --- | --- |
-| `audienceId` <br /><span class="type-text">integer</span> | [ICT audience ID](/guidelines/audience-api/#audience-details-list). |
+| `audienceIds` <br /><span class="type-text">array of integers</span> | [Audience IDs](/guidelines/audience-api#audience-details-list) to filter by. |
+| `audienceSubtypeIds` <br /><span class="type-text">array of integers</span> | [Audience subtype IDs](#ict-audience-subtypes-and-extensions) to filter by. Only ICT subtypes are allowed. <br /><EnumWidget values={audienceSubtypes.filter((v) => [3, 4, 5, 6].includes(v.id))} /> |
+| `audienceStatusIds` <br /><span class="type-text">array of integers</span> | [Audience status IDs](/guidelines/audience-api/#audience-status-list) to filter by. <br /><EnumWidget values={audienceStatuses} /> |
+| `dataPartnerIds` <br /><span class="type-text">array of integers</span> | [Data partner IDs](/guidelines/audience-api/#data-partners-list-for-matched-audience) to filter by. <br /><EnumWidget values={dataPartners} /> |
+| `owIds` <br /><span class="type-text">array of integers</span> | Organization Workspace IDs to filter by. |
+| `searchFields` <br /><span class="type-text">array of strings</span> | Search terms, matched against the audience ID and name and the parent ID and name. |
+| `pageNo` <br /><span class="type-text">integer</span> | Page number of retrieved groups. <br />Default: <var>1</var> |
+| `noOfEntries` <br /><span class="type-text">integer</span> | Number of groups returned per page. <br />Default: <var>20</var> |
+| `sortBy` <br /><span class="type-text">string</span> | Comma-separated sort fields, prefixed with <var>+</var> for ascending or <var>-</var> for descending order (descending if not prefixed). <var>parentId</var>, <var>parentName</var>, and <var>createdAt</var> order the groups; <var>audienceId</var> orders the audiences within a group. <br />Default: <var>-parentId,+audienceId</var> (newest group first, parent audience first within a group) |
 
 <details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
  <summary style={{ fontSize: "16px" }}>Response properties</summary>
 
 <table className="objectProperties">
 <tr>
-  <td>`audienceId` <br /><span class="type-text">integer</span></td>
-  <td>Audience ID.</td>
+  <td>`filteredAudiences` <br /><span class="type-text">integer</span></td>
+  <td>Number of audiences, across all groups, matching the filters.</td>
 </tr>
 <tr>
-  <td>`audienceName` <br /><span class="type-text">string</span></td>
-  <td>Audience name.</td>
+  <td>`filteredAudienceGroups` <br /><span class="type-text">integer</span></td>
+  <td>Number of groups with at least one audience matching the filters.</td>
+</tr>
+<tr>
+  <td>`totalAudienceGroups` <br /><span class="type-text">integer</span></td>
+  <td>Total number of groups, irrespective of the filters.</td>
+</tr>
+<tr>
+  <td>`audienceGroupList` <br /><span class="type-text">array of objects</span></td>
+  <td>Groups on the requested page.</td>
+</tr>
+<tr>
+<td colSpan="2">
+  <details className="objectPropertiesDetails">
+  <summary>`audienceGroupList` object properties</summary>
+  <table className="objectProperties">
+  <tr>
+  <td>`parentId` <br /><span class="type-text">integer</span></td>
+  <td>Parent audience ID of the group.</td>
+  </tr>
+  <tr>
+  <td>`parentName` <br /><span class="type-text">string</span></td>
+  <td>Group name.</td>
+  </tr>
+  <tr>
+  <td>`audienceTypeId` <br /><span class="type-text">integer</span></td>
+  <td>[Audience type ID](/guidelines/audience-api/#audience-type-list). <br /><EnumWidget values={audienceTypes} /></td>
+  </tr>
+  <tr>
+  <td>`createdAt` <br /><span class="type-text">integer</span></td>
+  <td>Unix epoch timestamp of group creation, in milliseconds.</td>
+  </tr>
+  <tr>
+  <td>`audienceRematchEligible` <br /><span class="type-text">boolean</span></td>
+  <td>Whether the parent audience is eligible for rematch.</td>
+  </tr>
+  <tr>
+  <td>`lastRematchStatusId` <br /><span class="type-text">integer</span></td>
+  <td>Status ID of the last rematch of the parent audience. Absent if never rematched.</td>
+  </tr>
+  <tr>
+  <td>`audienceList` <br /><span class="type-text">array of objects</span></td>
+  <td>Audiences of the group matching the filters.</td>
+  </tr>
+  <tr>
+  <td colSpan="2">
+    <details className="objectPropertiesDetails">
+    <summary>`audienceList` object properties</summary>
+    <table className="objectProperties">
+    <tr>
+    <td>`audienceId` <br /><span class="type-text">integer</span></td>
+    <td>Audience ID.</td>
+    </tr>
+    <tr>
+    <td>`audienceName` <br /><span class="type-text">string</span></td>
+    <td>Audience name.</td>
+    </tr>
+    <tr>
+    <td>`audienceSubtypeId` <br /><span class="type-text">integer</span></td>
+    <td>[Audience subtype ID](#ict-audience-subtypes-and-extensions). <br /><EnumWidget values={audienceSubtypes.filter((v) => [3, 4, 5, 6].includes(v.id))} /></td>
+    </tr>
+    <tr>
+    <td>`audienceStatusId` <br /><span class="type-text">integer</span></td>
+    <td>[Audience status ID](/guidelines/audience-api/#audience-status-list). <br /><EnumWidget values={audienceStatuses} /></td>
+    </tr>
+    <tr>
+    <td>`dataPartnerId` <br /><span class="type-text">integer</span></td>
+    <td>[Data partner ID](/guidelines/audience-api/#data-partners-list-for-matched-audience). <br /><EnumWidget values={dataPartners} /></td>
+    </tr>
+    <tr>
+    <td>`reach` <br /><span class="type-text">integer</span></td>
+    <td>Count of unique audiences reached.</td>
+    </tr>
+    <tr>
+    <td>`matchRate` <br /><span class="type-text">number</span></td>
+    <td>Percentage of matched records.</td>
+    </tr>
+    <tr>
+    <td>`fileTotalCount` <br /><span class="type-text">integer</span></td>
+    <td>Number of rows in uploaded file.</td>
+    </tr>
+    <tr>
+    <td>`s3FileName` <br /><span class="type-text">string</span></td>
+    <td>S3 file name.</td>
+    </tr>
+    <tr>
+    <td>`cpm` <br /><span class="type-text">number</span></td>
+    <td>Cost per thousand impressions.</td>
+    </tr>
+    <tr>
+    <td>`iqmIdTargeted` <br /><span class="type-text">boolean</span></td>
+    <td>Whether the audience is targeted by IQM ID.</td>
+    </tr>
+    <tr>
+    <td>`includedCampaignList` <br /><span class="type-text">array of integers</span></td>
+    <td>IDs of campaigns that include the audience.</td>
+    </tr>
+    <tr>
+    <td>`excludedCampaignList` <br /><span class="type-text">array of integers</span></td>
+    <td>IDs of campaigns that exclude the audience.</td>
+    </tr>
+    </table></details>
+  </td>
+  <td></td>
+  </tr>
+  </table></details>
+  </td>
+  <td></td>
+</tr>
+</table>
+</details>
+
+</div><div class="child2">
+
+```json title="Request sample"
+{
+  "audienceStatusIds": [3],
+  "audienceSubtypeIds": [3, 4],
+  "dataPartnerIds": [7],
+  "pageNo": 1,
+  "noOfEntries": 20,
+  "sortBy": "-createdAt,+audienceId",
+  "searchFields": ["test audience"]
+}
+```
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": {
+    "filteredAudiences": 2,
+    "totalAudienceGroups": 3,
+    "filteredAudienceGroups": 1,
+    "audienceGroupList": [
+      {
+        "parentId": 1179597,
+        "parentName": "Test audience",
+        "audienceTypeId": 11,
+        "createdAt": 1787736839840,
+        "audienceRematchEligible": true,
+        "lastRematchStatusId": 1,
+        "audienceList": [
+          {
+            "audienceId": 1179597,
+            "audienceName": "Test audience_HCP",
+            "audienceSubtypeId": 3,
+            "audienceStatusId": 3,
+            "cpm": 10.0,
+            "iqmIdTargeted": true,
+            "reach": 632,
+            "includedCampaignList": [604127],
+            "excludedCampaignList": [],
+            "matchRate": 99.22,
+            "fileTotalCount": 637,
+            "s3FileName": "1787736856229_Sample_File_NY_HL_1.csv",
+            "dataPartnerId": 7
+          },
+          {
+            "audienceId": 1179598,
+            "audienceName": "Test audience_Ext_Nurse",
+            "audienceSubtypeId": 4,
+            "audienceStatusId": 3,
+            "cpm": 10.0,
+            "iqmIdTargeted": true,
+            "reach": 215,
+            "includedCampaignList": [],
+            "excludedCampaignList": [],
+            "matchRate": 98.4,
+            "fileTotalCount": 637,
+            "s3FileName": "1787736856229_Sample_File_NY_HL_1.csv",
+            "dataPartnerId": 7
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+</div></div>
+
+---
+
+### Get ICT audience group details
+
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/audience/ict/{parentId}" operationId="getIctAudienceDetailsByParentId" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Get the details of an ICT audience group: the uploaded file, its column mappings, and all audiences of the group, including the parent audience.
+
+| Path parameter | |
+| --- | --- |
+| `parentId` <br /><span class="type-text">integer</span> | Parent audience ID of the group, from the [ICT audience group list](#ict-audience-group-list).|
+
+<details className="objectPropertiesDetails" style={{ maxWidth: "800px", padding: "1rem" }}>
+ <summary style={{ fontSize: "16px" }}>Response properties</summary>
+
+<table className="objectProperties">
+<tr>
+  <td>`parentId` <br /><span class="type-text">integer</span></td>
+  <td>Parent audience ID of the group.</td>
+</tr>
+<tr>
+  <td>`parentName` <br /><span class="type-text">string</span></td>
+  <td>Group name.</td>
 </tr>
 <tr>
   <td>`createdAt` <br /><span class="type-text">integer</span></td>
-  <td>Unix epoch timestamp of audience creation.</td>
-</tr>
-<tr>
-  <td>`audienceSubtypeId` <br /><span class="type-text">integer</span></td>
-  <td>[Audience subtype ID](#ict-audience-subtypes-and-extensions).</td>
-</tr>
-<tr>
-  <td>`reach` <br /><span class="type-text">integer</span></td>
-  <td>Count of unique audiences reached.</td>
-</tr>
-<tr>
-  <td>`dataPartnerId` <br /><span class="type-text">integer</span></td>
-  <td>[Data partner ID](/guidelines/audience-api/#data-partners-list-for-matched-audience). <br /><EnumWidget values={dataPartners} /></td>
-</tr>
-<tr>
-  <td>`fileRowCount` <br /><span class="type-text">integer</span></td>
-  <td>Number of rows in uploaded file.</td>
-</tr>
-<tr>
-  <td>`matchRate` <br /><span class="type-text">integer</span></td>
-  <td>Percentage of matched records.</td>
-</tr>
-<tr>
-  <td>`cpm` <br /><span class="type-text">integer</span></td>
-  <td>Cost per thousand impressions.</td>
-</tr>
-<tr>
-  <td>`audienceStatusId` <br /><span class="type-text">integer</span></td>
-  <td>[Audience status ID](/guidelines/audience-api/#audience-status-list). <br /><EnumWidget values={audienceStatuses} /></td>
+  <td>Unix epoch timestamp of group creation, in milliseconds.</td>
 </tr>
 <tr>
   <td>`s3FileName` <br /><span class="type-text">string</span></td>
@@ -70,31 +261,6 @@ Get ICT audience details by ID.
 <tr>
   <td>`s3Url` <br /><span class="type-text">string</span></td>
   <td>S3 file URL.</td>
-</tr>
-<tr>
-  <td>`extensionAudiences` <br /><span class="type-text">array of objects</span></td>
-  <td>List of extension audiences.</td>
-</tr>
-<tr>
-<td colSpan="2">
-  <details className="objectPropertiesDetails">
-  <summary>`extensionAudiences` object properties</summary>
-  <table className="objectProperties">
-  <tr>
-  <td>`audienceId` <br /><span class="type-text">integer</span></td>
-  <td>Extension audience ID.</td>
-  </tr>
-  <tr>
-  <td>`audienceName` <br /><span class="type-text">string</span></td>
-  <td>Extension audience name.</td>
-  </tr>
-  <tr>
-  <td>`audienceStatusId` <br /><span class="type-text">integer</span></td>
-  <td>[Extension audience status ID](/guidelines/audience-api/#audience-status-list). <br /><EnumWidget values={audienceStatuses} /></td>
-  </tr>
-  </table></details>
-  </td>
-  <td></td>
 </tr>
 <tr>
   <td>`columnMappings` <br /><span class="type-text">array of objects</span></td>
@@ -122,12 +288,49 @@ Get ICT audience details by ID.
   <td></td>
 </tr>
 <tr>
-  <td>`owId` <br /><span class="type-text">integer</span></td>
-  <td>Organization Workspace ID.</td>
+  <td>`audienceList` <br /><span class="type-text">array of objects</span></td>
+  <td>All audiences of the group, including the parent audience.</td>
 </tr>
 <tr>
-  <td>`createdByUowId` <br /><span class="type-text">integer</span></td>
-  <td>Created by User Organization Workspace ID.</td>
+<td colSpan="2">
+  <details className="objectPropertiesDetails">
+  <summary>`audienceList` object properties</summary>
+  <table className="objectProperties">
+  <tr>
+  <td>`audienceId` <br /><span class="type-text">integer</span></td>
+  <td>Audience ID.</td>
+  </tr>
+  <tr>
+  <td>`audienceName` <br /><span class="type-text">string</span></td>
+  <td>Audience name.</td>
+  </tr>
+  <tr>
+  <td>`audienceStatusId` <br /><span class="type-text">integer</span></td>
+  <td>[Audience status ID](/guidelines/audience-api/#audience-status-list). <br /><EnumWidget values={audienceStatuses} /></td>
+  </tr>
+  <tr>
+  <td>`audienceSubtypeId` <br /><span class="type-text">integer</span></td>
+  <td>[Audience subtype ID](#ict-audience-subtypes-and-extensions). <br /><EnumWidget values={audienceSubtypes.filter((v) => [3, 4, 5, 6].includes(v.id))} /></td>
+  </tr>
+  <tr>
+  <td>`reach` <br /><span class="type-text">integer</span></td>
+  <td>Count of unique audiences reached.</td>
+  </tr>
+  <tr>
+  <td>`dataPartnerId` <br /><span class="type-text">integer</span></td>
+  <td>[Data partner ID](/guidelines/audience-api/#data-partners-list-for-matched-audience). <br /><EnumWidget values={dataPartners} /></td>
+  </tr>
+  <tr>
+  <td>`fileRowCount` <br /><span class="type-text">integer</span></td>
+  <td>Number of rows in uploaded file.</td>
+  </tr>
+  <tr>
+  <td>`cpm` <br /><span class="type-text">number</span></td>
+  <td>Cost per thousand impressions.</td>
+  </tr>
+  </table></details>
+  </td>
+  <td></td>
 </tr>
 </table>
 </details>
@@ -139,30 +342,11 @@ Get ICT audience details by ID.
 {
   "success": true,
   "data": {
-    "audienceId": 110110,
-    "audienceName": "ictm-123",
-    "createdAt": 1767803546490,
-    "audienceSubtypeId": 3,
-    "reach": 3,
-    "dataPartnerId": 7,
-    "fileRowCount": 5,
-    "matchRate": 20,
-    "cpm": 10,
-    "audienceStatusId": 3,
-    "s3FileName": "1767803546585_healthcare_ictm_audience_example.csv",
-    "s3Url": "s3://ictm-aud-bucket/1767803546585_healthcare_ictm_audience_example.csv",
-    "extensionAudiences": [
-      {
-        "audienceId": 110111,
-        "audienceName": "ictm-123_Ext_Nurse",
-        "audienceStatusId": 1
-      },
-      {
-        "audienceId": 110112,
-        "audienceName": "ictm-123_Ext_Non-NPI Nurse",
-        "audienceStatusId": 3
-      }
-    ],
+    "parentId": 1183458,
+    "parentName": "testnewAUD",
+    "createdAt": 1792739042490,
+    "s3FileName": "1792739042580_ict_audience_example.csv",
+    "s3Url": "s3://ictm-aud-bucket/1792739042580_ict_audience_example.csv",
     "columnMappings": [
       {
         "columnId": 3,
@@ -170,8 +354,69 @@ Get ICT audience details by ID.
         "dataFormatId": 1
       }
     ],
-    "owId": 203615,
-    "createdByUowId": 200180
+    "audienceList": [
+      {
+        "audienceId": 1183458,
+        "audienceName": "testnewAUD_HCP",
+        "audienceStatusId": 3,
+        "audienceSubtypeId": 3,
+        "reach": 412,
+        "dataPartnerId": 7,
+        "fileRowCount": 5,
+        "cpm": 10.0
+      },
+      {
+        "audienceId": 1183459,
+        "audienceName": "testnewAUD_Ext_Nurse",
+        "audienceStatusId": 3,
+        "audienceSubtypeId": 4,
+        "reach": 128,
+        "dataPartnerId": 7,
+        "fileRowCount": 5,
+        "cpm": 10.0
+      }
+    ]
+  }
+}
+```
+
+</div></div>
+
+---
+
+### Update ICT audience group name
+
+<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/audience/ict/{parentId}/update-parent-name" operationId="updateParentName" />
+
+<div class="endpoint-container">
+  <div class="child1">
+
+Rename an ICT audience group. 
+
+Only the group name changes; the names of the audiences in the group stay the same. Group names don't have to be unique.
+
+| Path parameter | |
+| --- | --- |
+| `parentId` <br /><span class="type-text">integer</span> | Parent audience ID of the group, from the [ICT audience group list](#ict-audience-group-list). |
+
+| Request schema | |
+| --- | --- |
+| `parentName` <br /><span class="type-text">string</span> <span class="required-text">required</span> | New group name. |
+
+</div>
+<div class="child2">
+
+```json title="Request sample"
+{
+  "parentName": "My ICT Group"
+}
+```
+
+```json title="Response 200"
+{
+  "success": true,
+  "data": {
+    "message": "Changes saved successfully"
   }
 }
 ```
@@ -187,7 +432,14 @@ Get ICT audience details by ID.
 <div class="endpoint-container">
   <div class="child1">
 
-Get list of ICT audience subtypes and their supported extension subtypes.
+Get list of ICT audience subtypes and their supported extension subtypes. 
+
+Use an <var>id</var> from <var>audienceSubtypes</var> as the <var>audienceSubtypeId</var> and the IDs from its <var>extensionAudiencesSubtypes</var> as the <var>extensionAudienceSubtypeIds</var> when you [create an ICT audience](#create-ict-audience).
+
+| Audience subtype | Supported extension subtypes |
+| --- | --- |
+| HCP (<var>3</var>) | Nurse (<var>4</var>), Non-NPI Nurse (<var>5</var>), Patient (<var>6</var>) |
+| Nurse (<var>4</var>) | Non-NPI Nurse (<var>5</var>), Patient (<var>6</var>) |
 
 | Query parameters | |
 | --- | --- |
@@ -198,13 +450,13 @@ Get list of ICT audience subtypes and their supported extension subtypes.
 
 <table className="objectProperties">
 <tr>
-  <td>`audienceSubTypes` <br /><span class="type-text">array of objects</span></td>
+  <td>`audienceSubtypes` <br /><span class="type-text">array of objects</span></td>
   <td>List of audience subtypes.</td>
 </tr>
 <tr>
 <td colSpan="2">
   <details className="objectPropertiesDetails">
-  <summary>`audienceSubTypes` object properties</summary>
+  <summary>`audienceSubtypes` object properties</summary>
   <table className="objectProperties">
   <tr>
   <td>`id` <br /><span class="type-text">integer</span></td>
@@ -264,18 +516,50 @@ Get list of ICT audience subtypes and their supported extension subtypes.
 {
   "success": true,
   "data": {
-    "audienceSubTypes": [
+    "audienceSubtypes": [
       {
-        "id": 1,
-        "name": "Healthcare",
+        "id": 3,
+        "name": "hcp",
         "order": 1,
-        "displayName": "Healthcare",
+        "displayName": "HCP",
         "extensionAudiencesSubtypes": [
           {
-            "id": 10,
-            "name": "Nurse Outreach",
+            "id": 4,
+            "name": "npi_nurse",
             "order": 1,
-            "displayName": "Nurse Outreach"
+            "displayName": "Nurse"
+          },
+          {
+            "id": 5,
+            "name": "non_npi_nurse",
+            "order": 2,
+            "displayName": "Non-NPI Nurse"
+          },
+          {
+            "id": 6,
+            "name": "patient",
+            "order": 3,
+            "displayName": "Patient"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "npi_nurse",
+        "order": 2,
+        "displayName": "Nurse",
+        "extensionAudiencesSubtypes": [
+          {
+            "id": 5,
+            "name": "non_npi_nurse",
+            "order": 1,
+            "displayName": "Non-NPI Nurse"
+          },
+          {
+            "id": 6,
+            "name": "patient",
+            "order": 2,
+            "displayName": "Patient"
           }
         ]
       }
@@ -295,7 +579,9 @@ Get list of ICT audience subtypes and their supported extension subtypes.
 <div class="endpoint-container">
   <div class="child1">
 
-Create a new ICT audience.
+Create an ICT audience group from an uploaded file: a parent audience with the given audience subtype, and one extension audience for each extension subtype. Send the request as <var>multipart/form-data</var>, with the <var>audienceRequest</var> JSON and the <var>file</var>.
+
+Nurse extension audiences use the parent audience's data partner. Non-NPI Nurse and Patient extension audiences each use a dedicated data partner. Patient extension audiences are fulfilled by the IQM team and stay in Processing until they're ready.
 
 <table>
 <th colSpan={3}>Request schema</th>
@@ -355,11 +641,11 @@ Create a new ICT audience.
   </tr>
   <tr>
   <td>`audienceSubtypeId` <br /><span class="type-text">integer</span></td>
-  <td>[Audience subtype ID](#ict-audience-subtypes-and-extensions).</td>
+  <td>[Audience subtype ID](#ict-audience-subtypes-and-extensions) of the parent audience. <br /><EnumWidget values={audienceSubtypes.filter((v) => [3, 4].includes(v.id))} /></td>
   </tr>
   <tr>
   <td>`extensionAudienceSubtypeIds` <br /><span class="type-text">array of integers</span></td>
-  <td>[Extension audience subtype ID](#ict-audience-subtypes-and-extensions).</td>
+  <td>[Extension audience subtype IDs](#ict-audience-subtypes-and-extensions) supported for the <var>audienceSubtypeId</var>. One extension audience is created per ID. <br /><EnumWidget values={audienceSubtypes.filter((v) => [4, 5, 6].includes(v.id))} /></td>
   </tr>
   </table></details>
   </td>
@@ -377,7 +663,7 @@ Create a new ICT audience.
 <table className="objectProperties">
 <tr>
   <td>`audienceId` <br /><span class="type-text">integer</span></td>
-  <td>Audience ID.</td>
+  <td>Parent audience ID, which is also the group's <var>parentId</var>.</td>
 </tr>
 <tr>
   <td>`extensionAudienceIds` <br /><span class="type-text">array of integers</span></td>
