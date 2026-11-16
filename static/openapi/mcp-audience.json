@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Audience API Specification",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "description": "MCP Audience API Specification",
     "contact": {
       "name": "IQM Support",
@@ -387,6 +387,409 @@
                       "errorObjects": [
                         {
                           "error": "No segments found for the provided segment IDs. Please provide valid segment IDs."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/{audienceId}": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Gets the details of an existing power segment audience.",
+        "description": "This API returns the details of an existing power segment audience, including the resolved list of active segments (Sphere/Orbit) selected by its equation, ordered by segment ID; segments that are no longer active are left out. When includeInsight is true, each standard (public) segment also carries insights.status: Ready and NotRequested are returned as stored, while Processing and Failed are returned as NotRequested unless the audience's organization has requested the insights report for that segment. Private segments carry no insights. Only available to advertisers under the Political vertical.",
+        "operationId": "getPowerSegmentAudience",
+        "parameters": [
+          {
+            "name": "audienceId",
+            "in": "path",
+            "description": "The ID of the power segment audience to fetch.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 1140623
+          },
+          {
+            "name": "includeInsight",
+            "in": "query",
+            "description": "Whether to include the insights status (insights.status) for each standard segment; when false, insights is omitted. Defaults to false.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "example": false
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PowerSegmentAudienceDetailsResponseDocs"
+                },
+                "examples": {
+                  "Power segment audience detail": {
+                    "description": "Power segment audience detail",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "audienceId": 1140623,
+                        "audienceName": "Test Power Segment audience",
+                        "audienceStatusId": 3,
+                        "createdAt": 1718796428,
+                        "reach": 184500,
+                        "cpm": 12.5,
+                        "segments": [
+                          {
+                            "personalityId": "761d7017-857c-3074-adb2-4d74ad7702da",
+                            "personalityName": "Scott Bessent",
+                            "jobTitle": "Chief Investment Officer",
+                            "category": "Cabinet Members",
+                            "segmentType": "Orbit",
+                            "reach": 184500,
+                            "cpm": 12.5,
+                            "dataUpdatedAt": 1718796428,
+                            "segmentStatus": "active",
+                            "taxonomyId": "IQMADV-1004",
+                            "insights": {
+                              "status": "Ready"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Non advertiser user trying to access the endpoint": {
+                    "description": "Non advertiser user trying to access the endpoint",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "User is not allowed to access this API. Only Advertiser users can access this API."
+                        }
+                      ]
+                    }
+                  },
+                  "Non political vertical user trying to access the endpoint": {
+                    "description": "Non political vertical user trying to access the endpoint",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Request for resource with forbidden vertical ID."
+                        }
+                      ]
+                    }
+                  },
+                  "Audience not accessible for the logged-in user": {
+                    "description": "Audience not accessible for the logged-in user",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Audience is not accessible for the given user."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Invalid audience ID provided": {
+                    "description": "Invalid audience ID provided",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "No active audience found with the given Id."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Updates an existing power segment audience.",
+        "description": "This API updates an existing power segment audience based on the provided request parameters. It allows modifying the name and equation of an existing power segment audience. Only available to advertisers under the Political vertical.\n",
+        "operationId": "updatePowerSegmentAudience",
+        "parameters": [
+          {
+            "name": "audienceId",
+            "in": "path",
+            "description": "The ID of the power segment audience to be updated.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 1140623
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "requestBody": {
+          "description": "Request body containing details for updating a power segment audience.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerSegmentAudienceRequest"
+              },
+              "examples": {
+                "Update Power Segment Audience Request": {
+                  "description": "Update Power Segment Audience Request",
+                  "value": {
+                    "equation": "((IQMADV12345|IQMADV67890))",
+                    "audienceName": "Updated Power Segment audience"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudienceCreationSuccess"
+                },
+                "examples": {
+                  "Successful update of power segment audience": {
+                    "description": "Successful update of power segment audience",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "audienceId": 1140623,
+                        "message": "Changes saved successfully"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Missing equation": {
+                    "description": "Missing equation",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Power segment equation is required and can not be empty.",
+                          "field": "equation"
+                        }
+                      ]
+                    }
+                  },
+                  "Audience name exceeds limit": {
+                    "description": "Audience name exceeds limit",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Audience name must be between 1 and 255 characters.",
+                          "field": "audienceName"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Non advertiser user trying to access the endpoint": {
+                    "description": "Non advertiser user trying to access the endpoint",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "User is not allowed to access this API. Only Advertiser users can access this API."
+                        }
+                      ]
+                    }
+                  },
+                  "Non political vertical user trying to access the endpoint": {
+                    "description": "Non political vertical user trying to access the endpoint",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Request for resource with forbidden vertical ID."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Invalid equation": {
+                    "description": "Invalid equation",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid power segment equation. Please provide a valid equation."
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid taxonomy IDs in equation": {
+                    "description": "Invalid taxonomy IDs in equation",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Some taxonomy IDs were not found or are not active. Please provide valid taxonomy IDs."
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid audience ID provided": {
+                    "description": "Invalid audience ID provided",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "No active audience found with the given Id."
                         }
                       ]
                     }
@@ -1562,6 +1965,975 @@
                       ]
                     }
                   }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Creates a power segment audience.",
+        "description": "This API creates a power segment audience based on the provided request parameters. It allows creating a new power segment audience with the specified details. Only available to advertisers under the Political vertical.\n",
+        "operationId": "createPowerSegmentAudience",
+        "parameters": [
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "requestBody": {
+          "description": "Request body containing details for creating a power segment audience.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerSegmentAudienceRequest"
+              },
+              "examples": {
+                "Create Power Segment Audience Request": {
+                  "description": "Create Power Segment Audience Request",
+                  "value": {
+                    "equation": "((IQMADV12345|IQMADV67890))",
+                    "audienceName": "Test Power Segment audience"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudienceCreationSuccess"
+                },
+                "examples": {
+                  "Successful creation of power segment audience": {
+                    "description": "Successful creation of power segment audience",
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "audienceId": 1140623,
+                        "message": "<Audience Name> audience created successfully"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Missing equation": {
+                    "description": "Missing equation",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Power segment equation is required and can not be empty.",
+                          "field": "equation"
+                        }
+                      ]
+                    }
+                  },
+                  "Audience name exceeds limit": {
+                    "description": "Audience name exceeds limit",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Audience name must be between 1 and 255 characters.",
+                          "field": "audienceName"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Non advertiser user trying to access the endpoint": {
+                    "description": "Non advertiser user trying to access the endpoint",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "User is not allowed to access this API. Only Advertiser users can access this API."
+                        }
+                      ]
+                    }
+                  },
+                  "Non political vertical user trying to access the endpoint": {
+                    "description": "Non political vertical user trying to access the endpoint",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Request for resource with forbidden vertical ID."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Invalid equation": {
+                    "description": "Invalid equation",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid power segment equation. Please provide a valid equation."
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid taxonomy IDs in equation": {
+                    "description": "Invalid taxonomy IDs in equation",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Some taxonomy IDs were not found or are not active. Please provide valid taxonomy IDs."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/{personalityId}/favorite": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Add a Power Segment personality to favorites",
+        "description": "Marks a Power Segment personality as a favorite for the logged-in uowId. Idempotent: favoriting an already-favorited personality still returns success.",
+        "operationId": "addPersonalityToFavorites",
+        "parameters": [
+          {
+            "name": "personalityId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "message": "Personality added to favorites"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Personality not found": {
+                    "description": "Personality not found",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "No power segment personality found for the provided personality ID."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Remove a Power Segment personality from favorites",
+        "description": "Unmarks a Power Segment personality as a favorite for the logged-in uowId. Idempotent: removing a personality that isn't currently favorited still returns success, and no check is made on whether the personality's segment still exists/is active, so a stale favorite (e.g. for a since-deleted segment) can always be removed.",
+        "operationId": "removePersonalityFromFavorites",
+        "parameters": [
+          {
+            "name": "personalityId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "message": "Personality removed from favorites"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/search/list": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "List/search Power Segments",
+        "description": "Backs the Individual/Requested tabs of the Create Power Segment Audience modal. Returns one\nrow per personality, with its Sphere and Orbit segment (if any) side by side, scoped to the caller's\nvertical (Political only). The \"individual\" tab shows active (Ready) standard segments plus the\ncaller's org's private active segments; the \"requested\" tab shows only the caller's org's private\nsegments that are active, requested (Processing) or failed. totalRecords follows the same tab and org\nscoping. Favorite status is resolved for the logged-in owId/uowId. The optional visibilityScope filter\nnarrows the results: \"public\" returns only standard (public) segments, \"private\" returns only the\ncaller's org's private segments, and null/empty applies no visibility filter (it does not affect\ntotalRecords).\nEach Sphere/Orbit layer of a standard segment carries insights.status. It is returned only to users\nwhose profile has the insights_psi feature; for other users, or if the profile cannot be fetched,\ninsights is omitted.\n",
+        "operationId": "getPowerSegmentSearchList",
+        "parameters": [
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerSegmentSearchListRequest"
+              },
+              "example": {
+                "pageNo": 1,
+                "noOfEntries": 20,
+                "sortBy": "+personalityName,-category",
+                "searchField": "Bessent",
+                "tab": "individual",
+                "favorite": false,
+                "categories": [
+                  "CABINET_MEMBERS"
+                ],
+                "taxonomyIds": [
+                  "IQMADV-1004"
+                ],
+                "visibilityScope": "public"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "totalRecords": 340,
+                    "filteredRecords": 12,
+                    "segmentsList": [
+                      {
+                        "personalityId": "761d7017-857c-3074-adb2-4d74ad7702da",
+                        "personalityIdInt": 101,
+                        "personalityName": "Scott Bessent",
+                        "jobTitle": "Secretary of the Treasury",
+                        "category": "Cabinet Members",
+                        "favorite": true,
+                        "sphere": {
+                          "taxonomyId": "IQMADV-1004",
+                          "description": "Scott Bessent",
+                          "cpm": 12.5,
+                          "totalReach": 184500,
+                          "dataUpdatedAt": 1780272000000,
+                          "status": "active",
+                          "dataAvailable": true,
+                          "insights": {
+                            "status": "Ready"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Missing/invalid tab": {
+                    "description": "Missing/invalid tab",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "tab must be either \"individual\" or \"requested\"."
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid visibilityScope": {
+                    "description": "Invalid visibilityScope",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "visibilityScope must be either \"public\" or \"private\"."
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid sortBy": {
+                    "description": "Invalid sortBy",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid sortBy value provided in the request."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/request": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Request a custom Power Segment",
+        "description": "Submits a custom Power Segment request for a personality, scoped to the logged-in owId/uowId\n(private visibility). One segment is created per requested segmentType with status \"requested\". If\nonly \"orbit\" is requested, a \"deleted\" Sphere segment is also created for the personality; if only\n\"sphere\" is requested, no Orbit segment is created. Political vertical advertiser users only.\n",
+        "operationId": "createPowerSegmentRequest",
+        "parameters": [
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerSegmentRequestCreateRequest"
+              },
+              "example": {
+                "personalityName": "Scott Bessent",
+                "segmentType": [
+                  "sphere",
+                  "orbit"
+                ],
+                "additionalDetails": "Include recent congressional activity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "message": "Scott Bessent Request submitted successfully. We'll notify you by email once available. Expected turnaround: 2 business days."
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Missing personalityName": {
+                    "description": "Missing personalityName",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "personalityName is required and can not be blank.",
+                          "field": "personalityName"
+                        }
+                      ]
+                    }
+                  },
+                  "Missing additionalDetails": {
+                    "description": "Missing additionalDetails",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "additionalDetails is required and can not be blank.",
+                          "field": "additionalDetails"
+                        }
+                      ]
+                    }
+                  },
+                  "Missing segmentType": {
+                    "description": "Missing segmentType",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "segmentType is required and must contain at least one of \"sphere\" or \"orbit\".",
+                          "field": "segmentType"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid segmentType": {
+                    "description": "Invalid segmentType",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Invalid segmentType provided. Allowed values: \"sphere\", \"orbit\"."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/generate-insights": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Generate Power Segment Insights",
+        "description": "Initiates insights generation for a power segment identified by its taxonomy ID. The request is\nforwarded to the data team after validating the segment's current report status. Only segments with\nstatus 'NotRequested' or 'Failed' can be triggered; if generation is already in progress the caller is\nrecorded as an additional requester. Political vertical advertiser users only.\n",
+        "operationId": "generatePowerSegmentInsights",
+        "parameters": [
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerSegmentGenerateInsightsRequest"
+              },
+              "example": {
+                "taxonomyId": "IQMADV0002606"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Insights generation initiated successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "message": "Insights generation initiated successfully."
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid taxonomy ID or insights already in progress/ready.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Insights generation cannot be initiated. Current report status is: Ready"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/email": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Send PSI Report Email",
+        "description": "Sends the Power Segment Insights report to the given email addresses (1-15).\nIf the file size is within the 10 MB SES limit the PDF is attached; otherwise\nonly a download link is included. White-label vs. non-white-label variant is\nderived automatically from the caller's session. Report must be in Ready status.\nIf the segment is private, only the owning organisation (ow_id) can request the email.\nPolitical vertical advertiser users only.\n",
+        "operationId": "sendReportEmail",
+        "parameters": [
+          {
+            "name": "taxonomyId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PowerSegmentInsightsReportEmailRequestVO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "message": "e-mail sent successfully"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Segment not active, or report not ready",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Report is not ready. Current report status is: Processing"
+                    }
+                  ]
                 }
               }
             }
@@ -9089,6 +10461,481 @@
         }
       }
     },
+    "/api/v3/audience/power-segment/segments/{taxonomyId}/report-data": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Get Power Segment Insights report data",
+        "description": "Returns the Power Segment Insights (PSI) report JSON data from S3 for the given taxonomy ID. The\nsegment must exist in the caller's vertical (Political only) and its report must be ready (report_status\n\"ready\"). If the segment is private, only the org(s) it was requested by can access it. Political vertical\nusers only.\n",
+        "operationId": "getPowerSegmentReportData",
+        "parameters": [
+          {
+            "name": "taxonomyId",
+            "in": "path",
+            "description": "Unique taxonomy identifier for the power segment, e.g. IQMADV0002606.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "insightType": "ORBIT",
+                    "data": {
+                      "id": "IQMADV0002606",
+                      "pageData": [
+                        {
+                          "title": "Profile",
+                          "id": 1,
+                          "blocks": [
+                            {
+                              "type": "profileHeader",
+                              "data": {
+                                "firstName": "John",
+                                "lastName": "Doe",
+                                "subjectTitle": "Senator",
+                                "state": "Texas"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Segment not found": {
+                    "description": "Segment not found",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "No power segment found for the provided taxonomyId."
+                        }
+                      ]
+                    }
+                  },
+                  "Report not ready": {
+                    "description": "Report not ready",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Report is not ready. Current report status is: Processing"
+                        }
+                      ]
+                    }
+                  },
+                  "Report data file not found in S3": {
+                    "description": "Report data file not found in S3",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Report data file not found for the provided personality: Donald Trump"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/{taxonomyId}/avatar-url": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Get Power Segment profile avatar URL",
+        "description": "Returns a presigned S3 URL for the profile avatar image at the given S3 URI, scoped to the given\ntaxonomy ID. The segment must exist in the caller's vertical (Political only) and its report must be ready\n(report_status \"ready\"). If the segment is private, only the org(s) it was requested by can access it.\nPolitical vertical users only.\n",
+        "operationId": "getPowerSegmentAvatarPresignedUrl",
+        "parameters": [
+          {
+            "name": "taxonomyId",
+            "in": "path",
+            "description": "Unique taxonomy identifier for the power segment, e.g. IQMADV0002606.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "s3Path",
+            "in": "query",
+            "description": "S3 URI of the profile avatar image, scoped under the segment's own taxonomy folder.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "avatarURL": "https://s3.amazonaws.com/..."
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Report not ready": {
+                    "description": "Report not ready",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Report is not ready. Current report status is: Processing"
+                        }
+                      ]
+                    }
+                  },
+                  "Avatar file not found in S3": {
+                    "description": "Avatar file not found in S3",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "Avatar file not found for the provided taxonomyId: IQMADV0002606"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/public/count": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Count public Power Segments",
+        "description": "Returns the number of public Power Segments, i.e. segments that have a public visibility request in\naudience.tblm_power_segment_requests. Not scoped to the caller's org. Political vertical advertiser\nusers only.\n",
+        "operationId": "getPublicPowerSegmentCount",
+        "parameters": [
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "publicSegmentsCount": 340
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/audience/power-segment/segments/download-report": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "Download Power Segment Insights Report",
+        "description": "Returns a presigned S3 URL for downloading the Power Segment Insights report PDF for the given\ntaxonomy ID. The report must be in Ready status. White-label vs. non-white-label variant is\nderived automatically from the caller's session. If the segment is private, only the owning\norganisation (ow_id) can download it. Political vertical users only.\n",
+        "operationId": "downloadReport",
+        "parameters": [
+          {
+            "name": "taxonomyId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-IAA-OW-ID",
+            "in": "header",
+            "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string",
+              "example": "1",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string",
+              "example": "{{bearer_token}}"
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Presigned download URL returned successfully.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "data": {
+                    "reportURL": "https://s3.amazonaws.com/..."
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Segment not active, or report not ready",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Report is not ready. Current report status is: Processing"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "server encountered an error !"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v3/audience/lookalike/{audienceId}": {
       "get": {
         "tags": [
@@ -11925,6 +13772,28 @@
         },
         "description": "Request model for creating a segmented audience, including the equation representing the combination of segments, and associated campaign and proposal information"
       },
+      "PowerSegmentAudienceRequest": {
+        "required": [
+          "audienceName",
+          "equation"
+        ],
+        "type": "object",
+        "properties": {
+          "audienceName": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": "string",
+            "description": "Name of the audience",
+            "example": "Spring Sale Audience"
+          },
+          "equation": {
+            "type": "string",
+            "description": "Equation representing the combination of power segment taxonomy IDs to create the power segment audience, using taxonomy IDs and the OR operator (|), wrapped in a double set of parentheses",
+            "example": "((IQMADV12345|IQMADV67890))"
+          }
+        },
+        "description": "Request model for creating a power segment audience, including the equation representing the combination of power segment taxonomy IDs"
+      },
       "AudienceColumnMapping": {
         "required": [
           "columnId",
@@ -13048,6 +14917,175 @@
           }
         },
         "description": "Request model for searching Prebid segments based on audience IDs, Prebid segment IDs, search field, customer organization ID, and whether to include inactive segments"
+      },
+      "PowerSegmentSearchListRequest": {
+        "required": [
+          "tab"
+        ],
+        "type": "object",
+        "properties": {
+          "sortCriteriaMap": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "tab": {
+            "type": "string",
+            "description": "Tab being viewed: individual (active standard segments plus the logged-in organization's private active segments) or requested (only the logged-in organization's private segments that are active, requested or failed)",
+            "example": "individual",
+            "enum": [
+              "individual",
+              "requested"
+            ]
+          },
+          "favorite": {
+            "type": "boolean",
+            "description": "When true, restricts results to personalities favorited by the logged-in user; when false or absent, all personalities are returned",
+            "example": true
+          },
+          "categories": {
+            "type": "array",
+            "description": "Category enum keys (PowerSegmentCategoryTypeEnum name) to filter personalities by; when absent or empty, all categories are returned",
+            "example": [
+              "CABINET_MEMBERS",
+              "PERSONALITIES"
+            ],
+            "items": {
+              "type": "string",
+              "description": "Category enum keys (PowerSegmentCategoryTypeEnum name) to filter personalities by; when absent or empty, all categories are returned",
+              "example": "[\"CABINET_MEMBERS\",\"PERSONALITIES\"]"
+            }
+          },
+          "taxonomyIds": {
+            "maxItems": 100,
+            "minItems": 0,
+            "type": "array",
+            "description": "When provided, restricts results to personalities owning any of these Sphere or Orbit taxonomy IDs",
+            "example": [
+              "IQMADV-1004"
+            ],
+            "items": {
+              "type": "string",
+              "description": "When provided, restricts results to personalities owning any of these Sphere or Orbit taxonomy IDs",
+              "example": "[\"IQMADV-1004\"]"
+            }
+          },
+          "visibilityScope": {
+            "type": "string",
+            "description": "Restricts results by visibility: public returns only standard (public) segments, private returns only the logged-in organization's private segments; when absent or empty, no visibility filter is applied",
+            "example": "public",
+            "enum": [
+              "public",
+              "private"
+            ]
+          },
+          "pageNo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "noOfEntries": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sortBy": {
+            "type": "string"
+          },
+          "searchField": {
+            "type": "string"
+          },
+          "order": {
+            "type": "string",
+            "description": "The order in which the results should be sorted (ascending or descending).",
+            "example": "ASC",
+            "enum": [
+              "SortOrderEnum[id=1, name='asc', symbol='+']",
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
+            ]
+          }
+        },
+        "description": "Request model for listing/searching Power Segments, grouped by personality, with search, favorite and category filters"
+      },
+      "PowerSegmentRequestCreateRequest": {
+        "required": [
+          "additionalDetails",
+          "personalityName",
+          "segmentType"
+        ],
+        "type": "object",
+        "properties": {
+          "personalityName": {
+            "type": "string",
+            "description": "Name of the personality the segment is requested for",
+            "example": "Doe, John"
+          },
+          "segmentType": {
+            "type": "array",
+            "description": "Segment types requested for the personality (case-insensitive)",
+            "example": [
+              "sphere",
+              "orbit"
+            ],
+            "items": {
+              "type": "string",
+              "description": "Segment types requested for the personality (case-insensitive)",
+              "example": "[\"sphere\",\"orbit\"]",
+              "enum": [
+                "sphere",
+                "orbit"
+              ]
+            },
+            "enum": [
+              "sphere",
+              "orbit"
+            ]
+          },
+          "additionalDetails": {
+            "type": "string",
+            "description": "Free-text details to help the data team fulfil the request",
+            "example": "Include recent congressional activity"
+          }
+        },
+        "description": "Request model for submitting a custom Power Segment request"
+      },
+      "PowerSegmentGenerateInsightsRequest": {
+        "required": [
+          "taxonomyId"
+        ],
+        "type": "object",
+        "properties": {
+          "taxonomyId": {
+            "type": "string",
+            "description": "Taxonomy ID of the power segment for which insights generation should be triggered",
+            "example": "IQMADV0002606"
+          }
+        }
+      },
+      "PowerSegmentInsightsReportEmailRequestVO": {
+        "required": [
+          "emailIds"
+        ],
+        "type": "object",
+        "properties": {
+          "emailIds": {
+            "maxItems": 15,
+            "minItems": 1,
+            "type": "array",
+            "description": "List of email addresses to send the PSI report to (1-15 addresses, each 1-320 characters)",
+            "example": [
+              "analyst@example.com"
+            ],
+            "items": {
+              "maxLength": 320,
+              "minLength": 1,
+              "type": "string",
+              "description": "List of email addresses to send the PSI report to (1-15 addresses, each 1-320 characters)",
+              "example": "[\"analyst@example.com\"]"
+            }
+          }
+        }
       },
       "MatchedAudienceCreationResponse": {
         "type": "object",
@@ -16057,6 +18095,181 @@
             }
           }
         }
+      },
+      "Insights": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the insight: NotRequested, Processing, Ready or Failed. Processing and Failed are reported as NotRequested unless the logged-in organization has requested the report",
+            "example": "Ready"
+          }
+        },
+        "description": "Insights data for the segment Model"
+      },
+      "PowerSegmentAudienceDetailResponse": {
+        "type": "object",
+        "properties": {
+          "audienceId": {
+            "type": "integer",
+            "description": "Audience ID",
+            "format": "int32",
+            "example": 101
+          },
+          "audienceName": {
+            "type": "string",
+            "description": "Name of the audience",
+            "example": "Summer Campaign Audience"
+          },
+          "audienceTypeId": {
+            "type": "integer",
+            "description": "Type ID of the audience",
+            "format": "int32",
+            "example": 1
+          },
+          "audienceSubtypeId": {
+            "type": "integer",
+            "description": "Subtype ID of the audience",
+            "format": "int32",
+            "example": 2
+          },
+          "audienceStatusId": {
+            "type": "integer",
+            "description": "Status ID of the audience",
+            "format": "int32",
+            "example": 3
+          },
+          "cpm": {
+            "type": "number",
+            "description": "Cost per mille (CPM) for the audience",
+            "format": "double",
+            "example": 5.5
+          },
+          "owId": {
+            "type": "integer",
+            "description": "Ow ID associated with the audience",
+            "format": "int32",
+            "example": 10
+          },
+          "createdByUowId": {
+            "type": "integer",
+            "description": "UOW ID of the user who created the audience",
+            "format": "int32",
+            "example": 20
+          },
+          "createdAt": {
+            "type": "integer",
+            "description": "Timestamp when the audience was created",
+            "format": "int64",
+            "example": 1627847261
+          },
+          "iqmIdTargeted": {
+            "type": "boolean"
+          },
+          "reach": {
+            "type": "integer",
+            "description": "Estimated reach of the audience",
+            "format": "int64",
+            "example": 15000
+          },
+          "householdReach": {
+            "type": "integer",
+            "description": "Estimated household reach of the audience (only for matched audiences in the Political vertical)",
+            "format": "int64",
+            "example": 5000
+          },
+          "failureReasonId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "segments": {
+            "type": "array",
+            "description": "List of segments (Sphere/Orbit) selected by this audience",
+            "items": {
+              "$ref": "#/components/schemas/PowerSegmentDetailResponse"
+            }
+          }
+        },
+        "description": "Response model representing a power segment audience, including its equation and the resolved list of segments that make up the audience"
+      },
+      "PowerSegmentAudienceDetailsResponseDocs": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
+          },
+          "data": {
+            "$ref": "#/components/schemas/PowerSegmentAudienceDetailResponse"
+          }
+        }
+      },
+      "PowerSegmentDetailResponse": {
+        "type": "object",
+        "properties": {
+          "personalityId": {
+            "type": "string",
+            "description": "Personality ID the segment belongs to",
+            "format": "uuid",
+            "example": "761d7017-857c-3074-adb2-4d74ad7702da"
+          },
+          "personalityName": {
+            "type": "string",
+            "description": "Name of the personality",
+            "example": "Scott Bessent"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "Job title of the personality",
+            "example": "Chief Investment Officer"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category the personality belongs to",
+            "example": "Cabinet Members"
+          },
+          "segmentType": {
+            "type": "string",
+            "description": "Segment type - Sphere or Orbit",
+            "example": "Orbit"
+          },
+          "reach": {
+            "type": "integer",
+            "description": "Estimated reach of the segment",
+            "format": "int64",
+            "example": 184500
+          },
+          "cpm": {
+            "type": "number",
+            "description": "Cost per mille (CPM) for the segment",
+            "format": "float",
+            "example": 12.5
+          },
+          "dataUpdatedAt": {
+            "type": "integer",
+            "description": "Timestamp when the segment data was last updated (epoch millis)",
+            "format": "int64"
+          },
+          "segmentStatus": {
+            "type": "string",
+            "description": "Status of the segment",
+            "example": "Active"
+          },
+          "taxonomyId": {
+            "type": "string",
+            "description": "Taxonomy ID of the segment",
+            "example": "IQMADV-1004"
+          },
+          "insights": {
+            "$ref": "#/components/schemas/Insights"
+          }
+        },
+        "description": "Details of a single power segment selected by a power segment audience"
       },
       "MatchedAudienceResponse": {
         "type": "object",
