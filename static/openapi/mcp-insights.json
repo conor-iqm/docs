@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Insights API Specification",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "description": "MCP Insights API Specification",
     "contact": {
       "name": "IQM Support",
@@ -2376,8 +2376,7 @@
                 "$ref": "#/components/schemas/SendInsightsEmailRequest"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -3154,8 +3153,7 @@
                 "$ref": "#/components/schemas/DownloadInsightsRequest"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
