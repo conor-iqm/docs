@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Conversion API Specification",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "MCP Conversion API Specification",
     "contact": {
       "name": "IQM Support",
@@ -38,10 +38,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -196,10 +194,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -380,10 +376,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -506,10 +500,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -614,10 +606,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -761,10 +751,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -880,10 +868,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1031,10 +1017,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1171,7 +1155,7 @@
         ],
         "summary": "Update Postback type Conversion.",
         "description": "This api is used to update name of a postback type conversion.",
-        "operationId": "updateConversion",
+        "operationId": "updatePostbackConversion",
         "parameters": [
           {
             "name": "X-IAA-OW-ID",
@@ -1179,10 +1163,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1280,7 +1262,7 @@
         ],
         "summary": "Update Pixel type Conversion.",
         "description": "This api is used to update name and piggyback data of a pixel type conversion.",
-        "operationId": "updateConversion_1",
+        "operationId": "updatePixelConversion",
         "parameters": [
           {
             "name": "X-IAA-OW-ID",
@@ -1288,10 +1270,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1444,10 +1424,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1613,10 +1591,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1728,10 +1704,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1848,10 +1822,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1981,10 +1953,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2107,10 +2077,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2233,10 +2201,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2359,10 +2325,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2557,10 +2521,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2678,10 +2640,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2792,10 +2752,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "required": true
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2971,18 +2929,6 @@
             "type": "string",
             "description": "Email text",
             "example": "Please find your pixel integration details attached."
-          },
-          "recipientsList": {
-            "type": "array",
-            "description": "Recipients List",
-            "example": [
-              "user@example.com"
-            ],
-            "items": {
-              "type": "string",
-              "description": "Recipients List",
-              "example": "[\"user@example.com\"]"
-            }
           }
         },
         "description": "Pixel email request details"
@@ -4078,7 +4024,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         }

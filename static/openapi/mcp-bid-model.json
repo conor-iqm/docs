@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Bid Model API Specification",
-    "version": "2.0.4",
+    "version": "3.0.0",
     "description": "MCP Bid Model API Specification",
     "contact": {
       "name": "IQM Support",
@@ -57,10 +57,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -687,10 +685,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           }
         ],
         "requestBody": {
@@ -1599,10 +1595,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           }
         ],
         "requestBody": {
@@ -1738,7 +1732,7 @@
         ],
         "summary": "Create Bundle for Campaign and Dimension",
         "description": "This API is used to create a bundle for a specific campaign and dimension. It allows the user to group entities into a bundle for advanced modelling. The request body should contain the details of the bundle to be created, including the entities and their associated data.",
-        "operationId": "createBundle_1",
+        "operationId": "createBundle",
         "parameters": [
           {
             "name": "campaignId",
@@ -1766,10 +1760,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -1799,7 +1791,8 @@
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -1924,7 +1917,7 @@
         ],
         "summary": "Delete Bundle for Campaign and Dimension",
         "description": "This API is used to delete a bundle for a specific campaign and dimension. It allows the user to remove a bundle and its associated entities from the system. The request body should contain the details of the bundle to be deleted.",
-        "operationId": "deleteBundle_1",
+        "operationId": "deleteBundle",
         "parameters": [
           {
             "name": "campaignId",
@@ -1952,10 +1945,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2090,7 +2081,7 @@
         ],
         "summary": "Update Bundle for Campaign and Dimension",
         "description": "This API is used to update an existing bundle for a specific campaign and dimension. It allows the user to modify the bundle's name and the entities associated with it. The request body should contain the updated details of the bundle.",
-        "operationId": "updateBundleDetails_1",
+        "operationId": "updateBundleDetails",
         "parameters": [
           {
             "name": "campaignId",
@@ -2118,10 +2109,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -2333,10 +2322,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           }
         ],
         "requestBody": {
@@ -3266,10 +3253,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -3593,7 +3578,7 @@
         ],
         "summary": "Retrieves the total spent dimension-wise for a specified campaign",
         "description": "Retrieves the total and dimension-wise spent for a specified campaign. The dimension is selected with the required dimensionId path parameter; the response includes the spent for each entity in that dimension.",
-        "operationId": "getDimensionWiseEntitySpentForCampaign_1",
+        "operationId": "getDimensionWiseEntitySpentForCampaign",
         "parameters": [
           {
             "name": "campaignId",
@@ -3628,10 +3613,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           }
         ],
         "responses": {
@@ -3759,7 +3742,7 @@
         ],
         "summary": "This API fetches list of bundles linked to a specific campaign and dimension, along with their entities details and modelling status.\nIt supports optional filtering by bundle name, bundle ID, and dimension ID\n",
         "description": "This API retrieves bundle details for a given campaign and dimension.\nIt returns a list of bundles, including their associated entities and modelling status.\nYou can optionally filter results by bundle name or ID using the search field.\nAdditionally, you can filter by dimension ID — if not provided, all bundles for the campaign are returned\n",
-        "operationId": "getBundleDetailsList_1",
+        "operationId": "getBundleDetailsList",
         "parameters": [
           {
             "name": "campaignId",
@@ -3797,10 +3780,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           },
           {
             "name": "Authorization",
@@ -3999,20 +3980,20 @@
             "name": "startDate",
             "in": "query",
             "description": "Start date(in milliseconds epoch) for the total count. Required only when `attributes` includes \"totalCount\".",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "number",
-              "format": "long"
+              "type": "integer",
+              "format": "int64"
             }
           },
           {
             "name": "endDate",
             "in": "query",
             "description": "End date(in milliseconds epoch) for the total count. Required only when `attributes` includes \"totalCount\".",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "number",
-              "format": "long"
+              "type": "integer",
+              "format": "int64"
             }
           },
           {
@@ -4054,10 +4035,8 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
-            },
-            "style": "simple"
+              "example": "1"
+            }
           }
         ],
         "responses": {
@@ -4301,7 +4280,8 @@
             "items": {
               "minimum": 1,
               "type": "integer",
-              "description": "Bundle IDs to delete"
+              "description": "Bundle IDs to delete",
+              "format": "int32"
             }
           },
           "deleteDimensionId": {
@@ -4315,26 +4295,21 @@
             "items": {
               "minimum": 1,
               "type": "integer",
-              "description": "Bid Model Data IDs to delete"
+              "description": "Bid Model Data IDs to delete",
+              "format": "int32"
             }
           }
         },
         "description": "Delete action payload (supply one or more targets)",
         "anyOf": [
           {
-            "required": [
-              "bundleIds"
-            ]
+            "$ref": "#/components/schemas/RequireBundleIds"
           },
           {
-            "required": [
-              "deleteDimensionId"
-            ]
+            "$ref": "#/components/schemas/RequireDeleteDimensionId"
           },
           {
-            "required": [
-              "bidModelDataId"
-            ]
+            "$ref": "#/components/schemas/RequireBidModelDataIds"
           }
         ],
         "additionalProperties": false
@@ -4384,25 +4359,29 @@
           "bidModelDataId": {
             "minimum": 1,
             "type": "integer",
-            "description": "Bid Model Data ID"
+            "description": "Bid Model Data ID",
+            "format": "int32"
           },
           "priority": {
             "maximum": 10,
             "minimum": 1,
             "type": "integer",
-            "description": "Priority (1–10)"
+            "description": "Priority (1–10)",
+            "format": "int32"
           },
           "bidMultiplier": {
             "maximum": 100,
             "minimum": 0.1,
             "type": "number",
-            "description": "Bid Multiplier (0.1–100)"
+            "description": "Bid Multiplier (0.1–100)",
+            "format": "float"
           },
           "spendRatio": {
             "maximum": 100,
             "minimum": 0,
             "type": "integer",
-            "description": "Spend Ratio (0-100)"
+            "description": "Spend Ratio (0-100)",
+            "format": "int32"
           },
           "spendRatioTypeId": {
             "type": "integer",
@@ -4425,12 +4404,9 @@
             "items": {
               "minimum": 1,
               "type": "integer",
-              "description": "Entity IDs"
+              "description": "Entity IDs",
+              "format": "int32"
             }
-          },
-          "bundleId": {
-            "type": "integer",
-            "minimum": 1
           }
         },
         "description": "Fields are optional; only supply those you want to update",
@@ -4464,6 +4440,24 @@
         },
         "description": "Inclusion/Exclusion map with whitelisted keys",
         "additionalProperties": false
+      },
+      "RequireBidModelDataIds": {
+        "required": [
+          "bidModelDataId"
+        ],
+        "type": "object"
+      },
+      "RequireBundleIds": {
+        "required": [
+          "bundleIds"
+        ],
+        "type": "object"
+      },
+      "RequireDeleteDimensionId": {
+        "required": [
+          "deleteDimensionId"
+        ],
+        "type": "object"
       },
       "DownloadRequest": {
         "type": "object",
@@ -4521,9 +4515,7 @@
             "type": "string",
             "enum": [
               "and",
-              "or",
-              "AND",
-              "OR"
+              "or"
             ]
           }
         }
@@ -4628,7 +4620,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         }
@@ -5443,6 +5437,10 @@
         }
       },
       "IncludeExcludeRequestDocs": {
+        "required": [
+          "ids",
+          "isExcluded"
+        ],
         "type": "object",
         "properties": {
           "ids": {
@@ -5707,19 +5705,59 @@
         "required": [
           "entityIds"
         ],
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "entityIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
       },
       "RequireName": {
         "required": [
           "bundleName"
         ],
-        "type": "object"
+        "type": "object",
+        "properties": {
+          "bundleName": {
+            "type": "string"
+          }
+        }
       },
       "UpdateBundle": {
         "required": [
           "bundleId"
         ],
         "type": "object",
+        "properties": {
+          "bundleName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Bundle name"
+          },
+          "entityIds": {
+            "minItems": 1,
+            "uniqueItems": true,
+            "type": "array",
+            "description": "Entity ids included in the bundle",
+            "items": {
+              "minimum": 1,
+              "type": "integer",
+              "description": "Entity id",
+              "format": "int32"
+            }
+          },
+          "bundleId": {
+            "minimum": 1,
+            "type": "integer",
+            "description": "Existing bundle id",
+            "format": "int32",
+            "example": 3
+          }
+        },
         "description": "Update an existing bundle",
         "anyOf": [
           {
@@ -5727,40 +5765,6 @@
           },
           {
             "$ref": "#/components/schemas/RequireEntityIds"
-          }
-        ],
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BundleDetails"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "bundleName": {
-                "minLength": 1,
-                "type": "string",
-                "description": "Bundle name"
-              },
-              "entityIds": {
-                "minItems": 1,
-                "uniqueItems": true,
-                "type": "array",
-                "description": "Entity ids included in the bundle",
-                "items": {
-                  "minimum": 1,
-                  "type": "integer",
-                  "description": "Entity id",
-                  "format": "int32"
-                }
-              },
-              "bundleId": {
-                "minimum": 1,
-                "type": "integer",
-                "description": "Existing bundle id",
-                "format": "int32",
-                "example": 3
-              }
-            }
           }
         ]
       },

@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "OpenAPI definition",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "description": "MCP Inventory API Specification",
     "contact": {
       "name": "IQM Support",
@@ -48,8 +48,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -211,8 +210,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -413,8 +411,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -624,7 +621,6 @@
             "style": "simple",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -644,6 +640,16 @@
             "name": "keywords",
             "in": "query",
             "description": "List of search keywords to Search inventory list",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search field to match specific columns. For regular inventory: searches across inventory_id, inventory, and name. For CTV inventory (when ctvOnly=true): searches across publisher_name and name",
             "required": false,
             "schema": {
               "type": "string",
@@ -751,6 +757,16 @@
             }
           },
           {
+            "name": "ctvOnly",
+            "in": "query",
+            "description": "Filter to fetch only CTV inventory list. This flag will override deviceTypes with CTV when passed as true. Affects downloaded file column headers and filename prefix",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
             "name": "isCsvSearch",
             "in": "query",
             "required": true,
@@ -782,8 +798,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -952,8 +967,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1041,8 +1055,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1155,8 +1168,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1317,8 +1329,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1404,8 +1415,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1498,8 +1508,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2046,8 +2055,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2159,8 +2167,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2301,7 +2308,6 @@
             "style": "simple",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -2323,8 +2329,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2573,8 +2578,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2903,8 +2907,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3037,7 +3040,7 @@
         ],
         "summary": "Add mappings of contextual inventories to specified inventory groups.",
         "description": "Associates the specified contextual inventory IDs with one or more inventory groups. The logged-in user must be authorised to access all provided group IDs.",
-        "operationId": "addMappingsToInventoryGroups_1",
+        "operationId": "addMappingsToContextualInventoryGroups",
         "parameters": [
           {
             "name": "X-IAA-OW-ID",
@@ -3045,8 +3048,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -3128,8 +3130,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -3245,7 +3246,6 @@
             "style": "simple",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -3286,8 +3286,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3431,7 +3430,6 @@
             "style": "simple",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -3473,8 +3471,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3596,8 +3593,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3796,8 +3792,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3936,8 +3931,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4083,8 +4077,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4284,8 +4277,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4380,8 +4372,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4478,8 +4469,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4598,8 +4588,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4725,8 +4714,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4912,8 +4900,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5096,8 +5083,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5185,6 +5171,16 @@
             "name": "keywords",
             "in": "query",
             "description": "List of search keywords to Search inventory list",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search field to match specific columns. For regular inventory: searches across inventory_id, inventory, and name. For CTV inventory (when ctvOnly=true): searches across publisher_name and name",
             "required": false,
             "schema": {
               "type": "string",
@@ -5292,6 +5288,16 @@
             }
           },
           {
+            "name": "ctvOnly",
+            "in": "query",
+            "description": "Filter to fetch only CTV inventory list. This flag will override deviceTypes with CTV when passed as true.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
             "name": "noOfEntries",
             "in": "query",
             "description": "The maximum number of returned results per page. ",
@@ -5323,6 +5329,15 @@
             }
           },
           {
+            "name": "streamingDevices",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
@@ -5338,8 +5353,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5557,8 +5571,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5797,8 +5810,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6002,8 +6014,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6195,8 +6206,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6253,6 +6263,16 @@
             "name": "keywords",
             "in": "query",
             "description": "List of search keywords to Search inventory list",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "searchField",
+            "in": "query",
+            "description": "Search field to match specific columns. For regular inventory: searches across inventory_id, inventory, and name. For CTV inventory (when ctvOnly=true): searches across publisher_name and name",
             "required": false,
             "schema": {
               "type": "string",
@@ -6360,6 +6380,16 @@
             }
           },
           {
+            "name": "ctvOnly",
+            "in": "query",
+            "description": "Filter to fetch only CTV inventory list. This flag will override deviceTypes with CTV when passed as true.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
@@ -6375,8 +6405,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6463,8 +6492,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6668,8 +6696,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6963,8 +6990,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7067,7 +7093,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "default": 0
+              "default": 1
             }
           },
           {
@@ -7106,8 +7132,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7278,7 +7303,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "default": "created"
+              "default": "avails"
             }
           },
           {
@@ -7297,8 +7322,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7426,8 +7450,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7574,8 +7597,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7740,8 +7762,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7875,8 +7896,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8044,8 +8064,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8212,8 +8231,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8350,8 +8368,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -8472,8 +8489,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -8587,8 +8603,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -8683,8 +8698,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -8803,8 +8817,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -8888,8 +8901,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -9016,8 +9028,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9135,8 +9146,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9259,8 +9269,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9369,8 +9378,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -9452,8 +9460,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -9815,7 +9822,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           },
           "ids": {
@@ -9913,7 +9922,9 @@
           },
           "cpm": {
             "maximum": 1000,
+            "exclusiveMaximum": false,
             "minimum": 0.1,
+            "exclusiveMinimum": false,
             "type": "number",
             "format": "double"
           },
@@ -11292,7 +11303,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         }
@@ -11395,7 +11408,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         }
@@ -11436,7 +11451,9 @@
           },
           "cpm": {
             "maximum": 1000,
+            "exclusiveMaximum": false,
             "minimum": 0.1,
+            "exclusiveMinimum": false,
             "type": "number",
             "format": "double"
           },

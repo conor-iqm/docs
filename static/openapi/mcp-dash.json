@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Dashboard API Specification",
-    "version": "2.2.0",
+    "version": "3.0.0",
     "description": "IQM Dashboard API tools for ready-made performance views and operational monitoring. Use this specification for IQM dashboard management, delivery, pacing, spend, impressions, clicks, CTR, trends, comparisons, diagnostics, and exports. For custom, saved, or scheduled report definitions, use the Reports API instead.",
     "contact": {
       "name": "IQM Support",
@@ -48,8 +48,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -283,8 +282,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -481,8 +479,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -707,8 +704,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1107,8 +1103,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1412,8 +1407,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -1939,8 +1933,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2248,8 +2241,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2559,8 +2551,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2750,8 +2741,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3156,8 +3146,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3447,8 +3436,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4419,8 +4407,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4844,8 +4831,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5052,8 +5038,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5178,8 +5163,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -5362,8 +5346,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -5464,7 +5447,7 @@
           "MCP"
         ],
         "summary": "Run campaign pulse severity check now",
-        "description": "Dashboard routing: Use this IQM Dashboard API tool for ready-made IQM performance views and operational monitoring, including delivery, pacing, spend, impressions, clicks, CTR, trends, comparisons, diagnostics, and exports. Starts campaign pulse severity diagnostics for the given campaign IDs in the background (asynchronous AWS Lambda), after validating campaign ownership and status. The response doesn't include the results. When the run finishes, read each campaign's latest results with aiInsightsDetails (campaignId), or severity counts for several campaigns with aiInsightsSeverityDetails (campaignIds). To run one campaign and get its results in the same call, use dashboard-campaign-pulse-run-single.",
+        "description": "Dashboard routing: Use this IQM Dashboard API tool for ready-made IQM performance views and operational monitoring, including delivery, pacing, spend, impressions, clicks, CTR, trends, comparisons, diagnostics, and exports. Starts campaign pulse severity diagnostics for the given campaign IDs in the background (asynchronous AWS Lambda), after validating campaign ownership and status. The response doesn't include the results. When the run finishes, read each campaign's latest results with getAiInsightsDetails (campaignId), or severity counts for several campaigns with getAiInsightsSeverityDetails (campaignIds). To run one campaign and get its results in the same call, use dashboard-campaign-pulse-run-single.",
         "operationId": "run-campaign-pulse-severity-check",
         "parameters": [
           {
@@ -5483,8 +5466,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5641,8 +5623,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5753,8 +5734,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5910,8 +5890,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6062,8 +6041,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6140,8 +6118,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -6417,8 +6394,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6505,7 +6481,7 @@
         ],
         "summary": "Get campaign pulse severity check counts",
         "description": "Dashboard routing: Use this IQM Dashboard API tool for ready-made IQM performance views and operational monitoring, including delivery, pacing, spend, impressions, clicks, CTR, trends, comparisons, diagnostics, and exports. Returns the count of diagnosis checks grouped by severity for given campaign IDs.",
-        "operationId": "aiInsightsSeverityDetails",
+        "operationId": "getAiInsightsSeverityDetails",
         "parameters": [
           {
             "name": "campaignIds",
@@ -6536,8 +6512,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6615,7 +6590,7 @@
         ],
         "summary": "Get campaign pulse diagnosis results",
         "description": "Dashboard routing: Use this IQM Dashboard API tool for ready-made IQM performance views and operational monitoring, including delivery, pacing, spend, impressions, clicks, CTR, trends, comparisons, diagnostics, and exports. Returns the latest campaign pulse run details and diagnosis checks for a given campaign ID.",
-        "operationId": "aiInsightsDetails",
+        "operationId": "getAiInsightsDetails",
         "parameters": [
           {
             "name": "campaignId",
@@ -6643,8 +6618,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6827,6 +6801,10 @@
         "description": "Request body for the campaign graph (metrics-timeline) API."
       },
       "Filters": {
+        "required": [
+          "endTimeEpochMillis",
+          "startTimeEpochMillis"
+        ],
         "type": "object",
         "properties": {
           "owIds": {
@@ -6953,11 +6931,7 @@
             }
           }
         },
-        "description": "Filter criteria for the campaign report",
-        "required": [
-          "startTimeEpochMillis",
-          "endTimeEpochMillis"
-        ]
+        "description": "Filter criteria for the campaign report"
       },
       "CampaignGraphDataPointResponse": {
         "type": "object",
@@ -7246,12 +7220,14 @@
         "type": "object",
         "properties": {
           "pageNo": {
+            "minimum": 0,
             "type": "integer",
             "description": "Page number to retrieve (1-indexed)",
             "format": "int32",
             "example": 1
           },
           "noOfEntries": {
+            "minimum": 0,
             "type": "integer",
             "description": "Number of entries per page",
             "format": "int32",
@@ -7277,6 +7253,9 @@
         "description": "Sorting parameters for a report request"
       },
       "WorkspaceReportRequest": {
+        "required": [
+          "filters"
+        ],
         "type": "object",
         "properties": {
           "pagination": {
@@ -7302,11 +7281,7 @@
             "type": "boolean"
           }
         },
-        "description": "Request model for the v4 workspace report endpoint (v4-dashboard-get-report-by-workspace)",
-        "required": [
-          "filters",
-          "requestType"
-        ]
+        "description": "Request model for the v4 workspace report endpoint (v4-dashboard-get-report-by-workspace)"
       },
       "WorkspaceReportEnvelope": {
         "type": "object",
@@ -7856,6 +7831,9 @@
         "description": "Request model for downloading workspace reports, containing the base report query parameters and additional download parameters"
       },
       "IOReportRequest": {
+        "required": [
+          "filters"
+        ],
         "type": "object",
         "properties": {
           "pagination": {
@@ -7881,11 +7859,7 @@
             "type": "boolean"
           }
         },
-        "description": "Request for generating an IO (Insertion-Order) level aggregated report (v4)",
-        "required": [
-          "filters",
-          "requestType"
-        ]
+        "description": "Request for generating an IO (Insertion-Order) level aggregated report (v4)"
       },
       "IOReportEnvelope": {
         "type": "object",
@@ -8475,6 +8449,9 @@
         "description": "Request for downloading an IO (Insertion-Order) level performance report (v4), extending the base IOReportRequest with download-specific options"
       },
       "ExchangeReportRequest": {
+        "required": [
+          "filters"
+        ],
         "type": "object",
         "properties": {
           "pagination": {
@@ -8500,11 +8477,7 @@
             "type": "boolean"
           }
         },
-        "description": "Request for generating an exchange-level report, including pagination, sorting, filters, and report type",
-        "required": [
-          "filters",
-          "requestType"
-        ]
+        "description": "Request for generating an exchange-level report, including pagination, sorting, filters, and report type"
       },
       "ExchangeReportResponse": {
         "type": "object",
@@ -8860,6 +8833,9 @@
         "description": "Request for downloading an exchange-level report, extending the base exchange report request with download options"
       },
       "CustomerReportRequest": {
+        "required": [
+          "filters"
+        ],
         "type": "object",
         "properties": {
           "pagination": {
@@ -8885,11 +8861,7 @@
             "type": "boolean"
           }
         },
-        "description": "Request model for the v4 customer report endpoint",
-        "required": [
-          "filters",
-          "requestType"
-        ]
+        "description": "Request model for the v4 customer report endpoint"
       },
       "CustomerReportResponse": {
         "type": "object",
@@ -9363,6 +9335,9 @@
         "description": "Request model for downloading customer reports, extending the base CustomerReportRequest with additional download parameters"
       },
       "CampaignReportRequest": {
+        "required": [
+          "filters"
+        ],
         "type": "object",
         "properties": {
           "pagination": {
@@ -9393,11 +9368,7 @@
             "type": "boolean"
           }
         },
-        "description": "Request for generating a campaign performance report, aggregated by campaign.",
-        "required": [
-          "filters",
-          "requestType"
-        ]
+        "description": "Request for generating a campaign performance report, aggregated by campaign."
       },
       "CampaignReportEnvelope": {
         "type": "object",
@@ -10359,6 +10330,11 @@
         "description": "Request for grouping open-exchange inventories by metric deviation slab"
       },
       "MetricDetailsRequestVO": {
+        "required": [
+          "campaignId",
+          "endTime",
+          "startTime"
+        ],
         "type": "object",
         "properties": {
           "campaignId": {
@@ -10392,12 +10368,7 @@
             "type": "string",
             "description": "Ignored: days are bucketed in the campaign's own timezone."
           }
-        },
-        "required": [
-          "campaignId",
-          "startTime",
-          "endTime"
-        ]
+        }
       },
       "DetailsVO": {
         "type": "object",
