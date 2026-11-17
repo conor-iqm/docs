@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Audience API Specification",
-    "version": "3.1.0",
+    "version": "4.0.0",
     "description": "MCP Audience API Specification",
     "contact": {
       "name": "IQM Support",
@@ -49,8 +49,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -227,8 +226,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -453,8 +451,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -625,8 +622,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -834,8 +830,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -1027,8 +1022,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -1258,8 +1252,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -1449,8 +1442,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -1607,8 +1599,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -1744,8 +1735,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -1881,8 +1871,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2005,8 +1994,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2212,8 +2200,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2322,8 +2309,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2405,8 +2391,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2578,8 +2563,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2747,8 +2731,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -2876,8 +2859,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -2966,7 +2948,7 @@
         ],
         "summary": "Create matched audience - unified endpoint for all verticals and subtypes",
         "description": "     Unified API endpoint for creating matched audiences across all verticals and subtypes.\n     Supports Political, Specialization, and Healthcare (Patient, HCP, Nurse, Non NPI Nurse, Generic) verticals.\n     The appropriate processing strategy is selected based on verticalId and subtypeId. audienceRequest\n     and file is sent as binary multipart/form-data.\n",
-        "operationId": "createMatchedAudience_1",
+        "operationId": "createMatchedAudience",
         "parameters": [
           {
             "name": "Authorization",
@@ -2984,8 +2966,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3144,8 +3125,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -3374,8 +3354,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3581,8 +3560,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3722,8 +3700,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -3909,8 +3886,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4102,8 +4078,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4300,8 +4275,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4749,8 +4723,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -4893,8 +4866,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5105,8 +5077,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5115,6 +5086,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "uniqueItems": true,
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -5222,8 +5194,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5375,8 +5346,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -5535,8 +5505,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5768,8 +5737,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -5925,8 +5893,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6079,8 +6046,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6204,8 +6170,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6411,7 +6376,8 @@
             "description": "Optional subtype ID used to further refine audience columns (e.g., HCP under Healthcare vertical)",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "example": 1
           },
@@ -6421,7 +6387,8 @@
             "description": "Data partner ID to further filter columns based on data partner specific configurations (e.g., Healthlink, RevOptimal, etc.)",
             "required": false,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32"
             },
             "example": 7
           },
@@ -6441,8 +6408,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6611,8 +6577,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6738,8 +6703,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -6864,8 +6828,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7001,8 +6964,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7175,8 +7137,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7324,8 +7285,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -7491,8 +7451,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7650,8 +7609,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7798,8 +7756,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -7955,8 +7912,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8160,8 +8116,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8393,8 +8348,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8490,8 +8444,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8621,8 +8574,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8734,8 +8686,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -8836,6 +8787,17 @@
             "example": 1
           },
           {
+            "name": "dataPartnerId",
+            "in": "query",
+            "description": "Optional data partner ID to further filter columns based on data partner specific configurations (e.g., Healthlink, RevOptimal, etc.)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 7
+          },
+          {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
@@ -8851,8 +8813,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9019,8 +8980,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9139,8 +9099,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9255,8 +9214,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9475,8 +9433,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9579,8 +9536,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9699,8 +9655,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -9853,8 +9808,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -10019,8 +9973,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -10171,8 +10124,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -10285,8 +10237,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -10392,8 +10343,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -10485,8 +10435,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -10648,8 +10597,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -10762,8 +10710,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -10853,8 +10800,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -10970,8 +10916,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -11176,8 +11121,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -11297,8 +11241,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           },
           {
@@ -11617,8 +11560,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -11773,8 +11715,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -11897,8 +11838,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -11987,8 +11927,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -12163,8 +12102,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -12301,8 +12239,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -12467,6 +12404,20 @@
         "operationId": "getHealthcareTitleList",
         "parameters": [
           {
+            "name": "titleIds",
+            "in": "query",
+            "description": "Set of healthcare title IDs to filter the healthcare titles. Comma-separated String of IDs is also allowed.",
+            "required": false,
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
             "name": "searchField",
             "in": "query",
             "description": "Text to find. Case-insensitive substring match on displayName: typos, abbreviations, and reordered words do not match. Fix spelling, expand abbreviations (CNO = Chief Nursing Officer, DON = Director of Nursing), and if nothing fits, retry with a shorter root (\"cardio\") or alternate phrasing before reporting no match.",
@@ -12481,7 +12432,12 @@
             "description": "Comma-separated audience subtype IDs to filter the titles; 3 = HCP.",
             "required": false,
             "schema": {
-              "type": "string"
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
             }
           },
           {
@@ -12490,8 +12446,7 @@
             "description": "Include generic rows (audienceSubtypeId null). Without audienceSubtypeIds: false returns all rows, true returns only generic rows. With audienceSubtypeIds: false returns only those subtypes, true adds generic rows. Default false.",
             "required": false,
             "schema": {
-              "type": "boolean",
-              "default": false
+              "type": "boolean"
             }
           },
           {
@@ -12557,8 +12512,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -12656,6 +12610,7 @@
             "description": "Speciality IDs to filter by. Comma-separated string also allowed.",
             "required": false,
             "schema": {
+              "uniqueItems": true,
               "type": "array",
               "items": {
                 "type": "integer",
@@ -12689,7 +12644,12 @@
             "description": "Comma-separated audience subtype IDs to filter the specialities; 3 = HCP.",
             "required": false,
             "schema": {
-              "type": "string"
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
             }
           },
           {
@@ -12698,8 +12658,7 @@
             "description": "Include generic rows (audienceSubtypeId null). Without audienceSubtypeIds: false returns all rows, true returns only generic rows. With audienceSubtypeIds: false returns only those subtypes, true adds generic rows. Default false.",
             "required": false,
             "schema": {
-              "type": "boolean",
-              "default": false
+              "type": "boolean"
             }
           },
           {
@@ -12765,8 +12724,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -12843,6 +12801,20 @@
         "operationId": "getHealthcareSystemList",
         "parameters": [
           {
+            "name": "healthcareSystemIds",
+            "in": "query",
+            "description": "List of healthcare system IDs to filter the healthcare systems. Comma-separated String of IDs is also allowed.",
+            "required": false,
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
             "name": "searchField",
             "in": "query",
             "description": "Text to find. Case-insensitive substring match on displayName: typos, abbreviations, and reordered words do not match. Fix spelling, expand abbreviations, and if nothing fits, retry with a shorter root or alternate phrasing before reporting no match.",
@@ -12857,7 +12829,12 @@
             "description": "Comma-separated audience subtype IDs to filter the health systems; 3 = HCP.",
             "required": false,
             "schema": {
-              "type": "string"
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
             }
           },
           {
@@ -12866,8 +12843,7 @@
             "description": "Include generic rows (audienceSubtypeId null). Without audienceSubtypeIds: false returns all rows, true returns only generic rows. With audienceSubtypeIds: false returns only those subtypes, true adds generic rows. Default false.",
             "required": false,
             "schema": {
-              "type": "boolean",
-              "default": false
+              "type": "boolean"
             }
           },
           {
@@ -12933,8 +12909,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -13055,8 +13030,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -13185,8 +13159,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -13391,8 +13364,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -13519,7 +13491,7 @@
         ],
         "summary": "Fetch Integrated Care Team Messaging Audience group details for the parent ID provided",
         "description": "This endpoint will fetch the Integrated Care Team Messaging Audience group details for the given parent ID.\nThe response will include the parent name, creation timestamp, uploaded file details, column mappings with file headers\nand the list of all the audiences of the group (including the audience given as input at creation) with their name, status,\nsubtype, reach, data partner, file row count and CPM.\n",
-        "operationId": "getIctAudienceDetailsByParentId",
+        "operationId": "getIctAudienceDetailsByAudienceId",
         "parameters": [
           {
             "name": "parentId",
@@ -13547,8 +13519,7 @@
             "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "example": "1",
-              "format": "int64"
+              "example": "1"
             }
           }
         ],
@@ -14087,7 +14058,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         },
@@ -14144,7 +14117,7 @@
             "items": {
               "type": "integer",
               "description": "Account IDs from getAccountNameList.",
-              "format": "int32"
+              "format": "int64"
             }
           },
           "accountTypeIds": {
@@ -14256,7 +14229,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         },
@@ -14545,7 +14520,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         },
@@ -16330,7 +16307,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         },
@@ -16549,7 +16528,7 @@
             "example": 1
           },
           "dataCollectionDays": {
-            "maximum": 90,
+            "maximum": 60,
             "minimum": 1,
             "type": "integer",
             "description": "Number of days before the current date for dynamic(rolling) data collection window, maximum 60 days",
@@ -16671,7 +16650,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         },
@@ -16998,7 +16979,7 @@
             "items": {
               "type": "integer",
               "description": "Account IDs from getAccountNameList.",
-              "format": "int32"
+              "format": "int64"
             }
           },
           "accountTypeIds": {
@@ -17060,7 +17041,9 @@
             "description": "The order in which the results should be sorted (ascending or descending).",
             "enum": [
               "SortOrderEnum[id=1, name='asc', symbol='+']",
-              "SortOrderEnum[id=2, name='desc', symbol='-']"
+              "SortOrderEnum[id=2, name='desc', symbol='-']",
+              "ASC",
+              "DESC"
             ]
           }
         },

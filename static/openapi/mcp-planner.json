@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Planner API Specification",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "description": "MCP Planner API Specification",
     "contact": {
       "name": "IQM Support",
@@ -30,7 +30,7 @@
         ],
         "summary": "API to edit an existing proposal",
         "description": "This API updates a proposal's name, date range, campaign budgeting details, and soft-deletes specified campaigns.",
-        "operationId": "editProposal",
+        "operationId": "editPoliticalProposal",
         "parameters": [
           {
             "name": "proposalId",
@@ -45,12 +45,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -192,7 +198,7 @@
         ],
         "summary": "API to edit a political plan",
         "description": "Updates an existing political plan. Name, details, and targeting are required.",
-        "operationId": "editPlan",
+        "operationId": "editPoliticalPlan",
         "parameters": [
           {
             "name": "id",
@@ -207,12 +213,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -465,12 +477,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -707,8 +725,8 @@
           "MCP"
         ],
         "summary": "API to edit plan for the HCP planner",
-        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createProposal_1 (or addDraftProposal_1 for a draft), getHcpPlanById, optional editProposal_1, generateIOCampaigns_2.\n\nOptional step. Start from the getHcpPlanById response, before generateIOCampaigns_2.\n\nEdits (updates, changes) a saved HCP plan before it is published, starting from the plan's current details. Available only to healthcare-vertical customers.\n\nThe request body's statusId must equal the plan's current status, or the request is rejected (see the statusId field).\n",
-        "operationId": "editProposal_1",
+        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createHcpProposal (or addHcpDraftProposal for a draft), getHcpPlanById, optional editHcpProposal, publishHcpCampaigns.\n\nOptional step. Start from the getHcpPlanById response, before publishHcpCampaigns.\n\nEdits (updates, changes) a saved HCP plan before it is published, starting from the plan's current details. Available only to healthcare-vertical customers.\n\nThe request body's statusId must equal the plan's current status, or the request is rejected (see the statusId field).\n",
+        "operationId": "editHcpProposal",
         "parameters": [
           {
             "name": "planId",
@@ -723,12 +741,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -1055,12 +1079,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -1133,12 +1163,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -1216,12 +1252,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -1377,12 +1419,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -1541,12 +1589,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -1694,12 +1748,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -1907,12 +1967,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -2080,12 +2146,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -2268,19 +2340,25 @@
           "MCP"
         ],
         "summary": "Endpoint to fetch the cross-screen planner graph response based on the request received from the client",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nVoter TV+ step 1. Send graphId and overview to createReadyPlan.\n\nGets the reach saturation graph (reach forecast) for a Voter TV+ plan's linear TV and CTV budget. Send the returned graphId and overview when saving the Voter TV+ plan.\n\nBased on the targeting and budget in the request, it returns a Venn diagram of linear TV and CTV reach and a reach saturation line graph for each.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nVoter TV+ step 1. Send graphId and overview to createReadyPlan.\n\nGets the reach saturation graph (reach forecast) for a Voter TV+ plan's linear TV and CTV budget. Send the returned graphId and overview when saving the Voter TV+ plan.\n\nBased on the targeting and budget in the request, it returns a Venn diagram of linear TV and CTV reach and a reach saturation line graph for each.\n",
         "operationId": "getCrossScreenGraph",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -2523,12 +2601,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -2733,19 +2817,25 @@
           "MCP"
         ],
         "summary": "API to activate a proposal and its proposed campaigns",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 3. Next: getProposalDetailsById_1, then generateIOCampaigns_1.\n\nActivates the Political proposal, and its proposed campaigns, for a strategy (strategyId) or a Voter TV+ plan (planId). Next, review the proposal and generate its IO and campaigns.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 3. Next: getPoliticalProposalDetailsById, then generatePoliticalIOCampaigns.\n\nActivates the Political proposal, and its proposed campaigns, for a strategy (strategyId) or a Voter TV+ plan (planId). Next, review the proposal and generate its IO and campaigns.\n",
         "operationId": "activateProposal",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -2893,12 +2983,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -2980,7 +3076,7 @@
           "MCP"
         ],
         "summary": "API to split an existing proposal",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional Voter TV+ step. Run before generateIOCampaigns_1.\n\nSplits a Voter TV+ (cross-screen, objectiveId 3) proposal's CTV campaigns by the given targeting dimensions, for example one CTV campaign per device or per creative instead of a single combined campaign. Only cross-screen proposals are supported. Do this before generating the proposal's IO and campaigns.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional Voter TV+ step. Run before generatePoliticalIOCampaigns.\n\nSplits a Voter TV+ (cross-screen, objectiveId 3) proposal's CTV campaigns by the given targeting dimensions, for example one CTV campaign per device or per creative instead of a single combined campaign. Only cross-screen proposals are supported. Do this before generating the proposal's IO and campaigns.\n",
         "operationId": "splitProposal",
         "parameters": [
           {
@@ -2996,12 +3092,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -3114,8 +3216,8 @@
           "MCP"
         ],
         "summary": "Generate IO and campaigns from a political proposal",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nFinal step. Check the result with getProposalDetailsById_1.\n\nConverts (publishes) a Political proposal into an insertion order (IO) and draft campaigns. The proposal's status is PROCESSING while the campaigns are generated in the background; get the proposal to check the result.\n",
-        "operationId": "generateIOCampaigns_1",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nFinal step. Check the result with getPoliticalProposalDetailsById.\n\nConverts (publishes) a Political proposal into an insertion order (IO) and draft campaigns. The proposal's status is PROCESSING while the campaigns are generated in the background; get the proposal to check the result.\n",
+        "operationId": "generatePoliticalIOCampaigns",
         "parameters": [
           {
             "name": "proposalId",
@@ -3130,12 +3232,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -3214,19 +3322,25 @@
           "MCP"
         ],
         "summary": "API to create a political plan (ready)",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 1. Next: getPoliticalStrategyListing, or activateProposal for a Voter TV+ plan.\n\nCreates (saves) a ready Political plan. Name, details (budget and flight dates), and targeting are required. IQM generates the plan's strategies. Next, list the plan's strategies, or for a Voter TV+ plan activate the plan directly by planId.\n\nStrategies come from an external strategy-generation service (DSI) that uses current inventory and forecast data, so there is no fixed list of valid creative and device combinations. If no strategy fits the selected targeting.creative and targeting.device, even when every ID is valid, the request is rejected with \"No strategies meet your criteria. Edit the plan to explore more options.\"\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 1. Next: getPoliticalStrategyListing, or activateProposal for a Voter TV+ plan.\n\nCreates (saves) a ready Political plan. Name, details (budget and flight dates), and targeting are required. IQM generates the plan's strategies. Next, list the plan's strategies, or for a Voter TV+ plan activate the plan directly by planId.\n\nStrategies come from an external strategy-generation service (DSI) that uses current inventory and forecast data, so there is no fixed list of valid creative and device combinations. If no strategy fits the selected targeting.creative and targeting.device, even when every ID is valid, the request is rejected with \"No strategies meet your criteria. Edit the plan to explore more options.\"\n",
         "operationId": "createReadyPlan",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -3463,19 +3577,25 @@
           "MCP"
         ],
         "summary": "API to create a political plan (draft)",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional. Save it with createReadyPlan before continuing.\n\nSaves an incomplete Political plan as a draft. Only name and objectiveId are required (an omitted objectiveId is sent as 0 and rejected), plus totalBudget greater than 0 when objectiveId is 1 (reach forecasting); other fields are optional but validated if present. Draft plans don't have strategies; save the plan as ready before continuing.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional. Save it with createReadyPlan before continuing.\n\nSaves an incomplete Political plan as a draft. Only name and objectiveId are required (an omitted objectiveId is sent as 0 and rejected), plus totalBudget greater than 0 when objectiveId is 1 (reach forecasting); other fields are optional but validated if present. Draft plans don't have strategies; save the plan as ready before continuing.\n",
         "operationId": "createDraftPlan",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -3712,19 +3832,25 @@
           "MCP"
         ],
         "summary": "API to generate custom strategies for an existing plan",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional step. Get the new strategy's id from getPoliticalStrategyListing before activateProposal.\n\nGenerates an additional custom strategy for an existing Political plan from the targeting and budget in the request, and saves it with its proposal and campaigns.\n\nEach returned summary's id is the external strategy-generation service's (DSI) identifier, not the planner strategy ID. Using it as strategyId when activating a proposal (POST /proposals) fails with \"Strategy with strategy id X does not exist\". List the plan's strategies (GET /strategies?planId=...) afterwards and use the id from there.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional step. Get the new strategy's id from getPoliticalStrategyListing before activateProposal.\n\nGenerates an additional custom strategy for an existing Political plan from the targeting and budget in the request, and saves it with its proposal and campaigns.\n\nEach returned summary's id is the external strategy-generation service's (DSI) identifier, not the planner strategy ID. Using it as strategyId when activating a proposal (POST /proposals) fails with \"Strategy with strategy id X does not exist\". List the plan's strategies (GET /strategies?planId=...) afterwards and use the id from there.\n",
         "operationId": "generateCustomStrategies",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -3898,12 +4024,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -4078,19 +4210,25 @@
           "MCP"
         ],
         "summary": "API to create CVA details",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional first step. Send the CVA in the cva field of createReadyPlan.\n\nCreates a Custom Voter audience (CVA) for a Political plan from voter segment IDs, state IDs, a reach value, and a segment equation. Send it in the cva field when saving the plan.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nOptional first step. Send the CVA in the cva field of createReadyPlan.\n\nCreates a Custom Voter audience (CVA) for a Political plan from voter segment IDs, state IDs, a reach value, and a segment equation. Send it in the cva field when saving the plan.\n",
         "operationId": "createCvaDetails",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -4203,12 +4341,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -4345,19 +4489,25 @@
           "MCP"
         ],
         "summary": "API to add a draft proposal for the HCP planner",
-        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createProposal_1 (or addDraftProposal_1 for a draft), getHcpPlanById, optional editProposal_1, generateIOCampaigns_2.\n\nStep 2 (draft). Save it again with createProposal_1 before generateIOCampaigns_2.\n\nSaves an incomplete HCP plan in draft status. A draft must be saved again in ready status before it can be published. Available only to healthcare-vertical customers.\n",
-        "operationId": "addDraftProposal_1",
+        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createHcpProposal (or addHcpDraftProposal for a draft), getHcpPlanById, optional editHcpProposal, publishHcpCampaigns.\n\nStep 2 (draft). Save it again with createHcpProposal before publishHcpCampaigns.\n\nSaves an incomplete HCP plan in draft status. A draft must be saved again in ready status before it can be published. Available only to healthcare-vertical customers.\n",
+        "operationId": "addHcpDraftProposal",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -4666,19 +4816,25 @@
           "MCP"
         ],
         "summary": "API to create ready proposal for the HCP planner",
-        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createProposal_1 (or addDraftProposal_1 for a draft), getHcpPlanById, optional editProposal_1, generateIOCampaigns_2.\n\nStep 2. Send the generateHCPProposedCampaigns response. The returned id is the planId for getHcpPlanById, editProposal_1, and generateIOCampaigns_2.\n\nSaves (creates) an HCP plan in ready status, typically from the generated proposed campaigns. The returned id is the planId used to get, edit, and publish the plan. Available only to healthcare-vertical customers.\n",
-        "operationId": "createProposal_1",
+        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createHcpProposal (or addHcpDraftProposal for a draft), getHcpPlanById, optional editHcpProposal, publishHcpCampaigns.\n\nStep 2. Send the generateHCPProposedCampaigns response. The returned id is the planId for getHcpPlanById, editHcpProposal, and publishHcpCampaigns.\n\nSaves (creates) an HCP plan in ready status, typically from the generated proposed campaigns. The returned id is the planId used to get, edit, and publish the plan. Available only to healthcare-vertical customers.\n",
+        "operationId": "createHcpProposal",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -4995,12 +5151,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -5132,12 +5294,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -5387,12 +5555,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -5466,19 +5640,25 @@
           "MCP"
         ],
         "summary": "This API primarily generates proposed campaigns for HCP based on the request parameters.",
-        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createProposal_1 (or addDraftProposal_1 for a draft), getHcpPlanById, optional editProposal_1, generateIOCampaigns_2.\n\nStep 1. Send the response to createProposal_1.\n\nGenerates (builds, forecasts) the proposed campaigns, budget, impressions, and reach for an HCP plan. Read-only: nothing is saved. The response can be sent as the request body to save the HCP plan.\n\nCampaigns are split by the split strategy in the request. Each campaign's reach is fetched and used to set default budgets, and campaigns are returned sorted by reach, highest first. If no campaigns are generated, budget and reach are returned as 0. Available only to healthcare-vertical customers.\n",
+        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createHcpProposal (or addHcpDraftProposal for a draft), getHcpPlanById, optional editHcpProposal, publishHcpCampaigns.\n\nStep 1. Send the response to createHcpProposal.\n\nGenerates (builds, forecasts) the proposed campaigns, budget, impressions, and reach for an HCP plan. Read-only: nothing is saved. The response can be sent as the request body to save the HCP plan.\n\nCampaigns are split by the split strategy in the request. Each campaign's reach is fetched and used to set default budgets, and campaigns are returned sorted by reach, highest first. If no campaigns are generated, budget and reach are returned as 0. Available only to healthcare-vertical customers.\n",
         "operationId": "generateHCPProposedCampaigns",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -5863,12 +6043,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -6098,19 +6284,25 @@
           "MCP"
         ],
         "summary": "API to publish draft campaigns",
-        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createProposal_1 (or addDraftProposal_1 for a draft), getHcpPlanById, optional editProposal_1, generateIOCampaigns_2.\n\nFinal step. Check the result with getHcpPlanById.\n\nPublishes an HCP plan to create an insertion order (IO) and draft campaigns. It runs in the background; get the plan to check the result.\n\nPublishing edits the plan first, so the request body's statusId must equal the plan's current status (see the statusId field).\n",
-        "operationId": "generateIOCampaigns_2",
+        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createHcpProposal (or addHcpDraftProposal for a draft), getHcpPlanById, optional editHcpProposal, publishHcpCampaigns.\n\nFinal step. Check the result with getHcpPlanById.\n\nPublishes an HCP plan to create an insertion order (IO) and draft campaigns. It runs in the background; get the plan to check the result.\n\nPublishing edits the plan first, so the request body's statusId must equal the plan's current status (see the statusId field).\n",
+        "operationId": "publishHcpCampaigns",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -6445,12 +6637,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -6847,12 +7045,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -7054,12 +7258,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -7169,12 +7379,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -7410,12 +7626,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -7547,12 +7769,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -7728,12 +7956,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -7839,18 +8073,24 @@
         ],
         "summary": "API to edit an existing proposal's name",
         "description": "This API updates a proposal's name",
-        "operationId": "editProposal_2",
+        "operationId": "renamePoliticalProposal",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -7928,18 +8168,24 @@
         ],
         "summary": "API to edit an existing plan's name",
         "description": "This API updates a plan's name",
-        "operationId": "editPlan_1",
+        "operationId": "renamePoliticalPlan",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8033,12 +8279,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8127,12 +8379,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8222,12 +8480,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8425,12 +8689,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8525,12 +8795,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8590,12 +8866,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8707,12 +8989,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8816,12 +9104,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -8901,7 +9195,7 @@
           "MCP"
         ],
         "summary": "API to fetch political strategy listing",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 2. Send the chosen strategy's id to activateProposal.\n\nLists the strategies generated for a Political plan, with each strategy's budget, campaign and performance metrics, and targeting. Choose one and send its id as strategyId to activate it into a proposal.\n",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 2. Send the chosen strategy's id to activateProposal.\n\nLists the strategies generated for a Political plan, with each strategy's budget, campaign and performance metrics, and targeting. Choose one and send its id as strategyId to activate it into a proposal.\n",
         "operationId": "getPoliticalStrategyListing",
         "parameters": [
           {
@@ -8918,12 +9212,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9051,12 +9351,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9171,12 +9477,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9246,12 +9558,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9327,12 +9645,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9408,12 +9732,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9489,12 +9819,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9589,12 +9925,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9662,8 +10004,8 @@
           "MCP"
         ],
         "summary": "API to fetch proposal details by proposal ID",
-        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getProposalDetailsById_1, generateIOCampaigns_1. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generateIOCampaigns_1. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 4. Use before generateIOCampaigns_1 and to check its result.\n\nGets a Political proposal's details and status: budget metrics, linear TV CPM, timezone, whether new campaigns can still be generated, and the proposed campaigns with their budget and creative data. Use it before generating the proposal's IO and campaigns, and to check that result.\n",
-        "operationId": "getProposalDetailsById_1",
+        "description": "Political Planner routing: Use this IQM Planner API tool to create, plan, forecast, or publish a Political plan, strategy, or proposal for a political campaign, including Voter TV+ (cross-screen linear TV and CTV) plans. Typical order: createReadyPlan, getPoliticalStrategyListing, activateProposal, getPoliticalProposalDetailsById, generatePoliticalIOCampaigns. For Voter TV+: getCrossScreenGraph, createReadyPlan, activateProposal, optional splitProposal, generatePoliticalIOCampaigns. Optional first step for a Custom Voter audience (CVA): createCvaDetails.\n\nStep 4. Use before generatePoliticalIOCampaigns and to check its result.\n\nGets a Political proposal's details and status: budget metrics, linear TV CPM, timezone, whether new campaigns can still be generated, and the proposed campaigns with their budget and creative data. Use it before generating the proposal's IO and campaigns, and to check that result.\n",
+        "operationId": "getPoliticalProposalDetailsById",
         "parameters": [
           {
             "name": "proposalId",
@@ -9679,12 +10021,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9888,12 +10236,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -9968,12 +10322,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -10159,12 +10519,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -10317,12 +10683,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -10430,12 +10802,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -10510,12 +10888,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -11052,12 +11436,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -11151,12 +11541,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -11232,12 +11628,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -11313,12 +11715,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -11406,12 +11814,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -11574,12 +11988,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -11707,7 +12127,7 @@
           "MCP"
         ],
         "summary": "API to fetch HCP plan by ID",
-        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createProposal_1 (or addDraftProposal_1 for a draft), getHcpPlanById, optional editProposal_1, generateIOCampaigns_2.\n\nStep 3. Use before editProposal_1 or generateIOCampaigns_2, and to check the result of generateIOCampaigns_2.\n\nGets an HCP plan's details, status, and campaigns by planId. Use it before editing or publishing a plan, and to check the result of publishing. Available only to healthcare-vertical customers.\n",
+        "description": "HCP Planner routing: Use this IQM Planner API tool to create, save, edit, or publish a Healthcare Professional (HCP) plan that targets healthcare professionals by NPI (National Provider Identifier) type. Typical order: generateHCPProposedCampaigns, createHcpProposal (or addHcpDraftProposal for a draft), getHcpPlanById, optional editHcpProposal, publishHcpCampaigns.\n\nStep 3. Use before editHcpProposal or publishHcpCampaigns, and to check the result of publishHcpCampaigns.\n\nGets an HCP plan's details, status, and campaigns by planId. Use it before editing or publishing a plan, and to check the result of publishing. Available only to healthcare-vertical customers.\n",
         "operationId": "getHcpPlanById",
         "parameters": [
           {
@@ -11724,12 +12144,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -12007,12 +12433,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -12127,12 +12559,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -12247,12 +12685,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -12373,12 +12817,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
+            "schema": {
+              "type": "string"
+            },
             "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
             "description": "Organization Workspace Id Header",
+            "schema": {
+              "type": "string"
+            },
             "example": 1
           }
         ],
@@ -13586,7 +14036,7 @@
           },
           "objectiveId": {
             "type": "integer",
-            "description": "Plan objective ID: 1 = reach forecasting, 2 = budget estimation, 3 = Voter TV+ (full list: getPlanObjectiveTypes). When 3, graphId and overview are required when updating a plan (editPlan) or making it ready; omitting them returns \"Graph details are required\" or \"Overview is required\". getCrossScreenGraph, which creates the graph, doesn't need them.\n",
+            "description": "Plan objective ID: 1 = reach forecasting, 2 = budget estimation, 3 = Voter TV+ (full list: getPlanObjectiveTypes). When 3, graphId and overview are required when updating a plan (editPoliticalPlan) or making it ready; omitting them returns \"Graph details are required\" or \"Overview is required\". getCrossScreenGraph, which creates the graph, doesn't need them.\n",
             "format": "int32",
             "example": 1
           },
@@ -15694,7 +16144,7 @@
           },
           "objectiveId": {
             "type": "integer",
-            "description": "Plan objective ID: 1 = reach forecasting, 2 = budget estimation, 3 = Voter TV+ (full list: getPlanObjectiveTypes). When 3, graphId and overview are required when updating a plan (editPlan) or making it ready; omitting them returns \"Graph details are required\" or \"Overview is required\". getCrossScreenGraph, which creates the graph, doesn't need them.\n",
+            "description": "Plan objective ID: 1 = reach forecasting, 2 = budget estimation, 3 = Voter TV+ (full list: getPlanObjectiveTypes). When 3, graphId and overview are required when updating a plan (editPoliticalPlan) or making it ready; omitting them returns \"Graph details are required\" or \"Overview is required\". getCrossScreenGraph, which creates the graph, doesn't need them.\n",
             "format": "int32",
             "example": 1
           },
