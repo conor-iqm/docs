@@ -1190,7 +1190,7 @@ Get a paginated list of Political proposals with comprehensive metadata includin
 
 ### Get proposal details
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/proposal/{proposalId}" operationId="getProposalDetailsById_1" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/proposal/{proposalId}" operationId="getPoliticalProposalDetailsById" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1982,7 +1982,7 @@ See resource properties for request schema.
 
 ### Edit plan
 
-<CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/political/plans/{id}" operationId="editPlan" />
+<CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/political/plans/{id}" operationId="editPoliticalPlan" />
 <br /><CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/political/plans/draft/{id}" operationId="editDraftPlan" />
 
 <div class="endpoint-container">
@@ -2032,7 +2032,7 @@ See resource properties for request schema.
 
 ### Edit plan name
 
-<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/plan/political/plans/name" operationId="editPlan_1" />
+<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/plan/political/plans/name" operationId="renamePoliticalPlan" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2160,7 +2160,7 @@ Activate a proposal and all of its proposed campaigns. Send <var>strategyId</var
 
 ### Edit proposal
 
-<CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}" operationId="editProposal" />
+<CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}" operationId="editPoliticalProposal" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2383,7 +2383,7 @@ Update a proposal's name, date range, and campaign budgeting details, and soft-d
 
 ### Edit proposal name
 
-<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/plan/political/proposals/name" operationId="editProposal_2" />
+<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/plan/political/proposals/name" operationId="renamePoliticalProposal" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2420,7 +2420,7 @@ Update the name of an existing Political proposal.
 
 ### Generate IO and campaigns
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}/io" operationId="generateIOCampaigns_1" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}/io" operationId="generatePoliticalIOCampaigns" />
 
 <div class="endpoint-container">
   <div class="child1">

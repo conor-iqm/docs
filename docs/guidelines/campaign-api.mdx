@@ -735,7 +735,7 @@ A campaign <var>id</var> can be used to [Get campaign details by ID](#get-campai
 
 ### Get list of campaigns with basic details
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaigns/list" operationId="GetCampaignList" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaigns/list" operationId="getCampaignDetailsV2" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -998,7 +998,7 @@ Get a list of audience IDs and type for each campaign ID.
 
 ### Get list of campaigns with filters
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/customer/campaigns/list" operationId="getCampaignDetails" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/customer/campaigns/list" operationId="getCustomerCampaignDetails" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1715,7 +1715,7 @@ Returns values of campaign types with count of campaigns.
 
 ### Get campaign count by creative type
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaigns/count" operationId="CampaignCountbycreativetype" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaigns/count" operationId="getCampaignsCountV2" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2082,7 +2082,7 @@ Get a basic list of conversion details. See the [Conversions API](/guidelines/co
 
 ### Get campaign start date
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/start" operationId="Getcampaignstartdate" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/start" operationId="getCampaignStartDateByOwId" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2199,7 +2199,7 @@ Get a paginated list of campaign's start dates with supported filters.
 
 ### Get campaign report data
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/cmp/campaigns/report/data" operationId="GetCampaignReportData" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/cmp/campaigns/report/data" operationId="getCampaignReportListData" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -3903,7 +3903,7 @@ Update properties of a created or draft PG campaign by campaign ID.
 
 ### Change campaign name
 
-<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/cmp/campaign/update-name/{campaign_Id}" operationId="UpdateCampaignName" />
+<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/cmp/campaign/update-name/{campaign_Id}" operationId="updateCampaignName" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -3959,7 +3959,7 @@ Change the name of a campaign.
 
 ### Change campaign end date
 
-<CopyUrl method="PUT" url="https://api.iqm.com/api/v2/cmp/campaigns/update-end-date" operationId="Campaignenddateupdate" />
+<CopyUrl method="PUT" url="https://api.iqm.com/api/v2/cmp/campaigns/update-end-date" operationId="updateCampaignEndDate" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -4534,7 +4534,7 @@ Get bid landscape estimation based on targeting parameters. Request body support
 
 ### Resend email to set margin
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/email-reminder/set-margin" operationId="Resendemailremindertosetmargin" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/email-reminder/set-margin" operationId="resendEmailReminderToSetMargin" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -4578,7 +4578,7 @@ Get bid landscape estimation based on targeting parameters. Request body support
 
 ### Resend email reminder to set invoice template
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/email-reminder/set-invoice-template" operationId="Resendemailremindertosetinvoicetemplate" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/email-reminder/set-invoice-template" operationId="resendEmailReminderToSetInvoiceTemplated" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -4624,7 +4624,7 @@ Manage reusable campaign templates for creating campaigns with pre-configured ta
 
 ### Get list of campaign templates
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/cmp/template/basic/list" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/cmp/template/basic/list" operationId="getTemplateList" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -4736,7 +4736,7 @@ Get a list of campaign templates with basic details such as ID, name, creation d
 
 ### Get campaign template details
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/cmp/template/{cmpTemplateId}" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/cmp/template/{cmpTemplateId}" operationId="getTemplateDetails" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -4913,7 +4913,7 @@ The response contains the full set of campaign targeting properties configured o
 
 ### Create campaign template
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/template" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/template" operationId="createTemplate" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -5353,7 +5353,7 @@ Assign or unassign creatives from campaigns.
 
 ### Inventory group targeting
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v2/cmp/inventorygroup/{groupId}/includeExclude" operationId="includeExcludeInventoryGroup" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v2/cmp/inventorygroup/{groupId}/includeExclude" operationId="includeExcludeInventoryGroupV2" />
 
 <div class="endpoint-container">
   <div class="child1">

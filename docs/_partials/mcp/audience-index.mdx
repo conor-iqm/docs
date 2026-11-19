@@ -71,7 +71,7 @@
   <th>Description</th>
   <th>Documentation</th>
   <tr>
-    <td><code>createMatchedAudience_1</code></td>
+    <td><code>createMatchedAudience</code></td>
     <td>Create a matched audience for any vertical or subtype</td>
     <td>[Create Matched audience](/guidelines/audience-api/#create-matched-audience)</td>
   </tr>
@@ -392,7 +392,7 @@
     <td>[ICT audience group list](/healthcare-vertical/audience-healthcare/#ict-audience-group-list)</td>
   </tr>
   <tr>
-    <td><code>getIctAudienceDetailsByParentId</code></td>
+    <td><code>getIctAudienceDetailsByAudienceId</code></td>
     <td>Get ICT audience group details by parent ID</td>
     <td>[Get ICT audience group details](/healthcare-vertical/audience-healthcare/#get-ict-audience-group-details)</td>
   </tr>
@@ -436,6 +436,79 @@
   </tr>
   </table>
 
+### Power Segment audiences
+
+  <table className="toolsIndex">
+  <th>Tool name</th>
+  <th>Description</th>
+  <th>Documentation</th>
+  <tr>
+    <td><code>createPowerSegmentAudience</code></td>
+    <td>Create a Power Segment audience</td>
+    <td>[Create Power Segment audience](/political-vertical/audience-segments#create-power-segment-audience)</td>
+  </tr>
+  <tr>
+    <td><code>getPowerSegmentAudience</code></td>
+    <td>Get details of a Power Segment audience</td>
+    <td>[Power Segment audience details](/political-vertical/audience-segments#power-segment-audience-details)</td>
+  </tr>
+  <tr>
+    <td><code>updatePowerSegmentAudience</code></td>
+    <td>Update a Power Segment audience</td>
+    <td>[Update Power Segment audience](/political-vertical/audience-segments#update-power-segment-audience)</td>
+  </tr>
+  <tr>
+    <td><code>getPowerSegmentSearchList</code></td>
+    <td>Search and list Power Segments</td>
+    <td>[List/search Power Segments](/political-vertical/audience-segments#listsearch-power-segments)</td>
+  </tr>
+  <tr>
+    <td><code>getPublicPowerSegmentCount</code></td>
+    <td>Count public Power Segments</td>
+    <td>[Count public Power Segments](/political-vertical/audience-segments#count-public-power-segments)</td>
+  </tr>
+  <tr>
+    <td><code>addPersonalityToFavorites</code></td>
+    <td>Add a Power Segment personality to favorites</td>
+    <td>[Add Power Segment personality to favorites](/political-vertical/audience-segments#add-power-segment-personality-to-favorites)</td>
+  </tr>
+  <tr>
+    <td><code>removePersonalityFromFavorites</code></td>
+    <td>Remove a Power Segment personality from favorites</td>
+    <td>[Remove Power Segment personality from favorites](/political-vertical/audience-segments#remove-power-segment-personality-from-favorites)</td>
+  </tr>
+  <tr>
+    <td><code>createPowerSegmentRequest</code></td>
+    <td>Request a custom Power Segment</td>
+    <td>[Request a custom Power Segment](/political-vertical/audience-segments#request-a-custom-power-segment)</td>
+  </tr>
+  <tr>
+    <td><code>generatePowerSegmentInsights</code></td>
+    <td>Generate a Power Segment Insights report</td>
+    <td>[Generate Power Segment Insights](/political-vertical/audience-segments#generate-power-segment-insights)</td>
+  </tr>
+  <tr>
+    <td><code>getPowerSegmentReportData</code></td>
+    <td>Get Power Segment Insights report data</td>
+    <td>[Get Power Segment Insights report data](/political-vertical/audience-segments#get-power-segment-insights-report-data)</td>
+  </tr>
+  <tr>
+    <td><code>getPowerSegmentAvatarPresignedUrl</code></td>
+    <td>Get the avatar URL for a Power Segment profile</td>
+    <td>[Get Power Segment Insights avatar URL](/political-vertical/audience-segments#get-power-segment-insights-avatar-url)</td>
+  </tr>
+  <tr>
+    <td><code>audience_downloadReport</code></td>
+    <td>Download a Power Segment Insights report</td>
+    <td>[Download Power Segment Insights report](/political-vertical/audience-segments#download-power-segment-insights-report)</td>
+  </tr>
+  <tr>
+    <td><code>sendReportEmail</code></td>
+    <td>Email a Power Segment Insights report to recipients</td>
+    <td>[Email Power Segment Insights report](/political-vertical/audience-segments#email-power-segment-insights-report)</td>
+  </tr>
+  </table>
+
 ### Static / reference data
 
   <table className="toolsIndex">
@@ -461,10 +534,5 @@
     <td><code>getFrequencyTypes</code></td>
     <td>Get the list of active frequency types</td>
     <td>[Frequency type list](/guidelines/audience-api/#frequency-type-list)</td>
-  </tr>
-  <tr>
-    <td><code>getAudienceProperties</code></td>
-    <td>Get platform configuration properties for audiences</td>
-    <td></td>
   </tr>
   </table>

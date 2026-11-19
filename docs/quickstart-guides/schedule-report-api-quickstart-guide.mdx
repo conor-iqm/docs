@@ -18,9 +18,9 @@ Create your first report schedule using IQM's API in this step-by-step quickstar
 
 Get started scheduling a report with the following endpoints:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/add" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/email/schedule" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/add" operationId="saveReport" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/email/schedule" operationId="saveReportScheduleEvent" />
 
 
 ## About IQM reports
@@ -60,7 +60,7 @@ Use the following header parameters for all requests after logging in:
 
 ### Step 1: Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -129,7 +129,7 @@ curl -i --location 'https://api.iqm.com/api/v3/ua/oauth/token' \
 
 ### Step 2: Save a report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/add" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/add" operationId="saveReport" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -205,7 +205,7 @@ For further information see [Create report](/guidelines/reports-api#create-repor
 
 ### Step 3: Schedule a report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/email/schedule" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/email/schedule" operationId="saveReportScheduleEvent" />
 
 <div class="endpoint-container">
   <div class="child1">

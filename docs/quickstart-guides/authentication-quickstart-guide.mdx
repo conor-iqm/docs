@@ -28,7 +28,7 @@ Read more about Client ID and Secret at [OAuth<ExternalLink />](https://www.oaut
 
 ## Sign up
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/sign-up" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/sign-up" operationId="createUser" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -125,7 +125,7 @@ The response logs the user in, with the same tokens as [Log in](#log-in) plus th
 
 ## Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -207,7 +207,7 @@ curl -i --location 'https://api.iqm.com/api/v3/ua/oauth/token' \
 
 ## Refresh token
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
 <div class="child1">

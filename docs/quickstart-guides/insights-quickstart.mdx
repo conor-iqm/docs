@@ -19,18 +19,18 @@ Create an Insights report with this in-depth tutorial using IQM's API.
 
 The following endpoints are used to check campaigns for eligibility and create different types of Insights reports:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/campaign/bid-insights/{campaignId}" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/audiences/list" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/add" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/download" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/audience/targeting" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report/download" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/templates" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/templates/{templateId}/report" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/report/download" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" operationId="getCampaign" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/campaign/bid-insights/{campaignId}" operationId="getCampaignBiddingInsight" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/audiences/list" operationId="getInsightsCreateEligibleAudienceList" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/add" operationId="createInsightsDetails" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/download" operationId="downloadInsights" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/audience/targeting" operationId="getAudienceBasicDetailByCampaign" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report" operationId="generateVLDReports" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report/download" operationId="getVLDReportDownloadUrl" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/templates" operationId="createTemplate" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/templates/{templateId}/report" operationId="getReportsForTemplate" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/report/download" operationId="getReportDownloadUrl" />
 
 ## About IQM Insights
 
@@ -53,7 +53,7 @@ To generate an Insights report, you need an account on the IQM platform (see [Ge
 
 ### Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -169,7 +169,7 @@ You can also use [Get eligible campaigns](/guidelines/insights-api#get-eligible-
 
 ### Step 1: Check campaign for eligibility
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" operationId="getCampaign" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -273,7 +273,7 @@ The endpoint returns a JSON schema of campaign details; the relevant parameters 
 
 ### Step 2: Generate Campaign Bidding Insights report
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/campaign/bid-insights/{campaignId}" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/campaign/bid-insights/{campaignId}" operationId="getCampaignBiddingInsight" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -574,7 +574,7 @@ This endpoint returns a list of rejection reasons for why the campaign's bid req
 
 ### Step 1: Check for eligible audiences
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/audiences/list" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/audiences/list" operationId="getInsightsCreateEligibleAudienceList" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -682,7 +682,7 @@ To generate an Audience Insights report, first use this endpoint to retrieve a l
 
 ### Step 2: Generate Audience Insights report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/add" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/add" operationId="createInsightsDetails" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -790,7 +790,7 @@ Pass the audience <var>id</var> (from the response data in step 1) in the Source
 
 ### Step 3: Download Audience Insights report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/download" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/insights/download" operationId="downloadInsights" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -857,7 +857,7 @@ curl -X POST https://api.iqm.com/api/v3/ins/insights/download \
 
 ### Step 1: Check campaign for eligibility
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" operationId="getCampaign" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -967,7 +967,7 @@ The endpoint returns a JSON schema of campaign details (the relevant parameters 
 
 #### Step 1.1: Check campaign audience type
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/audience/targeting" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/audience/targeting" operationId="getAudienceBasicDetailByCampaign" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1066,7 +1066,7 @@ Pass the <var>campaignId</var> to check its audience. Audience type ID <var>1</v
 
 ### Step 2: Generate VLD Insights report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report" operationId="generateVLDReports" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1211,7 +1211,7 @@ VLD Insights reports are charged per impression. Before generating, send the sam
 
 ### Step 3: Download VLD Insights report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report/download" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/vld-report/download" operationId="getVLDReportDownloadUrl" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1277,7 +1277,7 @@ The generate response doesn't include the new report's ID (<var>vldId</var> is <
 
 ### Step 1: Check campaign for eligibility
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v2/cmp/campaign/{campaignId}" operationId="getCampaign" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1383,7 +1383,7 @@ The endpoint returns a JSON schema of campaign details (the relevant parameters 
 
 #### Step 1.1: Check campaign audience details
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/audience/targeting" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/cmp/audience/targeting" operationId="getAudienceBasicDetailByCampaign" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1482,7 +1482,7 @@ Pass the <var>campaignId</var> to check its audience. Audience type ID <var>1</v
 
 ### Step 2: Create a PLD report template
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/templates" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/templates" operationId="createTemplate" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1560,7 +1560,7 @@ For further information see [Create report template](/guidelines/insights-api#cr
 
 ### Step 3: Get the template's reports
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/templates/{templateId}/report" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ins/templates/{templateId}/report" operationId="getReportsForTemplate" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1654,7 +1654,7 @@ For further information see [Get template reports](/guidelines/insights-api#get-
 
 ### Step 4: Download PLD Insights report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/report/download" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ins/report/download" operationId="getReportDownloadUrl" />
 
 <div class="endpoint-container">
   <div class="child1">

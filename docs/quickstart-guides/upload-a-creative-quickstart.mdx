@@ -18,10 +18,10 @@ Upload your first creative using IQM's API in this step-by-step quickstart guide
 
 The following endpoints are used to upload a creative:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/master/static/creative-types" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/crt/creatives" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/creatives/{creativeId}" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/master/static/creative-types" operationId="creativeTypeList" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/crt/creatives" operationId="createCreatives" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/creatives/{creativeId}" operationId="getCreative" />
 
 
 ## About IQM creatives
@@ -81,7 +81,7 @@ The minimum requirements to perform this task are: logging in with authenticatio
 
 ### Step 1: Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -152,7 +152,7 @@ curl -i --location 'https://api.iqm.com/api/v3/ua/oauth/token' \
 
 ### Step 2: Request creative types
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/master/static/creative-types" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/master/static/creative-types" operationId="creativeTypeList" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -235,7 +235,7 @@ For further information see [Get creative types list](/guidelines/creative-api#g
 
 ### Step 3: Upload a creative
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/crt/creatives" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/crt/creatives" operationId="createCreatives" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -638,7 +638,7 @@ curl -X POST https://api.iqm.com/api/v3/crt/creatives \
 
 ### Step 4: Check creative status
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/creatives/{creativeId}" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/crt/creatives/{creativeId}" operationId="getCreative" />
 
 <div class="endpoint-container">
   <div class="child1">

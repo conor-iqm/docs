@@ -56,12 +56,12 @@ Use the Healthcare Professional (HCP) Planner to build, save, and publish an HCP
 
 The following endpoints are used to generate campaigns, save a plan, and publish it:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 <br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/generate-campaigns" operationId="generateHCPProposedCampaigns" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/proposal/add" operationId="createProposal_1" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/proposal/add" operationId="createHcpProposal" />
 <br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/hcp/plans/{planId}" operationId="getHcpPlanById" />
-<br /><CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/hcp/proposal/{planId}" operationId="editProposal_1" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/campaigns/publish" operationId="generateIOCampaigns_2" />
+<br /><CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/hcp/proposal/{planId}" operationId="editHcpProposal" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/campaigns/publish" operationId="publishHcpCampaigns" />
 <br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/plan/download" operationId="downloadPlan" />
 
 ## About HCP plans
@@ -100,7 +100,7 @@ All Planner times are Unix epoch **milliseconds**, not seconds. For example, Jan
 
 ### Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -891,8 +891,8 @@ The response contains every request field, plus:
 
 ### Step 3: Create a plan
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/proposal/add" operationId="createProposal_1" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/proposal/draft" operationId="addDraftProposal_1" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/proposal/add" operationId="createHcpProposal" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/proposal/draft" operationId="addHcpDraftProposal" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2222,7 +2222,7 @@ Use this endpoint to:
 
 ### Step 5: Edit the plan
 
-<CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/hcp/proposal/{planId}" operationId="editProposal_1" />
+<CopyUrl method="PUT" url="https://api.iqm.com/api/v3/plan/hcp/proposal/{planId}" operationId="editHcpProposal" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2414,7 +2414,7 @@ Plans in <var>Processing</var> (<var>5</var>) or <var>IO Created</var> (<var>7</
 
 ### Step 6: Publish the IO and campaigns
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/campaigns/publish" operationId="generateIOCampaigns_2" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/campaigns/publish" operationId="publishHcpCampaigns" />
 
 <div class="endpoint-container">
   <div class="child1">

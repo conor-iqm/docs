@@ -17,9 +17,9 @@ Create your first audience using IQM's API in this step-by-step quickstart guide
 
 The following endpoints are used to create a Contextual audience:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/audience/contextual" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/audience/contextual/{audienceId}" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/audience/contextual" operationId="createContextualAudiences" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/audience/contextual/{audienceId}" operationId="getContextualAudienceDetails" />
 
 ## About IQM Contextual audiences
 
@@ -66,7 +66,7 @@ Use the following header parameters for all requests after logging in:
 
 ### Step 1: Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -138,7 +138,7 @@ curl -i --location 'https://api.iqm.com/api/v3/ua/oauth/token' \
 
 ### Step 2: Create a Contextual audience
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/audience/contextual" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/audience/contextual" operationId="createContextualAudiences" />
 
 <p />You can determine how a Contextual audience forms groupings by indicating a list of relevant keywords and/or URLs. IQM adds users to the Contextual audience when they visit a site relevant to those keywords or URLs. 
 
@@ -264,7 +264,7 @@ In this example you can choose a **dynamic** data collection method by passing <
 
 ### Step 3: Check audience status
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/audience/contextual/{audienceId}" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/audience/contextual/{audienceId}" operationId="getContextualAudienceDetails" />
 
 <div class="endpoint-container">
   <div class="child1">

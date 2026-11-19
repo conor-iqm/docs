@@ -17,10 +17,10 @@ Run your first report using IQM's API in this step-by-step quickstart guide.
 
 Get started running your first report with the following endpoints:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/master/timezones" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ra/report/dimension-metrics/detail" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/execute" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/master/timezones" operationId="getTimezonesV3" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/ra/report/dimension-metrics/detail" operationId="getDimensionAndMetricDetails" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/execute" operationId="executeReportData" />
 
 ## About IQM reports
 
@@ -62,7 +62,7 @@ Use the following header parameters for all requests after logging in:
 
 ### Step 1: Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -134,7 +134,7 @@ curl -i --location 'https://api.iqm.com/api/v3/ua/oauth/token' \
 
 ### Step 2: Request dimensions and metrics
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ra/report/dimension-metrics/detail" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/ra/report/dimension-metrics/detail" operationId="getDimensionAndMetricDetails" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -453,7 +453,7 @@ The list depends on the account type: Workspace accounts also get a Customers gr
 
 ### Step 3: Select timezones
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/master/timezones" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/master/timezones" operationId="getTimezonesV3" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -503,7 +503,7 @@ For further information see [Get timezones](/guidelines/master-api#get-timezones
 
 ### Step 4: Execute a report
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/execute" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ra/report/execute" operationId="executeReportData" />
 
 <div class="endpoint-container">
   <div class="child1">
