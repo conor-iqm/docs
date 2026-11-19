@@ -23,8 +23,8 @@ The following endpoints are used to create a plan, activate a proposal, and gene
 <br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/plans/ready" operationId="createReadyPlan" />
 <br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/strategies" operationId="getPoliticalStrategyListing" />
 <br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals" operationId="activateProposal" />
-<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/proposal/{proposalId}" operationId="getProposalDetailsById_1" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}/io" operationId="generateIOCampaigns_1" />
+<br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/proposal/{proposalId}" operationId="getPoliticalProposalDetailsById" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}/io" operationId="generatePoliticalIOCampaigns" />
 
 ## About Political proposals
 
@@ -604,7 +604,7 @@ Voter TV+ plans have no strategies, so they are activated with <var>planId</var>
 
 ### Step 4: Check proposal details
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/proposal/{proposalId}" operationId="getProposalDetailsById_1" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/political/proposal/{proposalId}" operationId="getPoliticalProposalDetailsById" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1002,7 +1002,7 @@ To change the proposal's budget, dates, or campaigns first, see [Edit proposal](
 
 ### Step 5: Generate an IO and campaigns
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}/io" operationId="generateIOCampaigns_1" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/political/proposals/{proposalId}/io" operationId="generatePoliticalIOCampaigns" />
 
 <div class="endpoint-container">
   <div class="child1">

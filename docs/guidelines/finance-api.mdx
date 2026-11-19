@@ -809,7 +809,7 @@ Super Organization users can update the DoubleVerify IVT free Segments boolean f
 
 ### Available balance
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/available-balance" operationId="getAvailableBalance_1" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/available-balance" operationId="getAvailableBalance" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1013,7 +1013,7 @@ Get the ad serving cost details for a specific Customer.
 
 ### Add or update third party cost
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/customer/third-party-cost" operationId="addThirdPartyCost" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/customer/third-party-cost" operationId="updateThirdPartyCost" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1074,7 +1074,7 @@ If the Workspace user is setting or updating the cost for their own Workspace, t
 
 ### Get third party cost
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/customer/{customerOwId}/third-party-cost" operationId="getThirdPartyCost_1" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/customer/{customerOwId}/third-party-cost" operationId="getThirdPartyCost" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1195,7 +1195,7 @@ The third-party cost will be marked as inactive and the cost value set to null.
 
 ### Get invoice for Organization
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/invoice-settings" operationId="getInvoiceDetails_1" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/invoice-settings" operationId="getInvoiceSettings" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1453,7 +1453,7 @@ Get invoice payment details by invoice ID.
 
 ### Get list of invoices for Customer or Organization
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/invoice/list/{owId}" operationId="getInvoiceDetails" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/invoice/list/{owId}" operationId="getInvoiceList" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -1940,7 +1940,7 @@ curl -X POST "https://api.iqm.com/api/v3/fa/pay-invoice" \
 
 ### Email invoice
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/email-invoice/{owId}/{invoiceId}" operationId="emailInvoice_1" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/email-invoice/{owId}/{invoiceId}" operationId="emailInvoice" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -2086,7 +2086,7 @@ Get invoice template and margin configuration status for the specified Organizat
 
 ### Get invoice template margin pre-requisite
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/invoice-template-margin-details/pre-requisite" operationId="getInvoiceTemplateMarginDetails_1" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/invoice-template-margin-details/pre-requisite" operationId="getInvoiceTemplateMarginDetailsPrerequisites" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -3381,7 +3381,7 @@ curl -X POST "https://api.example.com/api/v3/fa/payment/add-fund" \
 
 ### Payment with PayPal
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/paypal/payment" operationId="payment" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/paypal/payment" operationId="createPaypalPayment" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -3427,7 +3427,7 @@ Make a payment using PayPal gateway.
 
 ### PayPal payment success callback
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/paypal/payment/{internalToken}/success" operationId="successPay" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/paypal/payment/{internalToken}/success" operationId="handlePaypalPaymentSuccess" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -3473,7 +3473,7 @@ Validates a PayPal payment and checks if it has been completed. This is the call
 
 ### PayPal payment cancel callback
 
-<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/paypal/payment/{internalToken}/cancel" operationId="cancelPay" />
+<CopyUrl method="GET" url="https://api.iqm.com/api/v3/fa/paypal/payment/{internalToken}/cancel" operationId="handlePaypalPaymentCancel" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -3563,7 +3563,7 @@ Completes the PayPal payment flow and returns a confirmation.
 
 ### Initiate refund
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/customer/payment/refund" operationId="paymentForRefund" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/customer/payment/refund" operationId="refundPayment" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -3688,7 +3688,7 @@ curl -X POST "https://api.example.com/api/v3/fa/customer/payment/approve-refund/
 
 ### Email payment receipt
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/payment/email-receipt/{owId}/{paymentId}" operationId="emailInvoice" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/payment/email-receipt/{owId}/{paymentId}" operationId="emailPaymentReceipt" />
 
 <div class="endpoint-container">
   <div class="child1">
