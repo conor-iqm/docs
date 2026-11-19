@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "OpenAPI definition",
-    "version": "5.2.0",
+    "version": "5.3.0",
     "description": "MCP Campaign API Specification",
     "contact": {
       "name": "IQM Support",
@@ -7876,11 +7876,11 @@
           },
           "unit": {
             "type": "string",
-            "description": "Distance unit for radius",
-            "example": "miles",
+            "description": "Distance unit for radius: \"mile\" or \"foot\" (lowercase, exact match). Omit for miles. Checked on whiteListedGeoRadiusDetails and blackListedGeoRadiusDetails; a foot radius is converted to miles.",
+            "example": "mile",
             "enum": [
-              "miles",
-              "kilometers"
+              "mile",
+              "foot"
             ]
           },
           "cdId": {
@@ -7954,7 +7954,13 @@
             "type": "string"
           },
           "unit": {
-            "type": "string"
+            "type": "string",
+            "description": "Distance unit for radius: \"mile\" or \"foot\" (lowercase, exact match). Omit for miles. Checked on whiteListedGeoRadiusDetails and blackListedGeoRadiusDetails; a foot radius is converted to miles.",
+            "example": "mile",
+            "enum": [
+              "mile",
+              "foot"
+            ]
           },
           "cdId": {
             "type": "integer",

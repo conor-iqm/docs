@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "MCP Asset API Specification",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "MCP Asset API Specification",
     "contact": {
       "name": "IQM Support",
@@ -36,21 +36,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
-            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
-            "style": "simple",
             "schema": {
               "type": "string",
               "example": "{{bearer_token}}"
-            }
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
-            "description": "Organization Workspace Id",
-            "style": "simple",
+            "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -72,7 +69,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddAssetsResponseSchema"
+                  "$ref": "#/components/schemas/AddAssetsResponse"
                 },
                 "examples": {
                   "Assets added successfully": {
@@ -87,6 +84,24 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
                 }
               }
             }
@@ -140,26 +155,14 @@
             "description": "Internal server error",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
                 "example": {
                   "success": false,
                   "errorObjects": [
                     {
                       "error": "server encountered an error !"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "errorObjects": [
-                    {
-                      "error": "Forbidden !"
                     }
                   ]
                 }
@@ -192,21 +195,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
-            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
-            "style": "simple",
             "schema": {
               "type": "string",
               "example": "{{bearer_token}}"
-            }
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
-            "description": "Organization Workspace Id",
-            "style": "simple",
+            "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -217,7 +217,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AssetDetailResponseSchema"
+                  "$ref": "#/components/schemas/AssetDetailResponse"
                 },
                 "examples": {
                   "Regular asset details fetched successfully": {
@@ -269,6 +269,24 @@
               }
             }
           },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
+                }
+              }
+            }
+          },
           "422": {
             "description": "Unprocessable Entity",
             "content": {
@@ -296,26 +314,14 @@
             "description": "Internal server error",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
                 "example": {
                   "success": false,
                   "errorObjects": [
                     {
                       "error": "server encountered an error !"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "errorObjects": [
-                    {
-                      "error": "Forbidden !"
                     }
                   ]
                 }
@@ -346,21 +352,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
-            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
-            "style": "simple",
             "schema": {
               "type": "string",
               "example": "{{bearer_token}}"
-            }
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
-            "description": "Organization Workspace Id",
-            "style": "simple",
+            "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -371,7 +374,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DeleteAssetResponseSchema"
+                  "$ref": "#/components/schemas/DeleteAssetResponse"
                 },
                 "examples": {
                   "Asset deleted successfully": {
@@ -381,6 +384,24 @@
                       "data": "Asset deleted successfully."
                     }
                   }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "example": {
+                  "success": false,
+                  "errorObjects": [
+                    {
+                      "error": "Forbidden !"
+                    }
+                  ]
                 }
               }
             }
@@ -412,26 +433,14 @@
             "description": "Internal server error",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
                 "example": {
                   "success": false,
                   "errorObjects": [
                     {
                       "error": "server encountered an error !"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "errorObjects": [
-                    {
-                      "error": "Forbidden !"
                     }
                   ]
                 }
@@ -462,21 +471,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
-            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
-            "style": "simple",
             "schema": {
               "type": "string",
               "example": "{{bearer_token}}"
-            }
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
-            "description": "Organization Workspace Id",
-            "style": "simple",
+            "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -508,7 +514,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpdateAssetResponseSchema"
+                  "$ref": "#/components/schemas/UpdateAssetResponse"
                 },
                 "examples": {
                   "Asset updated successfully": {
@@ -518,29 +524,6 @@
                       "data": {
                         "message": "Asset updated successfully"
                       }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CommonResponse"
-                },
-                "examples": {
-                  "Asset not found": {
-                    "description": "Asset not found",
-                    "value": {
-                      "success": false,
-                      "errorObjects": [
-                        {
-                          "error": "No Asset found with the Asset ID provided. Please provide a valid ID."
-                        }
-                      ]
                     }
                   }
                 }
@@ -583,30 +566,59 @@
               }
             }
           },
-          "500": {
-            "description": "Internal server error",
+          "403": {
+            "description": "Forbidden",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
                 "example": {
                   "success": false,
                   "errorObjects": [
                     {
-                      "error": "server encountered an error !"
+                      "error": "Forbidden !"
                     }
                   ]
                 }
               }
             }
           },
-          "403": {
-            "description": "Forbidden",
+          "422": {
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
+                "examples": {
+                  "Asset not found": {
+                    "description": "Asset not found",
+                    "value": {
+                      "success": false,
+                      "errorObjects": [
+                        {
+                          "error": "No Asset found with the Asset ID provided. Please provide a valid ID."
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
                 "example": {
                   "success": false,
                   "errorObjects": [
                     {
-                      "error": "Forbidden !"
+                      "error": "server encountered an error !"
                     }
                   ]
                 }
@@ -629,21 +641,18 @@
             "name": "Authorization",
             "in": "header",
             "description": "Authorization Bearer Token",
-            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24",
-            "style": "simple",
             "schema": {
               "type": "string",
               "example": "{{bearer_token}}"
-            }
+            },
+            "example": "Bearer 0ed52da8-24ab-44b1-bc88-7ea03a090d24"
           },
           {
             "name": "X-IAA-OW-ID",
             "in": "header",
-            "description": "Organization Workspace Id",
-            "style": "simple",
+            "description": "Organization Workspace Id Header",
             "schema": {
               "type": "string",
-              "format": "int64",
               "example": "1"
             }
           }
@@ -654,7 +663,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AssetListResponseSchema"
+                  "$ref": "#/components/schemas/AssetListResponse"
                 },
                 "examples": {
                   "List of all assets fetched successfully (mixed types)": {
@@ -711,30 +720,36 @@
               }
             }
           },
-          "500": {
-            "description": "Internal server error",
+          "403": {
+            "description": "Forbidden",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
                 "example": {
                   "success": false,
                   "errorObjects": [
                     {
-                      "error": "server encountered an error !"
+                      "error": "Forbidden !"
                     }
                   ]
                 }
               }
             }
           },
-          "403": {
-            "description": "Forbidden",
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                },
                 "example": {
                   "success": false,
                   "errorObjects": [
                     {
-                      "error": "Forbidden !"
+                      "error": "server encountered an error !"
                     }
                   ]
                 }
@@ -748,16 +763,11 @@
   "components": {
     "schemas": {
       "AddAssetRequestSchema": {
-        "required": [
-          "files",
-          "filesMetadata"
-        ],
         "type": "object",
         "properties": {
           "files": {
             "type": "array",
             "description": "An array of multipart files to be uploaded as assets.",
-            "format": "binary",
             "items": {
               "type": "string",
               "format": "binary"
@@ -769,7 +779,11 @@
             "example": "[{\"attachedFileName\":\"image.png\",\"originalFileName\":\"image.png\",\"disposable\":false,\"zipFile\":false,\"html5Creative\":false}]"
           }
         },
-        "description": "Request schema for adding multiple assets via multipart form data"
+        "description": "Request schema for adding multiple assets via multipart form data",
+        "required": [
+          "files",
+          "filesMetadata"
+        ]
       },
       "AddAssetResponseVO": {
         "type": "object",
@@ -785,6 +799,11 @@
             "description": "The public URL of the CDN where the asset is stored.",
             "example": "https://cdn.example.com/assets/12345"
           },
+          "error": {
+            "type": "string",
+            "description": "Error message when a specific file could not be uploaded.",
+            "example": "Valid HTML creative(s) could not be uploaded due to the ZIP file missing creative dimensions."
+          },
           "dimensions": {
             "$ref": "#/components/schemas/CreativeDimensionsVO"
           },
@@ -796,20 +815,23 @@
         },
         "description": "Response object for adding a new asset to the system."
       },
-      "AddAssetsResponseSchema": {
+      "AddAssetsResponse": {
         "type": "object",
         "properties": {
           "success": {
-            "type": "boolean",
-            "description": "Indicates whether the operation was successful",
-            "example": true
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
           },
           "data": {
             "type": "object",
             "additionalProperties": {
               "$ref": "#/components/schemas/AddAssetResponseVO"
-            },
-            "description": "Map of file names to their asset response details. Each key is the original file name and the value contains the asset ID and CDN URL."
+            }
           }
         },
         "description": "Response wrapper for add assets operation"
@@ -829,6 +851,20 @@
         "description": "Dimensions of the asset (for HTML5 creatives). Contains width and height.",
         "nullable": true
       },
+      "ErrorObject": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          }
+        }
+      },
       "CommonResponse": {
         "type": "object",
         "properties": {
@@ -843,20 +879,6 @@
           },
           "data": {
             "type": "object"
-          }
-        }
-      },
-      "ErrorObject": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "field": {
-            "type": "string"
           }
         }
       },
@@ -885,32 +907,38 @@
         },
         "description": "Request object for updating asset details."
       },
-      "UpdateAssetResponseSchema": {
+      "UpdateAssetResponse": {
         "type": "object",
         "properties": {
           "success": {
-            "type": "boolean",
-            "description": "Indicates whether the operation was successful",
-            "example": true
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
           },
           "data": {
             "type": "object",
             "additionalProperties": {
-              "type": "string",
-              "description": "Response data containing the update result message"
-            },
-            "description": "Response data containing the update result message"
+              "type": "string"
+            }
           }
         },
         "description": "Response wrapper for update asset operation"
       },
-      "AssetDetailResponseSchema": {
+      "AssetDetailResponse": {
         "type": "object",
         "properties": {
           "success": {
-            "type": "boolean",
-            "description": "Indicates whether the operation was successful",
-            "example": true
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
           },
           "data": {
             "$ref": "#/components/schemas/AssetDetailVO"
@@ -975,29 +1003,32 @@
             "nullable": true,
             "example": "<iframe src=\"https://cdn.example.com/creative/index.html\" width=\"300\" height=\"250\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\"></iframe>"
           },
-          "html5Creative": {
-            "type": "boolean"
-          },
           "disposable": {
             "type": "boolean"
           },
           "zipFile": {
             "type": "boolean"
+          },
+          "html5Creative": {
+            "type": "boolean"
           }
         },
         "description": "Response object representing the details of an asset."
       },
-      "AssetListResponseSchema": {
+      "AssetListResponse": {
         "type": "object",
         "properties": {
           "success": {
-            "type": "boolean",
-            "description": "Indicates whether the operation was successful",
-            "example": true
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
           },
           "data": {
             "type": "array",
-            "description": "List of all assets",
             "items": {
               "$ref": "#/components/schemas/AssetDetailVO"
             }
@@ -1005,18 +1036,20 @@
         },
         "description": "Response wrapper for list all assets operation"
       },
-      "DeleteAssetResponseSchema": {
+      "DeleteAssetResponse": {
         "type": "object",
         "properties": {
           "success": {
-            "type": "boolean",
-            "description": "Indicates whether the operation was successful",
-            "example": true
+            "type": "boolean"
+          },
+          "errorObjects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorObject"
+            }
           },
           "data": {
-            "type": "string",
-            "description": "Success message",
-            "example": "Asset deleted successfully."
+            "type": "string"
           }
         },
         "description": "Response wrapper for delete asset operation"

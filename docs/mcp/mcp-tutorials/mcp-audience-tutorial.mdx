@@ -13,7 +13,6 @@ import AudSeg2 from '@site/static/img/MCP/Tutorials/mcp-aud-seg-2.png';
 import AudList from '@site/static/img/MCP/Tutorials/mcp-aud-list.png';
 import AudCount from '@site/static/img/MCP/Tutorials/mcp-aud-count.png';
 import AudTypes from '@site/static/img/MCP/Tutorials/mcp-aud-types.png';
-import AudienceToolsIndex from '@site/docs/_partials/mcp/audience-index.mdx';
 
 
 # MCP audience tutorial
@@ -201,10 +200,50 @@ You can ask the MCP to show you the details of any of your audiences by providin
 
 ## Tools index
 
-In the tables below you can find the complete set of audience tools available in the MCP, categorized by audience type.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Audience API tool available in MCP, see the [Audience API](/mcp/mcp-tutorials/mcp-tools-index#audience-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various audience management capabilities of the MCP and how they relate to the Audience API endpoints.
-
-<AudienceToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>getAudienceColumnCombinations</code></td>
+  <td>Get valid matched audience column combinations</td>
+  <td>[Matched column combinations](/guidelines/audience-api/#matched-column-combinations)</td>
+</tr>
+<tr>
+  <td><code>create_matched_audience</code></td>
+  <td>Create a Matched audience from the uploaded file</td>
+  <td>[Create Matched audience](/guidelines/audience-api/#create-matched-audience)</td>
+</tr>
+<tr>
+  <td><code>createSegmentedAudience</code></td>
+  <td>Create a new segmented audience</td>
+  <td>[Create Segmented audience](/guidelines/audience-api/#create-segmented-audience)</td>
+</tr>
+<tr>
+  <td><code>updateAudienceName</code></td>
+  <td>Update an audience's name</td>
+  <td>[Update audience name](/guidelines/audience-api/#update-audience-name)</td>
+</tr>
+<tr>
+  <td><code>getSegmentedAudience</code></td>
+  <td>Get segmented audience details by ID</td>
+  <td>[Segmented audience details](/guidelines/audience-api/#segmented-audience-details)</td>
+</tr>
+<tr>
+  <td><code>getAudienceList</code></td>
+  <td>Get a detailed list of audiences with insights details</td>
+  <td>[Audience details list](/guidelines/audience-api/#audience-details-list)</td>
+</tr>
+<tr>
+  <td><code>getAudienceCountByType</code></td>
+  <td>Get audience counts grouped by type</td>
+  <td>[Audience count by type](/guidelines/audience-api/#audience-count-by-type)</td>
+</tr>
+<tr>
+  <td><code>getAudienceTypes</code></td>
+  <td>Get the list of audience types</td>
+  <td>[Audience type list](/guidelines/audience-api/#audience-type-list)</td>
+</tr>
+</table>

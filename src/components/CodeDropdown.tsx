@@ -60,7 +60,10 @@ export const CodeDropdown: React.FC<CodeDropdownProps> = ({
         fontSize: variant === 'minimal' ? '0.9rem' : '0.8rem',
         fontWeight: 400,
         cursor: 'pointer',
-
+        // Long option labels would otherwise size the select past the viewport on mobile
+        maxWidth: '100%',
+        minWidth: 0,
+        textOverflow: 'ellipsis',
       }}
     >
       {items.map(o => (
@@ -90,6 +93,7 @@ export const CodeDropdown: React.FC<CodeDropdownProps> = ({
           display: 'inline-flex',
           alignItems: 'baseline',
           marginLeft: 12,
+          maxWidth: 'calc(100% - 12px)',
           transform: 'translateY(-5px)',
         }}>
           {selectElement}

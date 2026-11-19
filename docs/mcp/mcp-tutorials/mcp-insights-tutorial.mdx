@@ -14,7 +14,6 @@ import InsPLD3 from '@site/static/img/MCP/Tutorials/mcp-ins-pld-3.png';
 import InsNLD from '@site/static/img/MCP/Tutorials/mcp-ins-nld.png';
 import InsList from '@site/static/img/MCP/Tutorials/mcp-ins-list.png';
 import InsUpdate from '@site/static/img/MCP/Tutorials/mcp-ins-update.png';
-import InsightsToolsIndex from '@site/docs/_partials/mcp/insights-index.mdx';
 
 # MCP Insights tutorial
 
@@ -225,12 +224,55 @@ You can also use IQM MCP to create Insights report templates for PLD, NLD, and I
 
 ## Tools index
 
-In the tables below you can find the complete set of Insights tools available in MCP, categorized by report type.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Insights API tool available in MCP, see the [Insights API](/mcp/mcp-tutorials/mcp-tools-index#insights-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various Insights capabilities of MCP and how they relate to the Insights API endpoints.
-
-<InsightsToolsIndex />
-
-
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>getInsightsCreateEligibleAudienceList</code></td>
+  <td>Get a list of audiences eligible for Audience Insights report generation</td>
+  <td>[Get a list of eligible audiences](/guidelines/insights-api/#get-a-list-of-eligible-audiences)</td>
+</tr>
+<tr>
+  <td><code>createInsightsDetails</code></td>
+  <td>Create an Audience Insights report for one or more audiences</td>
+  <td>[Create Audience Insights report](/guidelines/insights-api/#create-audience-insights-report)</td>
+</tr>
+<tr>
+  <td><code>downloadInsights</code></td>
+  <td>Download an Audience Insights report (PDF or XLSX)</td>
+  <td>[Download Insights report](/guidelines/insights-api/#download-insights-report)</td>
+</tr>
+<tr>
+  <td><code>getStatusWiseCampaignsForInsightsReports</code></td>
+  <td>Get a status-wise list of campaigns eligible for Insights reports</td>
+  <td>[Get eligible campaigns](/guidelines/insights-api/#get-eligible-campaigns)</td>
+</tr>
+<tr>
+  <td><code>createTemplate</code></td>
+  <td>Create a report template</td>
+  <td>[Create report template](/guidelines/insights-api/#create-report-template)</td>
+</tr>
+<tr>
+  <td><code>validateTemplateName</code></td>
+  <td>Validate a report template name</td>
+  <td>[Validate template name](/guidelines/insights-api/#validate-template-name)</td>
+</tr>
+<tr>
+  <td><code>getFrequencyMetadata</code></td>
+  <td>Get delivery frequency metadata for scheduling templates</td>
+  <td>[Get scheduling frequencies](/guidelines/insights-api/#get-scheduling-frequencies)</td>
+</tr>
+<tr>
+  <td><code>getTemplates</code></td>
+  <td>Get a list of report templates</td>
+  <td>[Get list of templates](/guidelines/insights-api/#get-list-of-templates)</td>
+</tr>
+<tr>
+  <td><code>updateTemplate</code></td>
+  <td>Update a report template</td>
+  <td>[Update report template](/guidelines/insights-api/#update-report-template)</td>
+</tr>
+</table>

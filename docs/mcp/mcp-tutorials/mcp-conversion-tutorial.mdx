@@ -14,7 +14,6 @@ import Conversion7 from '@site/static/img/MCP/Tutorials/mcp-conversion-7.png';
 import Conversion8 from '@site/static/img/MCP/Tutorials/mcp-conversion-8.png';
 import Conversion9 from '@site/static/img/MCP/Tutorials/mcp-conversion-9.png';
 import Conversion10 from '@site/static/img/MCP/Tutorials/mcp-conversion-10.png';
-import ConversionToolsIndex from '@site/docs/_partials/mcp/conversion-index.mdx';
 
 # MCP conversion tutorial
 
@@ -173,10 +172,45 @@ Use MCP to get details about your conversions, including their settings and whic
 
 ## Tools index
 
-In the tables below you can find the complete set of conversion tools available in MCP, categorized by function.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Conversion API tool available in MCP, see the [Conversion API](/mcp/mcp-tutorials/mcp-tools-index#conversion-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various conversion management capabilities of MCP and how they relate to the Conversion API endpoints.
-
-<ConversionToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>addPixelConversion</code></td>
+  <td>Create a Pixel conversion</td>
+  <td>[Create Pixel conversion](/guidelines/conversion-api/#create-pixel-conversion)</td>
+</tr>
+<tr>
+  <td><code>addPostbackConversion</code></td>
+  <td>Create a Postback conversion</td>
+  <td>[Create Postback conversion](/guidelines/conversion-api/#create-postback-conversion)</td>
+</tr>
+<tr>
+  <td><code>getAttachableCampaignListByConversionIds</code></td>
+  <td>Get campaigns that can be attached to one or more conversions</td>
+  <td>[Get campaign details by conversion ID in group or basic](/guidelines/conversion-api/#get-campaign-details-by-conversion-id-in-group-or-basic)</td>
+</tr>
+<tr>
+  <td><code>assignConversionToCampaign</code></td>
+  <td>Assign a conversion to a campaign</td>
+  <td>[Assign conversion to a campaign](/guidelines/conversion-api/#assign-conversion-to-a-campaign)</td>
+</tr>
+<tr>
+  <td><code>getConversionList</code></td>
+  <td>Get a list of conversions</td>
+  <td>[Get list of conversions](/guidelines/conversion-api/#get-list-of-conversions)</td>
+</tr>
+<tr>
+  <td><code>getListOfConversionPartnerType</code></td>
+  <td>Get the list of Postback partner types</td>
+  <td>[Get list of partner types for Postback conversions](/guidelines/conversion-api/#get-list-of-partner-types-for-postback-conversions)</td>
+</tr>
+<tr>
+  <td><code>getListOfConversionAttributionTypes</code></td>
+  <td>Get the list of conversion attribution types</td>
+  <td>[Get list of conversion property types](/guidelines/conversion-api/#get-list-of-conversion-property-types)</td>
+</tr>
+</table>

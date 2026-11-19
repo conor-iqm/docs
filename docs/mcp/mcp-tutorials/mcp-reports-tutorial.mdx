@@ -18,7 +18,6 @@ import ReportsSchedule3 from '@site/static/img/MCP/Tutorials/MCP-rp-schedule3.pn
 import ReportsList from '@site/static/img/MCP/Tutorials/MCP-rp-list.png';
 import ReportsDelete from '@site/static/img/MCP/Tutorials/MCP-rp-del.png';
 import ReportsCancel from '@site/static/img/MCP/Tutorials/MCP-rp-cancel.png';
-import ReportsToolsIndex from '@site/docs/_partials/mcp/reports-index.mdx';
 
 # MCP reports tutorial
 
@@ -281,13 +280,63 @@ You can also use IQM MCP to delete reports, cancel report schedules, or get a li
 
 ## Tools index
 
-In the tables below you can find the complete set of report tools available in the MCP, categorized by function.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Reports API tool available in MCP, see the [Reports API](/mcp/mcp-tutorials/mcp-tools-index#reports-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various report management capabilities of the MCP and how they relate to the Reports API endpoints.
-
-<ReportsToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>getDimensionAndMetricDetails</code></td>
+  <td>Get available dimensions and metrics for reports</td>
+  <td>[Get dimensions and metrics details](/guidelines/reports-api/#get-dimensions-and-metrics-details)</td>
+</tr>
+<tr>
+  <td><code>getTimezones</code></td>
+  <td>Get the timezone list</td>
+  <td>[Get timezones](/guidelines/master-api/#get-timezones)</td>
+</tr>
+<tr>
+  <td><code>executeReportData</code></td>
+  <td>Execute a report and fetch serving data</td>
+  <td>[Execute a report](/guidelines/reports-api/#execute-a-report)</td>
+</tr>
+<tr>
+  <td><code>saveReport</code></td>
+  <td>Create a new report</td>
+  <td>[Create report](/guidelines/reports-api/#create-report)</td>
+</tr>
+<tr>
+  <td><code>updateReport</code></td>
+  <td>Edit an existing report</td>
+  <td>[Edit a report](/guidelines/reports-api/#edit-a-report)</td>
+</tr>
+<tr>
+  <td><code>saveReportScheduleEvent</code></td>
+  <td>Schedule email delivery for a report</td>
+  <td>[Schedule a report](/guidelines/reports-api/#schedule-a-report)</td>
+</tr>
+<tr>
+  <td><code>updateReportScheduleEvent</code></td>
+  <td>Update a report's email schedule</td>
+  <td>[Update a report schedule](/guidelines/reports-api/#update-a-report-schedule)</td>
+</tr>
+<tr>
+  <td><code>getReportList</code></td>
+  <td>Get a list of reports</td>
+  <td>[Get a list of reports](/guidelines/reports-api/#get-a-list-of-reports)</td>
+</tr>
+<tr>
+  <td><code>deleteReportScheduleEvent</code></td>
+  <td>Remove a report's email schedule</td>
+  <td>[Delete report schedule](/guidelines/reports-api/#delete-report-schedule)</td>
+</tr>
+<tr>
+  <td><code>deleteReport</code></td>
+  <td>Delete a report and its scheduling data</td>
+  <td>[Delete a report](/guidelines/reports-api/#delete-a-report)</td>
+</tr>
+</table>
 
 ## Video demo
 

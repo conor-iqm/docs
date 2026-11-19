@@ -14,7 +14,6 @@ import MCPAssign from '@site/static/img/MCP/Tutorials/MCP-crt-assign.png';
 import MCPList from '@site/static/img/MCP/Tutorials/MCP-crt-list.png';
 import MCPUpdate from '@site/static/img/MCP/Tutorials/MCP-crt-update.png';
 import MCPDelete from '@site/static/img/MCP/Tutorials/MCP-crt-delete.png';
-import CreativeToolsIndex from '@site/docs/_partials/mcp/creative-index.mdx';
 
 # MCP creative tutorial
 
@@ -189,13 +188,48 @@ You can use IQM MCP to perform various actions related to creatives, such as ret
 
 ## Tools index
 
-In the tables below you can find the complete set of creative tools available in MCP, categorized by function.
+The table below lists the tools that MCP uses in this tutorial, with links to their API documentation. For every Creative API tool available in MCP, see the [Creative API](/mcp/mcp-tutorials/mcp-tools-index#creative-api) section of the Tools index.
 
-Each tool includes a brief description and a link to the corresponding API documentation for more details on its functionality and usage.
-
-Use this index as a reference to explore the various creative management capabilities of MCP and how they relate to the Creative API endpoints.
-
-<CreativeToolsIndex />
+<table className="toolsIndex">
+<th>Tool name</th>
+<th>Description</th>
+<th>Documentation</th>
+<tr>
+  <td><code>file_manager</code></td>
+  <td>Upload a creative file to the MCP session</td>
+  <td></td>
+</tr>
+<tr>
+  <td><code>create_creatives</code></td>
+  <td>Create a creative from the uploaded file</td>
+  <td>[Add new creative](/guidelines/creative-api/#add-new-creative)</td>
+</tr>
+<tr>
+  <td><code>getCampaignBasicDetailList</code></td>
+  <td>Paginated list with rich filters (type, status, IO, creative type)</td>
+  <td>[Get basic details of campaigns](/guidelines/campaign-api/#get-basic-details-of-campaigns)</td>
+</tr>
+<tr>
+  <td><code>createCampaignCreativeTargeting</code></td>
+  <td>Bulk assign or unassign creatives to campaigns</td>
+  <td>[Update creative targeting in campaigns](/guidelines/campaign-api/#update-creative-targeting-in-campaigns)</td>
+</tr>
+<tr>
+  <td><code>getCreatives_1</code></td>
+  <td>Get a list of creatives and their details</td>
+  <td>[Get list of creatives and details](/guidelines/creative-api/#get-list-of-creatives-and-details)</td>
+</tr>
+<tr>
+  <td><code>updateCreative</code></td>
+  <td>Update the details of an existing creative</td>
+  <td>[Update creative details](/guidelines/creative-api/#update-creative-details)</td>
+</tr>
+<tr>
+  <td><code>updateCreativeStatus</code></td>
+  <td>Update a creative's status</td>
+  <td>[Update creative status](/guidelines/creative-api/#update-creative-status)</td>
+</tr>
+</table>
 
 ## Video demo
 
