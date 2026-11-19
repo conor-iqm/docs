@@ -56,7 +56,7 @@ Use the Healthcare Professional (HCP) Planner to build, save, and publish an HCP
 
 The following endpoints are used to generate campaigns, save a plan, and publish it:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 <br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/generate-campaigns" operationId="generateHCPProposedCampaigns" />
 <br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/plan/hcp/proposal/add" operationId="createHcpProposal" />
 <br /><CopyUrl method="GET" url="https://api.iqm.com/api/v3/plan/hcp/plans/{planId}" operationId="getHcpPlanById" />
@@ -100,7 +100,7 @@ All Planner times are Unix epoch **milliseconds**, not seconds. For example, Jan
 
 ### Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">

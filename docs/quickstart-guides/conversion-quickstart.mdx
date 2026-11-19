@@ -19,9 +19,9 @@ Create a conversion with this in-depth tutorial using IQM's API.
 
 The following endpoints are used to create a conversion and assign it to a campaign:
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/pixel/add" />
-<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/assign-to/campaign" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/pixel/add" operationId="addPixelConversion" />
+<br /><CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/assign-to/campaign" operationId="assignConversionToCampaign" />
 
 ## About IQM conversions
 
@@ -68,7 +68,7 @@ Use the following header parameters for all requests after logging in:
 
 ### Step 1: Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -139,7 +139,7 @@ curl -i --location 'https://api.iqm.com/api/v3/ua/oauth/token' \
 
 ### Step 2: Create a Pixel conversion
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/pixel/add" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/pixel/add" operationId="addPixelConversion" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -399,7 +399,7 @@ Create a Pixel type conversion. Refer to the Request schema table below for supp
 
 ### Step 3: Assign a conversion to a campaign
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/assign-to/campaign" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/conversion/assign-to/campaign" operationId="assignConversionToCampaign" />
 
 <div class="endpoint-container">
   <div class="child1">

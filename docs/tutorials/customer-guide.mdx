@@ -44,7 +44,7 @@ To create a new Customer, the following are required:
 
 ### Log in
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/oauth/token" operationId="getOauthToken" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -138,7 +138,7 @@ Once a Customer has accepted their invitation and the onboarding process is comp
 
 ### Invite a Customer
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/customer/invite" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/customer/invite" operationId="sendInvitations" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -300,7 +300,7 @@ Upon invite, Customer status is <var>invited</var>. Once the invitation is accep
 
 ### Approve a Customer
 
-<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/ua/customer/approve" />
+<CopyUrl method="PATCH" url="https://api.iqm.com/api/v3/ua/customer/approve" operationId="approveCustomer" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -365,7 +365,7 @@ Customers who sign up on the Workspace's sign-up page start with a <var>pending<
 
 ### Assign Customer to user
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/user/customer/assign" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/user/customer/assign" operationId="assignCustomersToUser" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -457,7 +457,7 @@ Assign a Customer to an existing user. <var>uowIds</var> must contain exactly on
 
 ### Add Customer app access
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/customer/application/add" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/ua/customer/application/add" operationId="addApplicationAccessToCustomer" />
 
 <div class="endpoint-container">
   <div class="child1">
@@ -507,7 +507,7 @@ Add Customer access to specified apps.
 
 ### Add payment for Customer
 
-<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/customer/payment/add" />
+<CopyUrl method="POST" url="https://api.iqm.com/api/v3/fa/customer/payment/add" operationId="addPayment" />
 
 <div class="endpoint-container">
   <div class="child1">
